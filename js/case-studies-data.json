@@ -233,7 +233,7 @@
     "subtitle": "Multi-Object Bounding Box Annotation at Scale",
     "category": "Image / Computer Vision",
     "badge": "Image / Computer Vision",
-    "heroImage": "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=600&q=80",
+    "heroImage": "https://images.unsplash.com/photo-1570710891163-6d3b5c47248b?auto=format&fit=crop&w=600&q=80",
     "metrics": {
       "accuracy": "95–100%",
       "datasetSize": "8",
