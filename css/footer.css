@@ -3,6 +3,20 @@ a {
   text-decoration: none;
 }
 
+/* Global Subpage Navbar Link Styling (Bolder and Darker on Hover/Active) */
+#navbar:not(.glass-nav) .nav-links a {
+  font-size: 13.5px;
+  font-weight: 500;
+  color: rgba(14, 31, 62, 0.75);
+  transition: color 0.25s, font-weight 0.25s;
+}
+
+#navbar:not(.glass-nav) .nav-links a:hover,
+#navbar:not(.glass-nav) .nav-links a.active {
+  color: #0E1F3E !important;
+  font-weight: 700 !important;
+}
+
 #footer {
   background: linear-gradient(180deg, #FFFFFF 0%, #F8FAFC 100%);
   border-top: 1px solid rgba(14, 31, 62, 0.08);
