@@ -340,7 +340,10 @@
       fetch('../components/footer.html')
         .then(res => res.text())
         .then(html => {
-          footerContainer.innerHTML = html;
+          const fixedHtml = html
+            .replace(/src="\.\//g, 'src="../')
+            .replace(/href="\.\//g, 'href="../');
+          footerContainer.innerHTML = fixedHtml;
         });
     }
 
