@@ -86,115 +86,6 @@
       max-width: 100%;
     }
 
-    /* LOADING CARD REDESIGN */
-    #loading-overlay {
-      position: fixed;
-      inset: 0;
-      z-index: 9999;
-      background: #040914; /* Deep dark background */
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    #loading-overlay::before {
-      content: '';
-      position: absolute;
-      width: 500px;
-      height: 500px;
-      background: radial-gradient(circle at center, rgba(11, 168, 211, 0.08) 0%, transparent 70%);
-      pointer-events: none;
-    }
-
-    #loading-overlay.hidden {
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-    }
-    #loading-overlay.hidden .loading-card {
-      transform: scale(0.9) translateY(-10px);
-      opacity: 0;
-      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .loading-card {
-      background: #FFFFFF;
-      border: 1px solid rgba(14, 31, 62, 0.05);
-      padding: 48px 64px;
-      border-radius: 28px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 28px;
-      box-shadow: 0 40px 90px rgba(0, 0, 0, 0.6), 0 0 1px rgba(0, 0, 0, 0.1);
-      width: 90%;
-      max-width: 420px;
-      text-align: center;
-      animation: card-appear 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    }
-
-    @keyframes card-appear {
-      from {
-        opacity: 0;
-        transform: translateY(20px) scale(0.96);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-      }
-    }
-
-    .loading-logo {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .loading-logo img {
-      height: 54px;
-      width: auto;
-    }
-
-    .loading-bar-wrap {
-      width: 100%;
-      max-width: 280px;
-      height: 4px;
-      background: #F1F5F9;
-      border: 1px solid #E2E8F0;
-      border-radius: 100px;
-      overflow: hidden;
-    }
-
-    .loading-bar {
-      height: 100%;
-      width: 0;
-      background: linear-gradient(90deg, #0BA8D3, #0E1F3E);
-      border-radius: 100px;
-      transition: width 0.4s cubic-bezier(0.1, 0.8, 0.2, 1);
-    }
-
-    .loading-pct {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 13px;
-      font-weight: 700;
-      color: #0E1F3E;
-      letter-spacing: 0.1em;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 8px;
-    }
-    .loading-pct::after {
-      content: 'SECURE DATA CONNECTION';
-      font-size: 8px;
-      color: #64748B;
-      letter-spacing: 0.15em;
-      font-weight: 600;
-      animation: blink-text 1.5s steps(2, start) infinite;
-    }
-    @keyframes blink-text {
-      0%, 100% { opacity: 0.5; }
-      50% { opacity: 1; }
-    }
 
     /* NAVBAR */
     #navbar {
@@ -1505,15 +1396,7 @@
 
 <body>
 
-  <div id="loading-overlay">
-    <div class="loading-card">
-      <div class="loading-logo"><img src="./DeepAnnototate-1.png" alt="DeepAnnotate Logo" /></div>
-      <div class="loading-bar-wrap">
-        <div class="loading-bar" id="loading-bar"></div>
-      </div>
-      <div class="loading-pct" id="loading-pct">0%</div>
-    </div>
-  </div>
+
 
   <nav id="navbar">
     <a href="./index.html" class="nav-brand"><img src="./DeepAnnototate-1.png" alt="DeepAnnotate Logo"
@@ -1706,11 +1589,8 @@
     const SCENES = [{ id: 4, frames: 90, folder: '4' }, { id: 5, frames: 96, folder: '5' }, { id: 6, frames: 96, folder: '6' }];
     const PAD = n => String(n).padStart(3, '0');
     const FURL = (f, i) => './' + f + '/ezgif-frame-' + PAD(i) + '.jpg';
-    const S = { images: {}, total: SCENES.reduce((a, s) => a + s.frames, 0), totalLoaded: 0, ready: false };
+    const S = { images: {}, totalLoaded: 0, ready: false };
     const navbar = document.getElementById('navbar');
-    const overlay = document.getElementById('loading-overlay');
-    const loadBar = document.getElementById('loading-bar');
-    const loadPct = document.getElementById('loading-pct');
     const dots = document.querySelectorAll('.s-dot');
     const C = {}, X = {}, SEC = {}, COP = {};
     SCENES.forEach(sc => { C[sc.id] = document.getElementById('canvas-' + sc.id); X[sc.id] = C[sc.id].getContext('2d'); SEC[sc.id] = document.getElementById('scene-' + sc.id + '-section'); COP[sc.id] = document.getElementById('copy-' + sc.id); });
@@ -1789,7 +1669,7 @@
       ctx.drawImage(img, dx, dy, dW, dH);
     }
 
-    function preload(id, first, done) { const sc = SCENES.find(s => s.id === id); if (!sc || S.images[id]) { done && done(); return; } S.images[id] = []; let n = 0; for (let i = 1; i <= sc.frames; i++) { const img = new Image(); img.onload = img.onerror = () => { n++; S.totalLoaded++; if (first) { const p = Math.min(99, Math.round(S.totalLoaded / S.total * 100)); loadBar.style.width = p + '%'; loadPct.textContent = p + '%'; } if (n === sc.frames) done && done(); }; img.src = FURL(sc.folder, i); S.images[id][i - 1] = img; } }
+    function preload(id, done) { const sc = SCENES.find(s => s.id === id); if (!sc || S.images[id]) { done && done(); return; } S.images[id] = []; let n = 0; for (let i = 1; i <= sc.frames; i++) { const img = new Image(); img.onload = img.onerror = () => { n++; S.totalLoaded++; if (n === sc.frames) done && done(); }; img.src = FURL(sc.folder, i); S.images[id][i - 1] = img; } }
 
     let raf = false;
     function onScroll() { if (raf) return; raf = true; requestAnimationFrame(() => { raf = false; tick(); }); }
@@ -1836,14 +1716,16 @@
           });
         }
 
-        if (st - sy < wh * 2.5 && !S.images[sc.id]) preload(sc.id, false, () => draw(sc.id, 0));
+        if (st - sy < wh * 2.5 && !S.images[sc.id]) preload(sc.id, () => draw(sc.id, 0));
       });
       dots.forEach(d => d.classList.toggle('active', parseInt(d.dataset.scene) === active));
     }
 
     function init() {
       resize();
-      preload(4, true, () => { draw(4, 0); loadBar.style.width = '100%'; loadPct.textContent = '100%'; setTimeout(() => { overlay.classList.add('hidden'); S.ready = true; tick(); }, 500); });
+      S.ready = true;
+      preload(4, () => { draw(4, 0); });
+      tick();
       addEventListener('scroll', onScroll, { passive: true });
       addEventListener('resize', () => { resize(); tick(); });
       dots.forEach(d => d.addEventListener('click', () => { const id = parseInt(d.dataset.scene); if (SEC[id]) scrollTo({ top: SEC[id].offsetTop + 50, behavior: 'smooth' }); }));
