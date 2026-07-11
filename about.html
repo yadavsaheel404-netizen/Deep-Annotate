@@ -416,24 +416,27 @@
     .sd{font-size:13px;color:rgba(14, 31, 62, 0.6);}
 
     /* GLOBAL */
-    #global{background:#0B1829;}
-    #global .stitle{color:#FFFFFF !important;}
-    #global .eyebrow{color:#0BA8D3 !important;}
-    #global .ssub{color:rgba(255,255,255,0.55) !important;}
+    #global{background:#FFFFFF;}
     .gc {
       position: relative; margin-top:64px; border-radius:24px; overflow:hidden;
-      background:#0B1829; border:1px solid rgba(11,168,211,0.08);
+      background:#FFFFFF; border:1px solid rgba(14,31,62,0.08);
       height: 480px;
+    }
+    .gsvg {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      z-index: 1; pointer-events: none;
     }
     #gcvs {
       position: absolute; top: 0; left: 0; width: 100%; height: 100%;
       z-index: 2; display: block;
     }
     .gleg{
-      position: absolute; bottom: 24px; left: 32px;
-      z-index: 3; display:flex; gap:24px; padding:0;
+      position: absolute; bottom: 16px; left: 50%; transform: translateX(-50%);
+      z-index: 3; display:flex; justify-content:center; gap:32px; padding:10px 28px;
+      background: rgba(255,255,255,0.85); backdrop-filter: blur(8px);
+      border-radius: 100px; border: 1px solid rgba(14,31,62,0.08);
     }
-    .gli{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:rgba(255,255,255,0.65);}
+    .gli{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:#0E1F3E;}
     .gld{width:10px;height:10px;border-radius:50%;}
 
     /* INDUSTRIES */
@@ -759,7 +762,7 @@
     <div class="gc rev">
       <canvas id="gcvs" width="1200" height="480"></canvas>
       <div class="gleg">
-        <div class="gli"><div class="gld" style="background:#0BA8D3; box-shadow:0 0 8px rgba(11,168,211,0.6);"></div>HQ (Hyderabad)</div>
+        <div class="gli"><div class="gld" style="background:#0BA8D3;"></div>HQ (Hyderabad)</div>
         <div class="gli"><div class="gld" style="background:#FFBA08;"></div>Regional Hubs</div>
       </div>
     </div>
@@ -993,7 +996,7 @@ const co = new IntersectionObserver(entries=>{
 },{threshold:0.3});
 snEls.forEach(el=>co.observe(el));
 
-// GLOBAL MAP CANVAS — DARK THEME WITH CONTINENT SILHOUETTES
+// GLOBAL MAP CANVAS
 (function(){
   const cv = document.getElementById('gcvs');
   if (!cv) return;
@@ -1005,13 +1008,14 @@ snEls.forEach(el=>co.observe(el));
   let rectW = CW, rectH = CH;
   let dpr = 1;
   
-  const hq = {x: 776, y: 172, name: "Hyderabad HQ"};
+  // Hub positions matching a Mercator-style projection
+  const hq = {x: 700, y: 210, name: "Hyderabad HQ"};
   const hubs = [
-    {x: 135, y: 155, name: "San Francisco"},
-    {x: 500, y: 85,  name: "London"},
-    {x: 670, y: 175, name: "Dubai"},
-    {x: 870, y: 265, name: "Singapore"},
-    {x: 975, y: 125, name: "Tokyo"}
+    {x: 165, y: 175, name: "San Francisco"},
+    {x: 480, y: 115, name: "London"},
+    {x: 610, y: 200, name: "Dubai"},
+    {x: 800, y: 310, name: "Singapore"},
+    {x: 920, y: 155, name: "Tokyo"}
   ];
 
   let packets = [];
@@ -1025,121 +1029,130 @@ snEls.forEach(el=>co.observe(el));
     cv.height = rectH * dpr;
   }
 
-  // Draw filled continent silhouettes
+  // Draw continent shapes as filled paths
   function drawContinents() {
-    cx.fillStyle = 'rgba(255,255,255,0.055)';
+    cx.globalAlpha = 1.0;
+    cx.fillStyle = 'rgba(14, 31, 62, 0.06)';
     
     // North America
     cx.beginPath();
-    cx.moveTo(85,60); cx.bezierCurveTo(110,40,165,30,220,35);
-    cx.bezierCurveTo(260,38,290,55,300,80);
-    cx.bezierCurveTo(308,100,300,125,285,145);
-    cx.bezierCurveTo(270,162,250,175,230,185);
-    cx.bezierCurveTo(210,195,190,200,175,210);
-    cx.bezierCurveTo(165,218,158,225,150,225);
-    cx.bezierCurveTo(138,222,125,200,115,185);
-    cx.bezierCurveTo(100,165,88,140,80,115);
-    cx.bezierCurveTo(72,90,75,70,85,60);
-    cx.fill();
+    cx.moveTo(80, 60); cx.lineTo(120, 45); cx.lineTo(200, 40); cx.lineTo(250, 55);
+    cx.lineTo(280, 80); cx.lineTo(290, 110); cx.lineTo(275, 130); cx.lineTo(260, 155);
+    cx.lineTo(240, 180); cx.lineTo(225, 200); cx.lineTo(205, 215); cx.lineTo(185, 210);
+    cx.lineTo(175, 195); cx.lineTo(160, 210); cx.lineTo(145, 225); cx.lineTo(140, 240);
+    cx.lineTo(155, 255); cx.lineTo(170, 260); cx.lineTo(190, 255); cx.lineTo(200, 245);
+    cx.lineTo(195, 230); cx.lineTo(210, 220); cx.lineTo(220, 230);
+    cx.lineTo(215, 245); cx.lineTo(210, 255); cx.lineTo(195, 268);
+    cx.lineTo(175, 275); cx.lineTo(155, 270); cx.lineTo(130, 255);
+    cx.lineTo(115, 235); cx.lineTo(108, 210); cx.lineTo(100, 190);
+    cx.lineTo(85, 165); cx.lineTo(70, 135); cx.lineTo(65, 105); cx.lineTo(70, 80);
+    cx.closePath(); cx.fill();
     
     // Greenland
     cx.beginPath();
-    cx.moveTo(280,18); cx.bezierCurveTo(310,12,340,18,345,35);
-    cx.bezierCurveTo(350,52,340,65,315,62);
-    cx.bezierCurveTo(290,60,270,45,275,28);
-    cx.fill();
-
+    cx.moveTo(310, 25); cx.lineTo(350, 20); cx.lineTo(380, 30); cx.lineTo(375, 65);
+    cx.lineTo(355, 80); cx.lineTo(325, 75); cx.lineTo(310, 55);
+    cx.closePath(); cx.fill();
+    
     // South America
     cx.beginPath();
-    cx.moveTo(195,235); cx.bezierCurveTo(215,225,245,222,260,235);
-    cx.bezierCurveTo(278,250,288,275,285,305);
-    cx.bezierCurveTo(282,330,270,355,255,375);
-    cx.bezierCurveTo(240,392,222,400,210,395);
-    cx.bezierCurveTo(195,388,185,365,178,340);
-    cx.bezierCurveTo(172,315,170,285,175,260);
-    cx.bezierCurveTo(178,245,185,238,195,235);
-    cx.fill();
+    cx.moveTo(230, 275); cx.lineTo(260, 270); cx.lineTo(285, 280); cx.lineTo(300, 300);
+    cx.lineTo(305, 325); cx.lineTo(300, 350); cx.lineTo(290, 375); cx.lineTo(275, 395);
+    cx.lineTo(260, 410); cx.lineTo(250, 420); cx.lineTo(245, 435);
+    cx.lineTo(240, 445); cx.lineTo(230, 440); cx.lineTo(225, 425);
+    cx.lineTo(230, 400); cx.lineTo(235, 380); cx.lineTo(240, 355);
+    cx.lineTo(235, 335); cx.lineTo(228, 315); cx.lineTo(220, 295);
+    cx.closePath(); cx.fill();
     
     // Europe
     cx.beginPath();
-    cx.moveTo(455,55); cx.bezierCurveTo(475,42,510,35,545,38);
-    cx.bezierCurveTo(575,40,600,52,610,68);
-    cx.bezierCurveTo(618,82,615,98,605,110);
-    cx.bezierCurveTo(592,122,570,130,548,132);
-    cx.bezierCurveTo(520,134,495,128,478,118);
-    cx.bezierCurveTo(460,108,448,92,448,75);
-    cx.bezierCurveTo(448,65,450,58,455,55);
-    cx.fill();
+    cx.moveTo(455, 50); cx.lineTo(480, 45); cx.lineTo(510, 50); cx.lineTo(530, 55);
+    cx.lineTo(555, 65); cx.lineTo(570, 80); cx.lineTo(565, 95); cx.lineTo(555, 110);
+    cx.lineTo(540, 120); cx.lineTo(525, 130); cx.lineTo(510, 135);
+    cx.lineTo(495, 140); cx.lineTo(480, 145); cx.lineTo(470, 140);
+    cx.lineTo(460, 130); cx.lineTo(450, 115); cx.lineTo(445, 100);
+    cx.lineTo(440, 85); cx.lineTo(445, 65);
+    cx.closePath(); cx.fill();
     
     // UK/Ireland
     cx.beginPath();
-    cx.moveTo(450,60); cx.bezierCurveTo(458,52,470,50,475,58);
-    cx.bezierCurveTo(480,65,478,78,470,82);
-    cx.bezierCurveTo(462,86,452,80,450,72);
-    cx.fill();
+    cx.moveTo(445, 75); cx.lineTo(455, 70); cx.lineTo(460, 80); cx.lineTo(458, 95);
+    cx.lineTo(450, 100); cx.lineTo(442, 90);
+    cx.closePath(); cx.fill();
     
     // Africa
     cx.beginPath();
-    cx.moveTo(478,155); cx.bezierCurveTo(505,142,540,138,565,148);
-    cx.bezierCurveTo(588,158,605,178,610,205);
-    cx.bezierCurveTo(615,235,608,270,595,300);
-    cx.bezierCurveTo(582,325,562,348,538,358);
-    cx.bezierCurveTo(515,368,492,362,475,345);
-    cx.bezierCurveTo(458,328,448,302,445,275);
-    cx.bezierCurveTo(442,248,448,218,458,195);
-    cx.bezierCurveTo(465,178,472,162,478,155);
-    cx.fill();
+    cx.moveTo(470, 165); cx.lineTo(500, 155); cx.lineTo(535, 155); cx.lineTo(560, 165);
+    cx.lineTo(580, 180); cx.lineTo(595, 200); cx.lineTo(605, 225); cx.lineTo(605, 250);
+    cx.lineTo(600, 275); cx.lineTo(590, 300); cx.lineTo(575, 325); cx.lineTo(560, 345);
+    cx.lineTo(545, 360); cx.lineTo(530, 370); cx.lineTo(520, 365);
+    cx.lineTo(515, 350); cx.lineTo(510, 330); cx.lineTo(500, 310);
+    cx.lineTo(490, 290); cx.lineTo(480, 265); cx.lineTo(470, 240);
+    cx.lineTo(465, 215); cx.lineTo(462, 190);
+    cx.closePath(); cx.fill();
     
-    // Asia (main mass)
+    // Middle East / Arabian Peninsula
     cx.beginPath();
-    cx.moveTo(605,40); cx.bezierCurveTo(660,25,730,18,800,22);
-    cx.bezierCurveTo(860,25,910,38,945,55);
-    cx.bezierCurveTo(965,65,975,80,968,95);
-    cx.bezierCurveTo(960,108,940,118,915,128);
-    cx.bezierCurveTo(885,140,855,152,830,165);
-    cx.bezierCurveTo(810,175,795,188,785,205);
-    cx.bezierCurveTo(775,220,762,232,745,235);
-    cx.bezierCurveTo(725,238,710,228,700,212);
-    cx.bezierCurveTo(688,195,678,178,660,170);
-    cx.bezierCurveTo(640,162,618,158,605,148);
-    cx.bezierCurveTo(590,138,582,122,580,105);
-    cx.bezierCurveTo(578,85,585,62,600,48);
-    cx.fill();
+    cx.moveTo(580, 160); cx.lineTo(610, 155); cx.lineTo(640, 170); cx.lineTo(650, 190);
+    cx.lineTo(645, 210); cx.lineTo(630, 225); cx.lineTo(615, 225); cx.lineTo(600, 215);
+    cx.lineTo(590, 195); cx.lineTo(580, 175);
+    cx.closePath(); cx.fill();
     
-    // India peninsula
+    // India / South Asia
     cx.beginPath();
-    cx.moveTo(745,235); cx.bezierCurveTo(760,228,780,225,795,235);
-    cx.bezierCurveTo(808,245,812,262,805,280);
-    cx.bezierCurveTo(798,295,782,305,768,300);
-    cx.bezierCurveTo(752,295,742,278,740,260);
-    cx.bezierCurveTo(738,248,740,240,745,235);
-    cx.fill();
+    cx.moveTo(650, 145); cx.lineTo(680, 135); cx.lineTo(720, 130); cx.lineTo(740, 140);
+    cx.lineTo(745, 160); cx.lineTo(735, 185); cx.lineTo(720, 210); cx.lineTo(705, 235);
+    cx.lineTo(690, 255); cx.lineTo(680, 268); cx.lineTo(670, 260);
+    cx.lineTo(665, 240); cx.lineTo(660, 215); cx.lineTo(652, 190);
+    cx.lineTo(648, 165);
+    cx.closePath(); cx.fill();
     
-    // SE Asia / Indonesia
+    // Russia / Central & East Asia
     cx.beginPath();
-    cx.moveTo(840,240); cx.bezierCurveTo(865,232,895,235,912,248);
-    cx.bezierCurveTo(928,260,930,278,918,292);
-    cx.bezierCurveTo(905,305,882,310,862,302);
-    cx.bezierCurveTo(842,295,832,275,835,255);
-    cx.fill();
+    cx.moveTo(565, 45); cx.lineTo(620, 35); cx.lineTo(700, 30); cx.lineTo(780, 28);
+    cx.lineTo(850, 32); cx.lineTo(920, 40); cx.lineTo(960, 55); cx.lineTo(975, 75);
+    cx.lineTo(970, 95); cx.lineTo(955, 110); cx.lineTo(940, 120);
+    cx.lineTo(920, 125); cx.lineTo(890, 120); cx.lineTo(860, 110);
+    cx.lineTo(830, 105); cx.lineTo(800, 100); cx.lineTo(770, 95);
+    cx.lineTo(740, 90); cx.lineTo(710, 85); cx.lineTo(680, 82);
+    cx.lineTo(650, 78); cx.lineTo(620, 72); cx.lineTo(595, 68);
+    cx.lineTo(575, 60);
+    cx.closePath(); cx.fill();
+    
+    // China / SE Asia mainland
+    cx.beginPath();
+    cx.moveTo(770, 120); cx.lineTo(810, 110); cx.lineTo(850, 115); cx.lineTo(880, 130);
+    cx.lineTo(900, 150); cx.lineTo(910, 175); cx.lineTo(900, 195);
+    cx.lineTo(880, 210); cx.lineTo(855, 225); cx.lineTo(830, 240);
+    cx.lineTo(810, 255); cx.lineTo(795, 268); cx.lineTo(780, 275);
+    cx.lineTo(770, 265); cx.lineTo(765, 245); cx.lineTo(760, 225);
+    cx.lineTo(755, 200); cx.lineTo(752, 175); cx.lineTo(755, 150);
+    cx.lineTo(760, 135);
+    cx.closePath(); cx.fill();
     
     // Japan
     cx.beginPath();
-    cx.moveTo(975,80); cx.bezierCurveTo(985,72,998,75,1002,88);
-    cx.bezierCurveTo(1005,100,1000,118,992,128);
-    cx.bezierCurveTo(985,138,975,135,970,125);
-    cx.bezierCurveTo(965,112,968,95,975,80);
-    cx.fill();
+    cx.moveTo(925, 120); cx.lineTo(935, 115); cx.lineTo(945, 125); cx.lineTo(948, 145);
+    cx.lineTo(942, 165); cx.lineTo(935, 175); cx.lineTo(925, 170); cx.lineTo(920, 155);
+    cx.lineTo(918, 140);
+    cx.closePath(); cx.fill();
+    
+    // Indonesia / Philippines
+    cx.beginPath();
+    cx.moveTo(820, 280); cx.lineTo(840, 275); cx.lineTo(870, 280); cx.lineTo(900, 290);
+    cx.lineTo(920, 300); cx.lineTo(935, 310); cx.lineTo(925, 320);
+    cx.lineTo(900, 318); cx.lineTo(870, 312); cx.lineTo(845, 305);
+    cx.lineTo(825, 295);
+    cx.closePath(); cx.fill();
     
     // Australia
     cx.beginPath();
-    cx.moveTo(850,310); cx.bezierCurveTo(882,295,920,292,952,305);
-    cx.bezierCurveTo(978,315,995,335,992,358);
-    cx.bezierCurveTo(990,378,972,395,948,400);
-    cx.bezierCurveTo(920,405,890,398,868,382);
-    cx.bezierCurveTo(848,368,838,348,840,330);
-    cx.bezierCurveTo(842,318,845,312,850,310);
-    cx.fill();
+    cx.moveTo(860, 340); cx.lineTo(900, 330); cx.lineTo(940, 330); cx.lineTo(975, 340);
+    cx.lineTo(1000, 355); cx.lineTo(1010, 375); cx.lineTo(1005, 400);
+    cx.lineTo(990, 420); cx.lineTo(970, 430); cx.lineTo(945, 435);
+    cx.lineTo(920, 430); cx.lineTo(900, 420); cx.lineTo(880, 405);
+    cx.lineTo(865, 385); cx.lineTo(855, 365);
+    cx.closePath(); cx.fill();
   }
 
   function draw() {
@@ -1148,70 +1161,80 @@ snEls.forEach(el=>co.observe(el));
     
     time++;
     
-    // Dark navy background
-    cx.fillStyle = '#0B1829';
-    cx.fillRect(0, 0, CW, CH);
-    
-    // Draw continent silhouettes
-    cx.globalAlpha = 1.0;
+    // 1. Draw continents as background
     drawContinents();
     
-    // Draw curved connection lines from hubs to HQ
-    cx.globalAlpha = 0.6;
+    // 2. Draw curved connection lines from hubs to HQ
+    cx.globalAlpha = 0.5;
     cx.lineWidth = 1.2;
-    cx.strokeStyle = 'rgba(11, 168, 211, 0.5)';
+    cx.strokeStyle = 'rgba(11, 168, 211, 0.45)';
     hubs.forEach(h => {
       cx.beginPath();
       cx.moveTo(h.x, h.y);
-      let cp1x = h.x + (hq.x - h.x) * 0.5;
-      let cp1y = Math.min(h.y, hq.y) - 80;
+      let cp1x = h.x + (hq.x - h.x) * 0.4;
+      let cp1y = Math.min(h.y, hq.y) - 80 - Math.abs(h.x - hq.x) * 0.08;
       cx.quadraticCurveTo(cp1x, cp1y, hq.x, hq.y);
       cx.stroke();
     });
     
-    // Generate data packets
+    // 3. Generate data packets
     if(time % 35 === 0) {
       let src = hubs[Math.floor(Math.random()*hubs.length)];
-      let cp1x = src.x + (hq.x - src.x)*0.5;
-      let cp1y = Math.min(src.y, hq.y) - 80;
+      let cp1x = src.x + (hq.x - src.x)*0.4;
+      let cp1y = Math.min(src.y, hq.y) - 80 - Math.abs(src.x - hq.x) * 0.08;
       packets.push({x: src.x, y: src.y, tx: hq.x, ty: hq.y, p: 0, cp1x, cp1y});
     }
     
-    // Draw travelling data packets
+    // 4. Draw flowing packets
     cx.globalAlpha = 1.0;
     for(let i=packets.length-1; i>=0; i--) {
       let pk = packets[i];
       pk.p += 0.01;
       if(pk.p >= 1) { packets.splice(i, 1); continue; }
+      
       let u = 1 - pk.p;
       let px = u*u*pk.x + 2*u*pk.p*pk.cp1x + pk.p*pk.p*pk.tx;
       let py = u*u*pk.y + 2*u*pk.p*pk.cp1y + pk.p*pk.p*pk.ty;
+      
       cx.beginPath(); cx.arc(px, py, 3, 0, Math.PI*2); 
       cx.fillStyle = '#0BA8D3'; cx.shadowBlur = 12; cx.shadowColor = '#0BA8D3'; 
       cx.fill(); cx.shadowBlur = 0;
     }
     
-    // Draw regional hubs (AMBER like reference)
+    // 5. Draw regional hubs (amber/yellow dots like reference)
     cx.globalAlpha = 1.0;
+    cx.shadowBlur = 0;
     hubs.forEach(h => {
-      cx.beginPath(); cx.arc(h.x, h.y, 5, 0, Math.PI*2); 
+      // Outer glow ring
+      cx.beginPath(); cx.arc(h.x, h.y, 10, 0, Math.PI*2);
+      cx.fillStyle = 'rgba(255, 186, 8, 0.15)'; cx.fill();
+      // Hub dot
+      cx.beginPath(); cx.arc(h.x, h.y, 5, 0, Math.PI*2);
       cx.fillStyle = '#FFBA08'; cx.fill();
-      cx.beginPath(); cx.arc(h.x, h.y, 10, 0, Math.PI*2); 
-      cx.strokeStyle = 'rgba(255, 186, 8, 0.35)'; cx.lineWidth = 1; cx.stroke();
-      cx.fillStyle = 'rgba(255,255,255,0.75)'; cx.font = "600 11px Inter"; 
-      cx.fillText(h.name, h.x + 15, h.y + 4);
+      // Label
+      cx.fillStyle = 'rgba(14, 31, 62, 0.7)'; cx.font = "600 11px Inter";
+      cx.fillText(h.name, h.x + 14, h.y + 4);
     });
     
-    // Draw HQ (cyan glowing rings — matching reference)
-    cx.beginPath(); cx.arc(hq.x, hq.y, 7, 0, Math.PI*2); 
-    cx.fillStyle = '#0BA8D3'; cx.shadowBlur = 25; cx.shadowColor = '#0BA8D3';
-    cx.fill(); cx.shadowBlur = 0;
-    cx.beginPath(); cx.arc(hq.x, hq.y, 15, 0, Math.PI*2); 
-    cx.strokeStyle = 'rgba(11,168,211,0.45)'; cx.lineWidth = 2.5; cx.stroke();
-    cx.beginPath(); cx.arc(hq.x, hq.y, 25, 0, Math.PI*2); 
-    cx.strokeStyle = 'rgba(11,168,211,0.15)'; cx.lineWidth = 1; cx.stroke();
-    cx.fillStyle = '#FFFFFF'; cx.font = "bold 14px Inter"; 
-    cx.fillText(hq.name, hq.x + 32, hq.y + 5);
+    // 6. Draw HQ (large glowing cyan dot like reference)
+    cx.globalAlpha = 1.0;
+    // Outer pulse ring
+    let pulse = 0.3 + 0.2 * Math.sin(time * 0.05);
+    cx.beginPath(); cx.arc(hq.x, hq.y, 22, 0, Math.PI*2);
+    cx.fillStyle = `rgba(11, 168, 211, ${pulse * 0.15})`; cx.fill();
+    // Middle ring
+    cx.beginPath(); cx.arc(hq.x, hq.y, 14, 0, Math.PI*2);
+    cx.fillStyle = 'rgba(11, 168, 211, 0.2)'; cx.fill();
+    // Core dot
+    cx.beginPath(); cx.arc(hq.x, hq.y, 7, 0, Math.PI*2);
+    cx.fillStyle = '#0BA8D3'; cx.shadowBlur = 15; cx.shadowColor = '#0BA8D3'; cx.fill();
+    cx.shadowBlur = 0;
+    // White center
+    cx.beginPath(); cx.arc(hq.x, hq.y, 3, 0, Math.PI*2);
+    cx.fillStyle = '#FFFFFF'; cx.fill();
+    // Label
+    cx.fillStyle = 'rgba(14, 31, 62, 0.85)'; cx.font = "bold 13px Inter";
+    cx.fillText(hq.name, hq.x + 28, hq.y + 5);
     
     cx.setTransform(1, 0, 0, 1, 0, 0);
     requestAnimationFrame(draw);
