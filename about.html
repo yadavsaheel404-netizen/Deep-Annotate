@@ -764,7 +764,7 @@
       <canvas id="gcvs" width="1200" height="480"></canvas>
       <div class="gleg">
         <div class="gli"><div class="gld" style="background:#0BA8D3;"></div>HQ (Hyderabad)</div>
-        <div class="gli"><div class="gld" style="background:#FFBA08;"></div>Regional Hubs</div>
+        <div class="gli"><div class="gld" style="background:#0B2545; border: 2px solid rgba(11,168,211,0.3);"></div>Regional Hubs</div>
       </div>
     </div>
   </div>
@@ -1019,8 +1019,6 @@ snEls.forEach(el=>co.observe(el));
   ];
 
   let packets = [];
-  let nodes = [];   // particle swarm dots
-  let bgDots = [];   // background dot grid
   
   function rsz() {
     dpr = window.devicePixelRatio || 1;
@@ -1031,64 +1029,13 @@ snEls.forEach(el=>co.observe(el));
     cv.height = rectH * dpr;
   }
 
-  function init() {
-    packets = [];
-    nodes = [];
-    bgDots = [];
-    
-    // Subtle background dot grid
-    for(let x = 0; x < CW; x += 24) {
-      for(let y = 0; y < CH; y += 24) {
-        bgDots.push({x: x + 12, y: y + 12});
-      }
-    }
-    
-    // Particle swarm nodes around each hub & HQ
-    const allPoints = [...hubs, hq];
-    allPoints.forEach(h => {
-      let count = 12 + Math.floor(Math.random() * 8);
-      for(let i = 0; i < count; i++) {
-        let a = Math.random() * Math.PI * 2;
-        let r = Math.random() * 55 + 12;
-        nodes.push({
-          ox: h.x + Math.cos(a) * r,
-          oy: h.y + Math.sin(a) * r,
-          hx: h.x, hy: h.y,
-          phase: Math.random() * Math.PI * 2,
-          speed: 0.005 + Math.random() * 0.01,
-          drift: 3 + Math.random() * 5
-        });
-      }
-    });
-  }
-
   // ── Draw ──
   function draw() {
     cx.clearRect(0, 0, cv.width, cv.height);
     cx.setTransform(rectW/CW * dpr, 0, 0, rectH/CH * dpr, 0, 0);
     time++;
 
-    // 1. Subtle dot grid background
-    cx.globalAlpha = 0.25;
-    cx.fillStyle = '#CBD5E1';
-    bgDots.forEach(d => {
-      cx.beginPath(); cx.arc(d.x, d.y, 0.8, 0, Math.PI*2); cx.fill();
-    });
-
-    // 2. Particle swarm nodes around hubs (subtle floating dots)
-    cx.globalAlpha = 0.35;
-    cx.fillStyle = '#0BA8D3';
-    nodes.forEach(n => {
-      let x = n.ox + Math.sin(time * n.speed + n.phase) * n.drift;
-      let y = n.oy + Math.cos(time * n.speed * 0.8 + n.phase) * n.drift * 0.6;
-      cx.beginPath(); cx.arc(x, y, 1.2, 0, Math.PI*2); cx.fill();
-      // Faint trail line to hub
-      cx.beginPath(); cx.moveTo(x, y);
-      cx.lineTo(n.hx + (x - n.hx) * 0.3, n.hy + (y - n.hy) * 0.3);
-      cx.strokeStyle = 'rgba(11,168,211,0.08)'; cx.lineWidth = 0.5; cx.stroke();
-    });
-
-    // 4. Glowing cyan bezier arcs connecting hubs → HQ
+    // 1. Glowing cyan bezier arcs connecting hubs → HQ
     hubs.forEach(h => {
       let cp1x = h.x + (hq.x - h.x) * 0.4;
       let cp1y = Math.min(h.y, hq.y) - 80 - Math.abs(h.x - hq.x) * 0.08;
@@ -1132,26 +1079,26 @@ snEls.forEach(el=>co.observe(el));
       cx.fill(); cx.shadowBlur = 0;
     }
 
-    // 7. Regional hub markers (bright yellow with glow — matching reference)
+    // 4. Regional hub markers (Deep Navy core with Cyan glow)
     cx.globalAlpha = 1.0;
     cx.shadowBlur = 0;
     hubs.forEach(h => {
-      // Outer glow
+      // Outer glow (Cyan)
       cx.beginPath(); cx.arc(h.x, h.y, 12, 0, Math.PI*2);
-      cx.fillStyle = 'rgba(255, 186, 8, 0.12)'; cx.fill();
-      // Middle ring
+      cx.fillStyle = 'rgba(11, 168, 211, 0.12)'; cx.fill();
+      // Middle ring (Cyan)
       cx.beginPath(); cx.arc(h.x, h.y, 7, 0, Math.PI*2);
-      cx.fillStyle = 'rgba(255, 186, 8, 0.25)'; cx.fill();
-      // Core dot
+      cx.fillStyle = 'rgba(11, 168, 211, 0.25)'; cx.fill();
+      // Core dot (Navy)
       cx.beginPath(); cx.arc(h.x, h.y, 4, 0, Math.PI*2);
-      cx.fillStyle = '#FFBA08'; cx.shadowBlur = 8; cx.shadowColor = 'rgba(255,186,8,0.6)';
+      cx.fillStyle = '#0B2545'; cx.shadowBlur = 8; cx.shadowColor = 'rgba(11,168,211,0.6)';
       cx.fill(); cx.shadowBlur = 0;
       // Label
       cx.fillStyle = '#0B2545'; cx.font = "600 11px Inter";
       cx.fillText(h.name, h.x + 16, h.y + 4);
     });
 
-    // 8. HQ dot (large pulsing cyan — matching reference)
+    // 5. HQ dot (large pulsing cyan — matching reference)
     cx.globalAlpha = 1.0;
     let pulse = 0.5 + 0.5 * Math.sin(time * 0.04);
     // Outer pulse ring
@@ -1178,9 +1125,8 @@ snEls.forEach(el=>co.observe(el));
     requestAnimationFrame(draw);
   }
   
-  window.addEventListener('resize', () => { rsz(); init(); });
+  window.addEventListener('resize', rsz);
   rsz();
-  init();
   draw();
 })();
 
