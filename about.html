@@ -585,10 +585,7 @@
       flex: 1; text-align: center; position: relative;
       padding: 24px 8px; border-radius: 20px;
       transition: all 0.4s cubic-bezier(0.16,1,0.3,1);
-    }
-    .wfs:hover {
       background: rgba(11,37,69,0.04);
-      transform: translateY(-4px);
     }
     /* Upgraded line */
     .wfs::after {
@@ -601,47 +598,33 @@
     /* Upgraded number badge */
     .wfn {
       width: 56px; height: 56px; border-radius: 50%;
-      background: #FFFFFF;
-      border: 2px solid rgba(11,37,69,0.3);
+      border: 2px solid #0B2545;
       display: flex; align-items: center; justify-content: center;
-      font-size: 16px; font-weight: 900; color: #0B2545;
+      font-size: 16px; font-weight: 900; 
       margin: 0 auto 20px; position: relative; z-index: 1;
-      box-shadow: 0 4px 16px rgba(11,37,69,0.1);
       transition: all 0.4s cubic-bezier(0.16,1,0.3,1);
-    }
-    .wfs:hover .wfn {
-      background: #0B2545; color: #FFFFFF; border-color: #0B2545;
+      background: #0B2545; color: #FFFFFF;
       box-shadow: 0 8px 24px rgba(11,37,69,0.4);
-      transform: scale(1.1);
     }
-    .wftl { font-size: 15px; font-weight: 800; color: #0E1F3E; margin-bottom: 8px; transition: color 0.3s; }
-    .wfs:hover .wftl { color: #0B2545; }
+    .wftl { font-size: 15px; font-weight: 800; color: #0B2545; margin-bottom: 8px; transition: color 0.3s; }
     .wfts { font-size: 13px; color: rgba(14,31,62,0.65); line-height: 1.5; }
 
     /* LEADERSHIP - Premium CSS-only Upgrade */
     #lead { background: var(--navy-panel); }
     .teg { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin-top: 64px; }
     .tec {
-      background: #FFFFFF; border: 1px solid rgba(14,31,62,0.06);
+      background: #FFFFFF; border: 1px solid rgba(11,37,69,0.3);
       border-radius: 28px; padding: 48px 32px; text-align: center;
       transition: all 0.5s cubic-bezier(0.16,1,0.3,1);
-      box-shadow: 0 4px 20px rgba(14,31,62,0.02);
-    }
-    .tec:hover {
-      border-color: rgba(11,37,69,0.3);
-      transform: translateY(-8px);
       box-shadow: 0 24px 48px rgba(14,31,62,0.06);
     }
     .tav {
       width: 88px; height: 88px; border-radius: 50%; margin: 0 auto 24px;
       display: flex; align-items: center; justify-content: center;
       font-size: 32px; font-weight: 900;
-      background: linear-gradient(135deg, rgba(11,37,69,0.15), rgba(255,186,8,0.05));
-      border: 2px solid rgba(11,37,69,0.2); color: #0B2545;
+      border: 2px solid #0B2545;
       transition: all 0.4s;
-    }
-    .tec:hover .tav {
-      background: #0B2545; color: #FFFFFF; border-color: #0B2545;
+      background: #0B2545; color: #FFFFFF; 
       box-shadow: 0 8px 24px rgba(11,37,69,0.3);
     }
     .tnm { font-size: 19px; font-weight: 900; color: #0E1F3E; margin-bottom: 6px; }
@@ -650,12 +633,11 @@
     .tls { display: flex; justify-content: center; gap: 12px; margin-top: 24px; }
     .tlk {
       width: 38px; height: 38px; border-radius: 50%;
-      background: rgba(14,31,62,0.03); border: 1px solid rgba(14,31,62,0.08);
+      background: #0B2545; border: 1px solid #0B2545;
       display: flex; align-items: center; justify-content: center;
-      font-size: 13px; font-weight: 700; color: rgba(14,31,62,0.5);
+      font-size: 13px; font-weight: 700; color: #FFFFFF;
       transition: all 0.3s; text-decoration: none;
     }
-    .tlk:hover { background: #0B2545; border-color: #0B2545; color: #FFFFFF; }
 
     /* TESTIMONIALS - Premium CSS-only Upgrade */
     #test { background: #FFFFFF; border-top: 1px solid rgba(14,31,62,0.05); }
@@ -663,22 +645,16 @@
     #test .eyebrow { color: #0B2545; }
     .ttg { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin-top: 64px; }
     .ttc {
-      background: #FFFFFF; border: 1px solid rgba(14,31,62,0.08);
+      background: #FFFFFF; border: 1px solid rgba(11,37,69,0.4);
       border-radius: 24px; padding: 40px; position: relative;
       transition: all 0.5s cubic-bezier(0.16,1,0.3,1);
-      box-shadow: 0 4px 16px rgba(14,31,62,0.03);
-    }
-    .ttc:hover {
-      border-color: rgba(11,37,69,0.4);
-      transform: translateY(-8px);
       box-shadow: 0 24px 48px rgba(14,31,62,0.06);
     }
     .ttc::after {
       content: ''; position: absolute; top: -1px; left: 32px; right: 32px; height: 4px;
-      background: linear-gradient(90deg, #0B2545, transparent); border-radius: 4px; opacity: 0;
+      background: linear-gradient(90deg, #0B2545, transparent); border-radius: 4px; opacity: 1;
       transition: opacity 0.5s;
     }
-    .ttc:hover::after { opacity: 1; }
     .tq { font-size: 15px; color: rgba(14,31,62,0.7); line-height: 1.8; margin-bottom: 32px; font-style: normal; }
     .tq::before {
       content: '\201C'; font-family: Georgia, serif; font-size: 64px; color: #0B2545;
@@ -698,15 +674,11 @@
     #aw { background: var(--navy-panel); border-top: 1px solid rgba(14,31,62,0.04); }
     .awg { display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; margin-top: 56px; }
     .awb {
-      background: #FFFFFF; border: 1px solid rgba(14,31,62,0.08);
+      background: #FFFFFF; border: 1px solid #0B2545;
       border-radius: 100px; padding: 16px 28px;
-      font-size: 14px; font-weight: 700; color: rgba(14,31,62,0.75);
+      font-size: 14px; font-weight: 700; color: #0B2545;
       transition: all 0.3s cubic-bezier(0.16,1,0.3,1); display: flex; align-items: center; gap: 12px;
-      box-shadow: 0 2px 12px rgba(14,31,62,0.02);
-    }
-    .awb:hover {
-      border-color: #0B2545; color: #0B2545;
-      transform: translateY(-4px); box-shadow: 0 12px 24px rgba(11,37,69,0.1);
+      box-shadow: 0 12px 24px rgba(11,37,69,0.1);
     }
 
     /* CULTURE - Premium CSS-only Upgrade */
@@ -716,12 +688,8 @@
     .cug { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-top: 64px; }
     .cui {
       border-radius: 24px; overflow: hidden; position: relative;
-      background: #FFFFFF; border: 1px solid rgba(14,31,62,0.08);
+      background: #FFFFFF; border: 1px solid rgba(11,37,69,0.3);
       transition: all 0.5s cubic-bezier(0.16,1,0.3,1);
-      box-shadow: 0 4px 16px rgba(14,31,62,0.03);
-    }
-    .cui:hover {
-      border-color: rgba(11,37,69,0.3); transform: translateY(-8px);
       box-shadow: 0 24px 48px rgba(14,31,62,0.08);
     }
     /* Add glowing pseudo-borders internally */
@@ -731,14 +699,12 @@
       background: linear-gradient(135deg, rgba(11,37,69,0.3), transparent) border-box;
       -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
       -webkit-mask-composite: destination-out; mask-composite: exclude;
-      opacity: 0; transition: opacity 0.5s;
+      opacity: 1; transition: opacity 0.5s;
     }
-    .cui:hover::after { opacity: 1; }
     .cui.lg { grid-column: span 2; }
     .cuin { padding: 40px 32px; min-height: 220px; display: flex; flex-direction: column; justify-content: flex-end; }
     .cui.lg .cuin { min-height: 280px; }
     .cuic { font-size: 36px; margin-bottom: 16px; display: inline-block; transition: transform 0.4s; }
-    .cui:hover .cuic { transform: scale(1.15) rotate(5deg); }
     .cuit { font-size: 18px; font-weight: 800; color: #0E1F3E; margin-bottom: 8px; }
     .cuis { font-size: 14px; color: rgba(14,31,62,0.65); line-height: 1.6; }
 
