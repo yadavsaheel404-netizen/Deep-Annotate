@@ -598,15 +598,15 @@
     .wfs {
       flex: 1; text-align: center; position: relative;
       padding: 24px 8px; border-radius: 20px;
-      animation: wfLoopBg 7s infinite ease-in-out;
     }
-    .wfs:nth-child(1), .wfs:nth-child(1) .wfn, .wfs:nth-child(1) .wftl { animation-delay: 0s; }
-    .wfs:nth-child(2), .wfs:nth-child(2) .wfn, .wfs:nth-child(2) .wftl { animation-delay: 1s; }
-    .wfs:nth-child(3), .wfs:nth-child(3) .wfn, .wfs:nth-child(3) .wftl { animation-delay: 2s; }
-    .wfs:nth-child(4), .wfs:nth-child(4) .wfn, .wfs:nth-child(4) .wftl { animation-delay: 3s; }
-    .wfs:nth-child(5), .wfs:nth-child(5) .wfn, .wfs:nth-child(5) .wftl { animation-delay: 4s; }
-    .wfs:nth-child(6), .wfs:nth-child(6) .wfn, .wfs:nth-child(6) .wftl { animation-delay: 5s; }
-    .wfs:nth-child(7), .wfs:nth-child(7) .wfn, .wfs:nth-child(7) .wftl { animation-delay: 6s; }
+    .animate-wf .wfs { animation: wfLoopBg 7s infinite ease-in-out; }
+    .animate-wf .wfs:nth-child(1), .animate-wf .wfs:nth-child(1) .wfn, .animate-wf .wfs:nth-child(1) .wftl { animation-delay: 0s; }
+    .animate-wf .wfs:nth-child(2), .animate-wf .wfs:nth-child(2) .wfn, .animate-wf .wfs:nth-child(2) .wftl { animation-delay: 1s; }
+    .animate-wf .wfs:nth-child(3), .animate-wf .wfs:nth-child(3) .wfn, .animate-wf .wfs:nth-child(3) .wftl { animation-delay: 2s; }
+    .animate-wf .wfs:nth-child(4), .animate-wf .wfs:nth-child(4) .wfn, .animate-wf .wfs:nth-child(4) .wftl { animation-delay: 3s; }
+    .animate-wf .wfs:nth-child(5), .animate-wf .wfs:nth-child(5) .wfn, .animate-wf .wfs:nth-child(5) .wftl { animation-delay: 4s; }
+    .animate-wf .wfs:nth-child(6), .animate-wf .wfs:nth-child(6) .wfn, .animate-wf .wfs:nth-child(6) .wftl { animation-delay: 5s; }
+    .animate-wf .wfs:nth-child(7), .animate-wf .wfs:nth-child(7) .wfn, .animate-wf .wfs:nth-child(7) .wftl { animation-delay: 6s; }
 
     /* Upgraded line */
     .wfs::after {
@@ -625,9 +625,10 @@
       margin: 0 auto 20px; position: relative; z-index: 1;
       background: #FFFFFF; color: #0B2545;
       box-shadow: 0 4px 16px rgba(11,37,69,0.1);
-      animation: wfLoopBadge 7s infinite ease-in-out;
     }
-    .wftl { font-size: 15px; font-weight: 800; color: #0E1F3E; margin-bottom: 8px; animation: wfLoopText 7s infinite ease-in-out; }
+    .animate-wf .wfn { animation: wfLoopBadge 7s infinite ease-in-out; }
+    .wftl { font-size: 15px; font-weight: 800; color: #0E1F3E; margin-bottom: 8px; }
+    .animate-wf .wftl { animation: wfLoopText 7s infinite ease-in-out; }
     .wfts { font-size: 13px; color: rgba(14,31,62,0.65); line-height: 1.5; }
 
     /* LEADERSHIP - Premium CSS-only Upgrade */
@@ -1567,6 +1568,16 @@ snEls.forEach(el=>co.observe(el));
 
 // FOOTER
 fetch('./components/footer.html').then(r=>r.text()).then(h=>{document.getElementById('footer-placeholder').innerHTML=h;});
+
+// WORKFLOW ANIMATION TRIGGER
+const wfObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('animate-wf');
+    }
+  });
+}, { threshold: 0.3 });
+if (document.getElementById('wf')) wfObserver.observe(document.getElementById('wf'));
 </script>
 </body>
 </html>
