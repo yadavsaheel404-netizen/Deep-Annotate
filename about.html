@@ -492,9 +492,11 @@
     .tech-node {
       transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
       cursor: pointer;
+      transform-box: fill-box;
+      transform-origin: center;
     }
     .tech-node:hover {
-      transform: translateY(-5px);
+      transform: scale(1.03);
     }
     .tech-node rect {
       fill: #FFFFFF;
@@ -515,12 +517,6 @@
     }
     .tech-node:hover text {
       fill: #0BA8D3;
-    }
-    
-    /* Hover effect for connecting lines */
-    .tech-node:hover ~ path {
-      stroke-width: 3px;
-      stroke: #0BA8D3;
     }
 
     /* TRUST */
@@ -878,14 +874,14 @@
       </defs>
 
       <!-- Connecting Bezier Paths -->
-      <path id="p-img" d="M 500,240 Q 320,130 230,105" fill="none" stroke="url(#lineGrad)" stroke-width="2"/>
-      <path id="p-vid" d="M 500,240 L 500,120" fill="none" stroke="url(#lineGrad)" stroke-width="2"/>
-      <path id="p-aud" d="M 500,240 Q 680,130 770,105" fill="none" stroke="url(#lineGrad)" stroke-width="2"/>
-      <path id="p-lid" d="M 500,240 L 180,240" fill="none" stroke="url(#lineGrad)" stroke-width="2"/>
-      <path id="p-rlhf" d="M 500,240 L 820,240" fill="none" stroke="url(#lineGrad)" stroke-width="2"/>
-      <path id="p-nlp" d="M 500,240 Q 320,350 280,355" fill="none" stroke="url(#lineGrad)" stroke-width="2"/>
-      <path id="p-cv" d="M 500,240 L 500,360" fill="none" stroke="url(#lineGrad)" stroke-width="2"/>
-      <path id="p-syn" d="M 500,240 Q 680,350 720,355" fill="none" stroke="url(#lineGrad)" stroke-width="2"/>
+      <path id="p-img" d="M 500,240 Q 320,130 230,105" fill="none" stroke="rgba(14, 31, 62, 0.12)" stroke-width="2"/>
+      <path id="p-vid" d="M 500,240 L 500,120" fill="none" stroke="rgba(14, 31, 62, 0.12)" stroke-width="2"/>
+      <path id="p-aud" d="M 500,240 Q 680,130 770,105" fill="none" stroke="rgba(14, 31, 62, 0.12)" stroke-width="2"/>
+      <path id="p-lid" d="M 500,240 L 180,240" fill="none" stroke="rgba(14, 31, 62, 0.12)" stroke-width="2"/>
+      <path id="p-rlhf" d="M 500,240 L 820,240" fill="none" stroke="rgba(14, 31, 62, 0.12)" stroke-width="2"/>
+      <path id="p-nlp" d="M 500,240 Q 320,350 280,355" fill="none" stroke="rgba(14, 31, 62, 0.12)" stroke-width="2"/>
+      <path id="p-cv" d="M 500,240 L 500,360" fill="none" stroke="rgba(14, 31, 62, 0.12)" stroke-width="2"/>
+      <path id="p-syn" d="M 500,240 Q 680,350 720,355" fill="none" stroke="rgba(14, 31, 62, 0.12)" stroke-width="2"/>
 
       <!-- Flowing Data Packets -->
       <circle r="3" fill="#0BA8D3"><animateMotion dur="2.5s" repeatCount="indefinite" path="M 500,240 Q 320,130 230,105"/></circle>
