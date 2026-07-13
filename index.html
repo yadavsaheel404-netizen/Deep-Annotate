@@ -1438,50 +1438,29 @@
 
 
 
-  <section class="scene-section" id="scene-4-section" data-scene="4">
-    <div style="height:400vh">
+    <section class="scene-section" id="scene-4-section" data-scene="4">
+    <div style="height:600vh">
       <div class="scene-sticky"><canvas class="scene-canvas" id="canvas-4"></canvas>
         <div class="scene-copy s-center" id="copy-4">
           <div class="scene-label">Scene 04 &#8212; Deconstruction</div>
           <h2 class="scene-headline">Modular<br>by design.</h2>
-          <p class="scene-sub">Deploy any module independently &#8212; perception, voice, spatial &#8212; or as one
-            unified data pipeline.</p>
+          <p class="scene-sub">Deploy any module independently &#8212; perception, voice, spatial &#8212; or as one unified data pipeline.</p>
         </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="scene-section" id="scene-5-section" data-scene="5">
-    <div style="height:400vh">
-      <div class="scene-sticky"><canvas class="scene-canvas" id="canvas-5"></canvas>
         <div class="scene-copy s-center" id="copy-5">
           <div class="story-badge">Scene 04 &bull; Production Ready</div>
           <h2 class="scene-headline">Built. Verified.<br>Production Ready.</h2>
-          <p class="scene-sub" style="margin-bottom: 24px;">Every dataset passes rigorous validation before powering
-            enterprise AI systems.</p>
+          <p class="scene-sub" style="margin-bottom: 24px;">Every dataset passes rigorous validation before powering enterprise AI systems.</p>
           <div class="story-pills" id="s4-certification-badges">
-            <span class="story-pill"
-              style="opacity:0; transition: opacity 0.4s; border-color: var(--cyan); color: var(--cyan);">&bull; Human
-              Verified</span>
-            <span class="story-pill"
-              style="opacity:0; transition: opacity 0.4s; border-color: var(--cyan); color: var(--cyan);">&bull;
-              Multi-stage QA</span>
-            <span class="story-pill"
-              style="opacity:0; transition: opacity 0.4s; border-color: var(--cyan); color: var(--cyan);">&bull;
-              Enterprise Security</span>
-            <span class="story-pill"
-              style="opacity:0; transition: opacity 0.4s; border-color: var(--cyan); color: var(--cyan);">&bull;
-              Production Ready</span>
-            <span class="story-pill"
-              style="opacity:0; transition: opacity 0.4s; border-color: var(--cyan); color: var(--cyan);">&bull;
-              Scalable Delivery</span>
+            <span class="story-pill" style="opacity:0; transition: opacity 0.4s; border-color: var(--cyan); color: var(--cyan);">&bull; Human Verified</span>
+            <span class="story-pill" style="opacity:0; transition: opacity 0.4s; border-color: var(--cyan); color: var(--cyan);">&bull; Multi-stage QA</span>
+            <span class="story-pill" style="opacity:0; transition: opacity 0.4s; border-color: var(--cyan); color: var(--cyan);">&bull; 99.9% Accuracy</span>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="scene-section" id="scene-6-section" data-scene="6">
+<section class="scene-section" id="scene-6-section" data-scene="6">
     <div style="height:400vh">
       <div class="scene-sticky">
         <!-- Container is wrapper to track visible class toggle -->
@@ -1598,9 +1577,9 @@
 
   <script>
     'use strict';
-    const SCENES = [{ id: 4, frames: 90, folder: '4' }, { id: 5, frames: 96, folder: '5' }, { id: 6, frames: 96, folder: '6' }];
+    const SCENES = [{ id: 4, frames: 186, folder: '45' }, { id: 6, frames: 96, folder: '6' }];
     const PAD = n => String(n).padStart(3, '0');
-    const FURL = (f, i) => './' + f + '/ezgif-frame-' + PAD(i) + '.jpg';
+    const FURL = (f, i) => { if (f === '45') { return i <= 90 ? './4/ezgif-frame-' + PAD(i) + '.jpg' : './5/ezgif-frame-' + PAD(i - 90) + '.jpg'; } return './' + f + '/ezgif-frame-' + PAD(i) + '.jpg'; };
     const S = { images: {}, totalLoaded: 0, ready: false };
     const navbar = document.getElementById('navbar');
     const dots = document.querySelectorAll('.s-dot');
@@ -1636,7 +1615,7 @@
 
       ctx.clearRect(0, 0, w_val, h_val);
 
-      if (id === 4 || id === 5) {
+      if (id === 4) {
         // Fill with the robot JPG edge colour so background covers full canvas seamlessly
         ctx.fillStyle = '#EBEBEB';
         ctx.fillRect(0, 0, w_val, h_val);
