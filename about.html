@@ -803,6 +803,35 @@
       .lead-premium-grid,.teg,.ttg{grid-template-columns:1fr;}.wft{flex-direction:column;gap:20px;}.wfs::after{display:none;}
     }
   </style>
+
+  <!-- Navbar Style Override -->
+  <style>
+    .nav-links a {
+      padding: 8px 16px;
+      border-radius: 100px;
+      transition: all 0.3s ease !important;
+      position: relative;
+      overflow: hidden;
+    }
+    .nav-links a::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(11, 168, 211, 0.08);
+      border-radius: 100px;
+      transform: scale(0.8);
+      opacity: 0;
+      transition: all 0.3s ease;
+      z-index: -1;
+    }
+    .nav-links a:hover::before, .nav-links a.active::before {
+      transform: scale(1);
+      opacity: 1;
+    }
+    .nav-links a:hover, .nav-links a.active {
+      color: #0BA8D3 !important;
+    }
+  </style>
 </head>
 <body>
 
@@ -815,6 +844,7 @@
     <li><a href="./datasets.html">Datasets</a></li>
     <li><a href="./case-studies.html">Case Studies</a></li>
     <li><a href="./blog.html">Blog</a></li>
+    <li><a href="./careers.html">Careers</a></li>
     <li><a href="./about.html" class="active">About</a></li>
   </ul>
   <a href="./contact.html" class="nav-cta">Connect to us</a>

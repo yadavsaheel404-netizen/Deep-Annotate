@@ -322,12 +322,14 @@ body {
   border: 1px solid var(--border-sub);
   border-radius: 24px;
   padding: 40px;
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease;
+  box-shadow: 0 4px 24px rgba(11, 168, 211, 0.05);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease, box-shadow 0.4s ease;
   contain: layout paint;
 }
 .cap-card:hover {
   transform: translateY(-6px) translateZ(0);
   border-color: var(--cyan);
+  box-shadow: 0 12px 40px rgba(11, 168, 211, 0.15);
 }
 
 @keyframes slideUpFadeIn {

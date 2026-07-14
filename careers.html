@@ -391,6 +391,35 @@
       background: var(--cyan-light);
     }
   </style>
+
+  <!-- Navbar Style Override -->
+  <style>
+    .nav-links a {
+      padding: 8px 16px;
+      border-radius: 100px;
+      transition: all 0.3s ease !important;
+      position: relative;
+      overflow: hidden;
+    }
+    .nav-links a::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(11, 168, 211, 0.08);
+      border-radius: 100px;
+      transform: scale(0.8);
+      opacity: 0;
+      transition: all 0.3s ease;
+      z-index: -1;
+    }
+    .nav-links a:hover::before, .nav-links a.active::before {
+      transform: scale(1);
+      opacity: 1;
+    }
+    .nav-links a:hover, .nav-links a.active {
+      color: #0BA8D3 !important;
+    }
+  </style>
 </head>
 <body>
 
@@ -500,32 +529,32 @@
       </div>
       <div class="values-grid">
         <div class="value-card">
-          <div class="value-icon">🎯</div>
+          <div class="value-icon"></div>
           <div class="value-title">Mission-Driven Work</div>
           <div class="value-desc">Every dataset you touch powers AI models that shape how machines see, hear, and understand the world.</div>
         </div>
         <div class="value-card">
-          <div class="value-icon">🌍</div>
+          <div class="value-icon"></div>
           <div class="value-title">Remote-First & Global</div>
           <div class="value-desc">Our team operates across continents. Quality has no geography — neither does opportunity.</div>
         </div>
         <div class="value-card">
-          <div class="value-icon">🚀</div>
+          <div class="value-icon"></div>
           <div class="value-title">Fast-Moving Environment</div>
           <div class="value-desc">Work on real enterprise AI projects with fast feedback cycles and direct impact from day one.</div>
         </div>
         <div class="value-card">
-          <div class="value-icon">🤝</div>
+          <div class="value-icon"></div>
           <div class="value-title">Expert Community</div>
           <div class="value-desc">Collaborate with ML engineers, domain scientists, and AI researchers building the next generation of models.</div>
         </div>
         <div class="value-card">
-          <div class="value-icon">📈</div>
+          <div class="value-icon"></div>
           <div class="value-title">Grow With AI</div>
           <div class="value-desc">The AI data industry is one of the fastest growing in tech. Join at the inflection point.</div>
         </div>
         <div class="value-card">
-          <div class="value-icon">🏆</div>
+          <div class="value-icon"></div>
           <div class="value-title">Quality Obsessed</div>
           <div class="value-desc">We operate at 99.9% accuracy. We hire people who hold themselves to the same standard.</div>
         </div>
