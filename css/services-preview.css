@@ -108,7 +108,7 @@
 }
 
 .svc2-card {
-  background: rgba(14, 31, 62, 0.3);
+  background: rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
   border: 1px solid rgba(255, 255, 255, 0.05);
@@ -124,6 +124,11 @@
   box-shadow: 0 10px 30px rgba(0,0,0,0.2);
   transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
   z-index: 1;
+}
+
+.svc2-card:first-child {
+  background: var(--teal); /* #0BA8D3 */
+  border-color: var(--teal);
 }
 
 /* Glassy shine overlay */
