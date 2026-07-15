@@ -138,3 +138,13 @@
   .dsp-wrap { padding: 64px 24px; }
   .dsp-grid { grid-template-columns: 1fr; }
 }
+
+@media (max-width: 480px) {
+  .dsp-wrap {
+    padding: 64px 20px;
+  }
+  .dsp-card {
+    padding: 24px;
+  }
+}
+

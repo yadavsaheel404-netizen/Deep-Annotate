@@ -1003,6 +1003,16 @@ a {
   width: 55%;
 }
 
+@media (max-width: 1024px) {
+  #sec-physical .srv-grid, #sec-video .srv-grid, #sec-rlhf .srv-grid {
+    flex-direction: column-reverse;
+  }
+  #sec-physical .srv-visual, #sec-video .srv-visual, #sec-rlhf .srv-visual,
+  #sec-physical .srv-content, #sec-video .srv-content, #sec-rlhf .srv-content {
+    width: 100%;
+  }
+}
+
 /* Hover Animations for Static Cards */
 .cap-card {
   background-color: #060e1c !important; /* Deep Black */

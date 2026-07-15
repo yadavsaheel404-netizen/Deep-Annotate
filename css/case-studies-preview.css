@@ -153,3 +153,22 @@
     margin-top: 16px;
   }
 }
+
+@media (max-width: 480px) {
+  .cs2-wrap {
+    padding: 64px 20px;
+  }
+  .cs2-sidebar {
+    padding: 24px 20px;
+  }
+  .cs2-body {
+    padding: 24px 20px;
+  }
+  .cs2-stat {
+    font-size: 32px;
+  }
+  .cs2-title {
+    font-size: 18px;
+  }
+}
+

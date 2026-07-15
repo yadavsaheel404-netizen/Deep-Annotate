@@ -1,4 +1,10 @@
 /* programs.css - DeepAnnotate Client Programs & Training Stylesheet */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 :root {
   --bg-deep: #FFFFFF;
   --bg-panel: #FFFFFF;

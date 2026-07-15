@@ -193,30 +193,30 @@
   100% { transform: rotate(-45deg) translate(-4px, 4px); opacity: 0; }
 }
 
-/* Responsive adjustments */
 @media(max-width: 900px) {
   .intro-timeline {
     grid-template-columns: 1fr;
-    gap: 40px;
+    gap: 48px;
     padding-top: 0;
   }
   .timeline-line {
     display: none; /* Hide horizontal line on mobile stack */
   }
   .timeline-step {
-    flex-direction: row;
-    text-align: left;
-    align-items: flex-start;
-    gap: 20px;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0;
   }
   .step-num {
-    margin-bottom: 0;
+    margin-bottom: 16px;
     flex-shrink: 0;
   }
   .step-title {
-    margin-bottom: 6px;
+    margin-bottom: 8px;
   }
   .step-desc {
-    padding: 0;
+    padding: 0 16px;
   }
 }
+

@@ -1,4 +1,10 @@
 /* Datasets CSS Stylesheet */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 :root {
   --navy: #08111F;
   --navy-panel: #0D1B2E;

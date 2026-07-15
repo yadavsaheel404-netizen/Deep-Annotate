@@ -1,4 +1,10 @@
 /* how-it-works.css - Standalone How It Works Page Stylesheet (Optimized 60fps) */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 :root {
   --bg-deep: #FFFFFF;
   --bg-panel: #FFFFFF;
@@ -497,3 +503,22 @@ body {
   line-height: 1.7;
   color: var(--text-secondary);
 }
+
+@media (max-width: 480px) {
+  .tl-stack-card {
+    padding: 24px 16px;
+    border-radius: 20px;
+    margin-bottom: 32px;
+  }
+  .tl-step-title {
+    font-size: 22px;
+  }
+  .tl-step-desc {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  .tl-info-panel {
+    padding: 20px 16px;
+  }
+}
+

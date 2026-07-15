@@ -1315,23 +1315,37 @@
 
       .s-center,
       .s-cta {
-        left: 20px;
-        right: 20px;
-        transform: none;
-        min-width: unset;
+        left: 20px !important;
+        right: 20px !important;
+        transform: none !important;
+        min-width: unset !important;
+        width: calc(100% - 40px) !important;
         text-align: center;
       }
 
       .s-left,
       .s-right,
       .s-mid {
-        left: 20px;
-        right: 20px;
+        left: 20px !important;
+        right: 20px !important;
+        width: calc(100% - 40px) !important;
         text-align: center;
         bottom: 10vh;
         top: auto;
-        transform: none;
+        transform: none !important;
       }
+
+      .scene-copy {
+        width: calc(100% - 40px) !important;
+        max-width: 100% !important;
+      }
+
+      .scene-sub {
+        max-width: 100% !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+      }
+
 
       .stats-grid {
         grid-template-columns: 1fr 1fr;
@@ -1389,6 +1403,14 @@
         width: 36px;
         height: 36px;
         font-size: 13px;
+      }
+
+      #trust-bar {
+        padding: 40px 20px !important;
+      }
+
+      .trust-logos {
+        gap: 10px !important;
       }
     }
   
@@ -1770,6 +1792,7 @@
     import { loadAllComponents } from "./js/loader.js";
     document.addEventListener("DOMContentLoaded", loadAllComponents);
   </script>
+  <script src="./js/nav.js"></script>
 </body>
 
 </html>
