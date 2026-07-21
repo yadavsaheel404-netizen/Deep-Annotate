@@ -18,6 +18,7 @@
   <link rel="stylesheet" href="./css/global-theme.css" />
   <link rel="stylesheet" href="./css/services-preview.css" />
   <link rel="stylesheet" href="./css/services.css" />
+  <link rel="stylesheet" href="./css/coverage.css" />
   <link rel="stylesheet" href="./css/results.css" />
   <link rel="stylesheet" href="./css/pipeline-redesign.css" />
   <link rel="stylesheet" href="./css/case-studies-preview.css" />
@@ -724,27 +725,20 @@
       height: 100vh;
     }
 
-    /* Left panel (45%) */
+    /* Left panel (Now full width centered) */
     .s6-left-panel {
-      width: 45%;
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
       height: auto;
-      min-height: 100vh;
       display: flex;
       flex-direction: column;
       justify-content: center;
-      /* 76px top padding = 68px fixed navbar + 8px breathing room */
-      padding: 76px 4% 40px 6%;
+      align-items: center;
+      text-align: center;
+      padding: 100px 48px;
       box-sizing: border-box;
       z-index: 20;
-      pointer-events: auto;
-      opacity: 1;
-      isolation: isolate;
-      /* Hide inner scrollbar to remove separating vertical blue line */
-      scrollbar-width: none; /* Firefox */
-      -ms-overflow-style: none; /* IE/Edge */
-    }
-    .s6-left-panel::-webkit-scrollbar {
-      display: none; /* Chrome/Safari */
     }
 
     .s6-badge {
@@ -1503,13 +1497,7 @@
     </div>
   </section>
 
-<section class="scene-section" id="scene-6-section" data-scene="6">
-    <div style="height:400vh">
-      <div class="scene-sticky">
-        <!-- Container is wrapper to track visible class toggle -->
-        <div class="scene-copy" id="copy-6" style="display:none;"></div>
-
-        <!-- Split Layout Container wrapper inside sticky area -->
+<section id="scene-6-section" style="background: #F2F4F7;">
         <div class="s6-left-panel">
           <div class="s6-badge">AI DATA. ANNOTATED RIGHT.</div>
           <h2 class="s6-title">High Quality Data,<br>For Smarter<br><span>AI Models.</span></h2>
@@ -1517,7 +1505,7 @@
             powering Computer Vision, Generative AI, Physical AI, Robotics and Large Language Models.</p>
 
           <div
-            style="font-size: 13.5px; color: #0c1a30; font-weight: 600; opacity: 0.85; margin-bottom: 28px; display: grid; grid-template-columns: 1fr 1fr; gap: 8px 16px;">
+            style="font-size: 13.5px; color: #0c1a30; font-weight: 600; opacity: 0.85; margin-bottom: 28px; display: flex; justify-content: center; flex-wrap: wrap; gap: 8px 16px;">
             <div>&bull; Image Annotation</div>
             <div>&bull; Video Annotation</div>
             <div>&bull; Audio Annotation</div>
@@ -1528,7 +1516,7 @@
             <div>&bull; Physical AI</div>
           </div>
 
-          <div class="s6-btns">
+          <div class="s6-btns" style="justify-content: center;">
             <a href="#cta-final" class="btn s6-btn-primary">
               Request Pilot
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
@@ -1542,7 +1530,7 @@
             </a>
           </div>
 
-          <div class="s6-stats-grid">
+          <div class="s6-stats-grid" style="justify-content: center;">
             <!-- Stat 1 -->
             <div class="s6-stat-card">
               <div class="s6-stat-icon">
@@ -1601,17 +1589,11 @@
             </div>
           </div>
         </div>
-
-        <div class="s6-right-panel">
-          <canvas class="scene-canvas" id="canvas-6"></canvas>
-        </div>
-      </div>
-    </div>
   </section>
 
   <!-- Modular Component Placeholders -->
   <div id="results-placeholder"></div>
-  <div id="services-placeholder"></div>
+  <div id="coverage-placeholder"></div>
   <div id="pipeline-placeholder"></div>
   <div id="case-studies-placeholder"></div>
   <div id="datasets-placeholder"></div>
@@ -1620,7 +1602,7 @@
 
   <script>
     'use strict';
-    const SCENES = [{ id: 4, frames: 186, folder: '45' }, { id: 6, frames: 100, folder: '6' }];
+    const SCENES = [{ id: 4, frames: 186, folder: '45' }];
     const PAD = n => String(n).padStart(3, '0');
     const FURL = (f, i) => { if (f === '45') { return i <= 90 ? './4/ezgif-frame-' + PAD(i) + '.jpg' : './5/ezgif-frame-' + PAD(i - 90) + '.jpg'; } return './' + f + '/ezgif-frame-' + PAD(i) + '.jpg'; };
     const S = { images: {}, totalLoaded: 0, ready: false };

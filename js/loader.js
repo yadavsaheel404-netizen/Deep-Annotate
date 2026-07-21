@@ -12,6 +12,7 @@ const components = [
   { id: 'intro-placeholder', url: './components/intro.html', init: initIntro },
   { id: 'results-placeholder', url: './components/results.html', init: initResults },
   { id: 'services-placeholder', url: './components/services.html', init: initServices },
+  { id: 'coverage-placeholder', url: './components/coverage.html', init: null },
   { id: 'pipeline-placeholder', url: './components/pipeline.html', init: initPipeline },
   { id: 'case-studies-placeholder', url: './components/case-studies.html', init: null },
   { id: 'datasets-placeholder', url: './components/datasets-preview.html', init: null },

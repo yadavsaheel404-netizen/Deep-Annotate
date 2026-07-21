@@ -3,7 +3,7 @@
 #homepage-hero {
   position: relative;
   width: 100%;
-  min-height: 100vh;
+  padding: 120px 48px 60px;
   display: flex;
   align-items: center;
   overflow: hidden;
@@ -65,18 +65,20 @@
   width: 100%;
   max-width: 1400px;
   margin: 0 auto;
-  padding: 80px 48px 48px;
-  display: grid;
-  grid-template-columns: 46fr 54fr;
-  gap: 60px;
+  padding: 40px 48px 20px;
+  display: flex;
+  flex-direction: column;
   align-items: center;
+  justify-content: center;
 }
 
 /* Left Column styling */
 .hero-left {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  align-items: center;
+  text-align: center;
+  max-width: 900px;
 }
 
 .hero-label {
@@ -108,9 +110,11 @@
 /* Value Props */
 .hero-value-props {
   display: flex;
-  flex-direction: column;
-  gap: 10px;
+  flex-direction: row;
+  justify-content: center;
+  gap: 24px;
   margin-bottom: 32px;
+  flex-wrap: wrap;
 }
 
 .val-prop {
@@ -130,6 +134,7 @@
 /* B2B Action Buttons */
 .hero-ctas {
   display: flex;
+  justify-content: center;
   gap: 16px;
   margin-bottom: 36px;
   flex-wrap: wrap;
@@ -185,11 +190,13 @@
 .hero-trust-indicators {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 12px 20px;
   margin-bottom: 48px;
   border-top: 1px solid rgba(14, 31, 62, 0.08);
   padding-top: 24px;
-  max-width: 620px;
+  max-width: 800px;
+  width: 100%;
 }
 
 .trust-badge {
@@ -202,8 +209,10 @@
 .hero-marquee-wrap {
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 12px;
-  max-width: 620px;
+  max-width: 800px;
+  width: 100%;
   overflow: hidden;
 }
 

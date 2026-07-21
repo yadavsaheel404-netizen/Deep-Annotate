@@ -286,6 +286,102 @@ body {
   color: var(--text-primary);
 }
 
+/* 6. FAQ ACCORDION (Added missing styles) */
+.hiw-faq {
+  padding: 80px 48px;
+  background: var(--bg-deep);
+}
+
+.hiw-faq .section-wrap {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 40px;
+}
+
+.story-badge {
+  display: inline-block;
+  padding: 6px 16px;
+  background: rgba(11, 168, 211, 0.1);
+  color: var(--text-primary);
+  border-radius: 100px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.faq-item {
+  border: 1px solid rgba(11, 168, 211, 0.15);
+  border-radius: 12px;
+  background: rgba(11, 168, 211, 0.02);
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.faq-item:hover, .faq-item.active {
+  border-color: transparent;
+  background: linear-gradient(#FFFFFF, #FFFFFF) padding-box,
+              linear-gradient(90deg, var(--cyan), var(--text-primary)) border-box;
+  box-shadow: 0 12px 32px rgba(11, 168, 211, 0.08);
+}
+
+.faq-trigger {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 32px;
+  background: none;
+  border: none;
+  font-family: var(--font-family);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-primary);
+  text-align: left;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.faq-item:hover .faq-trigger, .faq-item.active .faq-trigger {
+  color: var(--cyan);
+}
+
+.faq-icon {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-primary);
+  transition: transform 0.3s ease, color 0.3s ease;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.faq-item:hover .faq-icon, .faq-item.active .faq-icon {
+  color: var(--cyan);
+}
+
+.faq-panel {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.faq-content {
+  padding: 0 24px 24px 24px;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
 .tl-step-badge {
   display: inline-block;
   padding: 4px 12px;

@@ -175,13 +175,16 @@ function initFAQ() {
       // Close all other panels
       document.querySelectorAll('.faq-panel').forEach(p => p.style.maxHeight = '0px');
       document.querySelectorAll('.faq-icon').forEach(i => i.textContent = '+');
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
       
       if (!isOpen) {
         panel.style.maxHeight = panel.scrollHeight + 'px';
         icon.textContent = '−';
+        item.classList.add('active');
       } else {
         panel.style.maxHeight = '0px';
         icon.textContent = '+';
+        item.classList.remove('active');
       }
     });
   });
