@@ -13,6 +13,7 @@
   <!-- Standalone Services style overrides -->
   <link rel="stylesheet" href="./css/services.css"/>
   <link rel="stylesheet" href="./css/services-redesign.css"/>
+  <link rel="stylesheet" href="./css/sticky-bar.css"/>
   <link rel="stylesheet" href="./css/footer.css"/>
   
   <style>
@@ -560,6 +561,7 @@
 <!-- Scripts -->
 <script type="module">
   import { initServicesRedesign } from './js/services_redesign.js';
+  import { initStickyBottomBar } from './js/sticky_bar.js';
   
   document.addEventListener('DOMContentLoaded', () => {
     // Mount the footer component placeholder dynamically
@@ -573,6 +575,7 @@
     }
     
     initServicesRedesign();
+    initStickyBottomBar();
   });
 </script>
 </body>
