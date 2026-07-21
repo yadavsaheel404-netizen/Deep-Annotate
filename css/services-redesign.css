@@ -177,12 +177,12 @@
 }
 
 .stepper-panel {
-  background: linear-gradient(135deg, #FFFFFF 0%, #EFF8FA 100%);
-  color: var(--navy);
+  background: #FFFFFF !important;
+  color: #0E1F3E !important;
   border-radius: 24px;
   padding: 40px;
-  border: 1px solid var(--cyan-border);
-  box-shadow: 0 20px 50px rgba(14, 31, 62, 0.08);
+  border: 1px solid rgba(11, 168, 211, 0.18) !important;
+  box-shadow: 0 20px 50px rgba(14, 31, 62, 0.08) !important;
   position: relative;
   overflow: hidden;
   min-height: 400px;
@@ -207,27 +207,29 @@
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--cyan);
-  background: rgba(11, 168, 211, 0.08);
-  border: 1px solid rgba(11, 168, 211, 0.2);
+  color: #0BA8D3 !important;
+  background: rgba(11, 168, 211, 0.08) !important;
+  border: 1px solid rgba(11, 168, 211, 0.2) !important;
   padding: 5px 14px;
   border-radius: 100px;
   margin-bottom: 16px;
 }
 
+.stepper-panel h3,
 .stepper-panel-title {
-  font-size: 30px;
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  color: var(--navy);
-  margin-bottom: 12px;
+  font-size: 32px !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.02em !important;
+  color: #0E1F3E !important;
+  margin-bottom: 14px !important;
 }
 
+.stepper-panel p,
 .stepper-panel-desc {
-  font-size: 15px;
-  line-height: 1.65;
-  color: rgba(14, 31, 62, 0.75);
-  margin-bottom: 32px;
+  font-size: 15px !important;
+  line-height: 1.65 !important;
+  color: rgba(14, 31, 62, 0.78) !important;
+  margin-bottom: 32px !important;
   max-width: 600px;
 }
 
@@ -239,8 +241,8 @@
 }
 
 .stepper-stat-card {
-  background: #EFF8FA;
-  border: 1px solid rgba(11, 168, 211, 0.1);
+  background: #EFF8FA !important;
+  border: 1px solid rgba(11, 168, 211, 0.12) !important;
   border-radius: 16px;
   padding: 18px 22px;
 }
@@ -251,14 +253,14 @@
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: rgba(14, 31, 62, 0.5);
+  color: #475569 !important;
   margin-bottom: 4px;
 }
 
 .stepper-stat-val {
-  font-size: 24px;
-  font-weight: 800;
-  color: var(--navy);
+  font-size: 26px !important;
+  font-weight: 800 !important;
+  color: #0E1F3E !important;
   letter-spacing: -0.02em;
 }
 

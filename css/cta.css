@@ -1,104 +1,90 @@
-/* ── FINAL CTA ──────────────────────────────────────────── */
+/* ── FINAL CTA BANNER STYLES ──────────────────────────────────────────── */
+.cta-banner,
 #cta-final {
-  background: #000000;
+  background: #060E1C !important;
+  color: #FFFFFF !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+  padding: 100px 0 !important;
 }
 
 .cta2-wrap {
   max-width: 720px;
   margin: 0 auto;
-  padding: 112px 48px;
+  padding: 80px 48px;
   text-align: center;
 }
 
-.cta2-wrap .eyebrow-mono { color: #0BA8D3; }
+.cta2-wrap .eyebrow-mono,
+.cta-banner .srv-eyebrow-mono {
+  color: #00D4FF !important;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  display: inline-block;
+}
 
-.cta2-headline {
+.cta2-headline,
+.cta-banner h2 {
   font-family: "Inter", sans-serif;
-  font-size: clamp(42px, 5.5vw, 76px);
-  font-weight: 800;
-  color: #ffffff;
-  letter-spacing: -0.05em;
-  line-height: 1.02;
-  margin: 0 0 24px;
+  font-size: clamp(32px, 4.5vw, 56px) !important;
+  font-weight: 800 !important;
+  color: #FFFFFF !important;
+  letter-spacing: -0.03em !important;
+  line-height: 1.15 !important;
+  margin: 0 0 20px !important;
 }
 
-.cta2-sub {
-  font-size: 16px;
-  line-height: 1.65;
-  color: rgba(255,255,255,0.5);
-  max-width: 520px;
-  margin: 0 auto 40px;
+.cta2-sub,
+.cta-banner p {
+  font-size: 16px !important;
+  line-height: 1.65 !important;
+  color: rgba(255, 255, 255, 0.8) !important;
+  max-width: 600px;
+  margin: 0 auto 36px !important;
 }
 
-.cta2-btns {
+.cta2-btns,
+.cta-banner .cta-btns-wrap {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 14px;
-  flex-wrap: wrap;
-  margin-bottom: 32px;
-}
-
-.cta2-btn-primary {
-  display: inline-flex;
-  align-items: center;
-  padding: 14px 36px;
-  background: #0E1F3E;
-  color: #ffffff;
-  font-size: 14px;
-  font-weight: 700;
-  border-radius: 100px;
-  text-decoration: none;
-  letter-spacing: -0.01em;
-  transition: background 0.2s, transform 0.2s;
-  border: 1.5px solid rgba(255,255,255,0.12);
-}
-.cta2-btn-primary:hover {
-  background: #162d56;
-  transform: translateY(-2px);
-}
-
-.cta2-btn-secondary {
-  display: inline-flex;
-  align-items: center;
-  padding: 14px 36px;
-  background: transparent;
-  color: #0BA8D3;
-  font-size: 14px;
-  font-weight: 700;
-  border-radius: 100px;
-  text-decoration: none;
-  letter-spacing: -0.01em;
-  border: 1.5px solid rgba(11,168,211,0.4);
-  transition: border-color 0.2s, background 0.2s, transform 0.2s;
-}
-.cta2-btn-secondary:hover {
-  border-color: #0BA8D3;
-  background: rgba(11,168,211,0.06);
-  transform: translateY(-2px);
-}
-
-.cta2-trust {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
+  gap: 16px;
   flex-wrap: wrap;
 }
 
-.cta2-trust-item {
-  font-size: 12.5px;
-  color: rgba(255,255,255,0.35);
-  letter-spacing: 0.01em;
+.btn-primary-b2b {
+  background: #0BA8D3 !important;
+  color: #FFFFFF !important;
+  border-radius: 100px;
+  padding: 14px 36px;
+  font-weight: 700;
+  text-decoration: none;
+  border: 1px solid #0BA8D3;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 20px rgba(11, 168, 211, 0.3);
 }
 
-.cta2-trust-dot {
-  color: rgba(11,168,211,0.35);
-  font-size: 14px;
+.btn-primary-b2b:hover {
+  background: #00D4FF !important;
+  border-color: #00D4FF !important;
+  box-shadow: 0 6px 24px rgba(0, 212, 255, 0.4);
 }
 
-@media (max-width: 640px) {
-  .cta2-wrap { padding: 80px 24px; }
-  .cta2-btns { flex-direction: column; }
-  .cta2-btn-primary, .cta2-btn-secondary { width: 100%; justify-content: center; }
+.btn-secondary-b2b {
+  background: transparent !important;
+  color: #FFFFFF !important;
+  border-radius: 100px;
+  padding: 14px 36px;
+  font-weight: 700;
+  text-decoration: none;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  transition: all 0.3s ease;
+}
+
+.btn-secondary-b2b:hover {
+  border-color: #FFFFFF !important;
+  background: rgba(255, 255, 255, 0.1) !important;
 }

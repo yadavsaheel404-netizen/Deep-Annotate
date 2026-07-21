@@ -113,284 +113,373 @@
 </header>
 
 <!-- PROCESS TITLE SECTION -->
-<section style="padding-top:40px; text-align:center;">
+<section style="padding: 90px 0 40px 0; text-align: center; background: #060E1C; color: #FFFFFF;">
   <div class="section-wrap">
-    <h2 style="font-size:clamp(28px, 4vw, 48px); font-weight:800; margin-bottom:16px;">The 8-Step Enterprise Pipeline</h2>
-    <p style="color:var(--text-secondary); max-width:600px; margin:0 auto; font-size:16px; line-height:1.6;">Every project follows a structured enterprise workflow designed for quality, transparency, and scalable AI data production.</p>
+    <h2 style="font-size: clamp(28px, 4vw, 48px); font-weight: 800; margin-bottom: 16px; color: #FFFFFF !important;">The 9-Step Enterprise Pipeline</h2>
+    <p style="color: rgba(255, 255, 255, 0.8) !important; max-width: 640px; margin: 0 auto; font-size: 16px; line-height: 1.6;">Every project follows a structured 9-step enterprise workflow designed for quality, transparency, and scalable AI data production.</p>
   </div>
 </section>
 
-<!-- 3. STACKED TIMELINE STORYTELLING SYSTEM -->
+<!-- 3. STACKED TIMELINE STORYTELLING SYSTEM (2-COLUMN GRID) -->
 <section class="hiw-timeline">
   <div class="section-wrap">
-    <div class="tl-stack-wrapper">
+    <div class="hiw-pipeline-grid">
       
-      <!-- Stage 1 -->
-      <div class="tl-stack-card">
-        <div class="tl-col-left">
-          <div class="tl-step-label">STEP 01</div>
-          <h3 class="tl-step-title">Brief Submitted</h3>
-          <span class="tl-step-badge">Day 0</span>
-          <p class="tl-step-desc">Share your data requirements—whether you need data collected, generated, annotated, or all three.</p>
-          <a href="./contact.html" style="color:var(--cyan); font-size:14px; font-weight:700; text-decoration:none; display:inline-flex; align-items:center; gap:6px;">Learn More &rarr;</a>
-        </div>
-        <div class="tl-col-center">
-          <div class="tl-big-number">01</div>
-        </div>
-        <div class="tl-col-right">
-          <div class="tl-info-panel">
-            <div class="tl-panel-title">PROJECT DISCOVERY</div>
-            <ul class="tl-checklist">
-              <li class="tl-check-item">Define data collection &amp; annotation requirements</li>
-              <li class="tl-check-item">Set accuracy targets and SLA expectations</li>
-              <li class="tl-check-item">Specify data types (audio, video, image, text, 3D)</li>
-              <li class="tl-check-item">Agree on delivery formats (JSON, CSV, custom schemas)</li>
-            </ul>
-            <div class="tl-status-row">
-              <span>Status:</span>
-              <span class="tl-status-val">Requirements Locked</span>
+      <!-- LEFT STICKY PIPELINE SIDEBAR (STEP 01 TO STEP 09) -->
+      <div class="hiw-pipeline-sidebar">
+        <div class="hiw-pipeline-header">ENTERPRISE PIPELINE</div>
+        <div class="hiw-pipeline-track">
+          <div class="hiw-pipeline-line"></div>
+          <div class="hiw-pipeline-fill" id="pipeline-progress-fill"></div>
+
+          <button class="hiw-step-nav-btn active" data-step="0">
+            <div class="hiw-nav-badge">01</div>
+            <div class="hiw-nav-text">
+              <span class="hiw-nav-title">Brief Submitted</span>
+              <span class="hiw-nav-sub">Day 0 &bull; Discovery</span>
             </div>
-          </div>
-        </div>
-      </div>
-      
-      <!-- Stage 2 -->
-      <div class="tl-stack-card">
-        <div class="tl-col-left">
-          <div class="tl-step-label">STEP 02</div>
-          <h3 class="tl-step-title">Pod Formed</h3>
-          <span class="tl-step-badge">Day 1</span>
-          <p class="tl-step-desc">We structure a dedicated delivery pod built to align with your project's specific domain context.</p>
-          <a href="./contact.html" style="color:var(--cyan); font-size:14px; font-weight:700; text-decoration:none; display:inline-flex; align-items:center; gap:6px;">Learn More &rarr;</a>
-        </div>
-        <div class="tl-col-center">
-          <div class="tl-big-number">02</div>
-        </div>
-        <div class="tl-col-right">
-          <div class="tl-info-panel">
-            <div class="tl-panel-title">DEDICATED DELIVERY POD</div>
-            <ul class="tl-checklist">
-              <li class="tl-check-item">Domain-matched annotators assigned</li>
-              <li class="tl-check-item">Team Lead onboarded</li>
-              <li class="tl-check-item">QA reviewers assigned</li>
-              <li class="tl-check-item">Secure workspace provisioned</li>
-            </ul>
-            <div class="tl-status-row">
-              <span>Status:</span>
-              <span class="tl-status-val">Team Ready</span>
+          </button>
+
+          <button class="hiw-step-nav-btn" data-step="1">
+            <div class="hiw-nav-badge">02</div>
+            <div class="hiw-nav-text">
+              <span class="hiw-nav-title">Pod Formed</span>
+              <span class="hiw-nav-sub">Day 1 &bull; Pod Assembly</span>
             </div>
-          </div>
-        </div>
-      </div>
-      
-      <!-- Stage 3 -->
-      <div class="tl-stack-card">
-        <div class="tl-col-left">
-          <div class="tl-step-label">STEP 03</div>
-          <h3 class="tl-step-title">Training &amp; Calibration</h3>
-          <span class="tl-step-badge">Day 1–2</span>
-          <p class="tl-step-desc">We calibrate the team on edge cases and guideline details to maximize initial agreement benchmarks.</p>
-          <a href="./contact.html" style="color:var(--cyan); font-size:14px; font-weight:700; text-decoration:none; display:inline-flex; align-items:center; gap:6px;">Learn More &rarr;</a>
-        </div>
-        <div class="tl-col-center">
-          <div class="tl-big-number">03</div>
-        </div>
-        <div class="tl-col-right">
-          <div class="tl-info-panel">
-            <div class="tl-panel-title">TRAINING</div>
-            <ul class="tl-checklist">
-              <li class="tl-check-item">Annotation guideline training</li>
-              <li class="tl-check-item">Calibration exercises</li>
-              <li class="tl-check-item">Agreement benchmarking</li>
-              <li class="tl-check-item">Edge case refinement</li>
-            </ul>
-            <div class="tl-status-row">
-              <span>Status:</span>
-              <span class="tl-status-val">Calibrated</span>
+          </button>
+
+          <button class="hiw-step-nav-btn" data-step="2">
+            <div class="hiw-nav-badge">03</div>
+            <div class="hiw-nav-text">
+              <span class="hiw-nav-title">Training &amp; Calibration</span>
+              <span class="hiw-nav-sub">Day 1–2 &bull; Benchmark</span>
             </div>
-          </div>
-        </div>
-      </div>
-      
-      <!-- Stage 4 -->
-      <div class="tl-stack-card">
-        <div class="tl-col-left">
-          <div class="tl-step-label">STEP 04</div>
-          <h3 class="tl-step-title">Data Acquisition &amp; Capture</h3>
-          <span class="tl-step-badge">Day 2–3</span>
-          <p class="tl-step-desc">We collect custom data or capture specific variables matching your target deployment setups.</p>
-          <a href="./contact.html" style="color:var(--cyan); font-size:14px; font-weight:700; text-decoration:none; display:inline-flex; align-items:center; gap:6px;">Learn More &rarr;</a>
-        </div>
-        <div class="tl-col-center">
-          <div class="tl-big-number">04</div>
-        </div>
-        <div class="tl-col-right">
-          <div class="tl-info-panel">
-            <div class="tl-panel-title">DATA COLLECTION</div>
-            <ul class="tl-checklist">
-              <li class="tl-check-item">Controlled recording environments</li>
-              <li class="tl-check-item">Indoor &amp; outdoor capture</li>
-              <li class="tl-check-item">Multi-device collection</li>
-              <li class="tl-check-item">Real-world simulations</li>
-            </ul>
-            <div class="tl-status-row">
-              <span>Status:</span>
-              <span class="tl-status-val">Collecting</span>
+          </button>
+
+          <button class="hiw-step-nav-btn" data-step="3">
+            <div class="hiw-nav-badge">04</div>
+            <div class="hiw-nav-text">
+              <span class="hiw-nav-title">Data Acquisition</span>
+              <span class="hiw-nav-sub">Day 2–3 &bull; Capture</span>
             </div>
-          </div>
+          </button>
+
+          <button class="hiw-step-nav-btn" data-step="4">
+            <div class="hiw-nav-badge">05</div>
+            <div class="hiw-nav-text">
+              <span class="hiw-nav-title">Preparation &amp; Curation</span>
+              <span class="hiw-nav-sub">Day 3 &bull; Pre-Processing</span>
+            </div>
+          </button>
+
+          <button class="hiw-step-nav-btn" data-step="5">
+            <div class="hiw-nav-badge">06</div>
+            <div class="hiw-nav-text">
+              <span class="hiw-nav-title">Annotation &amp; Labeling</span>
+              <span class="hiw-nav-sub">Day 3–4 &bull; Production</span>
+            </div>
+          </button>
+
+          <button class="hiw-step-nav-btn" data-step="6">
+            <div class="hiw-nav-badge">07</div>
+            <div class="hiw-nav-text">
+              <span class="hiw-nav-title">QA Review &amp; Audit</span>
+              <span class="hiw-nav-sub">Day 4 &bull; Multi-layer Verification</span>
+            </div>
+          </button>
+
+          <button class="hiw-step-nav-btn" data-step="7">
+            <div class="hiw-nav-badge">08</div>
+            <div class="hiw-nav-text">
+              <span class="hiw-nav-title">Analytics &amp; Delivery</span>
+              <span class="hiw-nav-sub">Day 5 &bull; Target Export</span>
+            </div>
+          </button>
+
+          <button class="hiw-step-nav-btn" data-step="8">
+            <div class="hiw-nav-badge">09</div>
+            <div class="hiw-nav-text">
+              <span class="hiw-nav-title">Active Learning Loop</span>
+              <span class="hiw-nav-sub">Continuous &bull; Model Retraining</span>
+            </div>
+          </button>
         </div>
       </div>
 
-      <!-- Stage 5 -->
-      <div class="tl-stack-card">
-        <div class="tl-col-left">
-          <div class="tl-step-label">STEP 05</div>
-          <h3 class="tl-step-title">Data Preparation &amp; Curation</h3>
-          <span class="tl-step-badge">Day 3</span>
-          <p class="tl-step-desc">Raw files are processed, indexed, structured, and loaded into labeling workspaces.</p>
-          <a href="./contact.html" style="color:var(--cyan); font-size:14px; font-weight:700; text-decoration:none; display:inline-flex; align-items:center; gap:6px;">Learn More &rarr;</a>
-        </div>
-        <div class="tl-col-center">
-          <div class="tl-big-number">05</div>
-        </div>
-        <div class="tl-col-right">
-          <div class="tl-info-panel">
-            <div class="tl-panel-title">PROCESSING</div>
-            <ul class="tl-checklist">
-              <li class="tl-check-item">Data trimming</li>
-              <li class="tl-check-item">Noise filtering</li>
-              <li class="tl-check-item">Metadata tagging</li>
-              <li class="tl-check-item">Standardization</li>
-            </ul>
-            <div class="tl-status-row">
-              <span>Status:</span>
-              <span class="tl-status-val">Preparing</span>
+      <!-- RIGHT STACKED CARDS WRAPPER (STEP 01 TO STEP 09) -->
+      <div class="tl-stack-wrapper">
+        
+        <!-- Stage 1 -->
+        <div class="tl-stack-card active" id="hiw-card-0">
+          <div class="tl-col-left">
+            <div class="tl-step-label">STEP 01</div>
+            <h3 class="tl-step-title">Brief Submitted</h3>
+            <span class="tl-step-badge">Day 0</span>
+            <p class="tl-step-desc">Share your data requirements—whether you need custom data collected, generated, annotated, or all three.</p>
+            <a href="./contact.html" style="color:var(--cyan); font-size:13.5px; font-weight:700; text-decoration:none; display:inline-flex; align-items:center; gap:6px;">Learn More &rarr;</a>
+          </div>
+          <div class="tl-col-right">
+            <div class="tl-info-panel">
+              <div class="tl-panel-title">PROJECT DISCOVERY</div>
+              <ul class="tl-checklist">
+                <li class="tl-check-item">Define collection &amp; annotation requirements</li>
+                <li class="tl-check-item">Set accuracy targets and SLA expectations</li>
+                <li class="tl-check-item">Specify data modalities (audio, vision, LiDAR)</li>
+                <li class="tl-check-item">Agree on export formats (COCO, YOLO, ROS2)</li>
+              </ul>
+              <div class="tl-status-row">
+                <span>Status:</span>
+                <span class="tl-status-val">Requirements Locked</span>
+              </div>
             </div>
           </div>
         </div>
+        
+        <!-- Stage 2 -->
+        <div class="tl-stack-card" id="hiw-card-1">
+          <div class="tl-col-left">
+            <div class="tl-step-label">STEP 02</div>
+            <h3 class="tl-step-title">Pod Formed</h3>
+            <span class="tl-step-badge">Day 1</span>
+            <p class="tl-step-desc">We structure a dedicated delivery pod built to align with your project's specific domain context.</p>
+            <a href="./contact.html" style="color:var(--cyan); font-size:13.5px; font-weight:700; text-decoration:none; display:inline-flex; align-items:center; gap:6px;">Learn More &rarr;</a>
+          </div>
+          <div class="tl-col-right">
+            <div class="tl-info-panel">
+              <div class="tl-panel-title">DEDICATED DELIVERY POD</div>
+              <ul class="tl-checklist">
+                <li class="tl-check-item">Domain-matched annotators assigned</li>
+                <li class="tl-check-item">Team Lead onboarded</li>
+                <li class="tl-check-item">QA reviewers assigned</li>
+                <li class="tl-check-item">Secure workspace provisioned</li>
+              </ul>
+              <div class="tl-status-row">
+                <span>Status:</span>
+                <span class="tl-status-val">Team Ready</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Stage 3 -->
+        <div class="tl-stack-card" id="hiw-card-2">
+          <div class="tl-col-left">
+            <div class="tl-step-label">STEP 03</div>
+            <h3 class="tl-step-title">Training &amp; Calibration</h3>
+            <span class="tl-step-badge">Day 1–2</span>
+            <p class="tl-step-desc">We calibrate the team on edge cases and guideline details to maximize initial agreement benchmarks.</p>
+            <a href="./contact.html" style="color:var(--cyan); font-size:13.5px; font-weight:700; text-decoration:none; display:inline-flex; align-items:center; gap:6px;">Learn More &rarr;</a>
+          </div>
+          <div class="tl-col-right">
+            <div class="tl-info-panel">
+              <div class="tl-panel-title">CALIBRATION &amp; BENCHMARK</div>
+              <ul class="tl-checklist">
+                <li class="tl-check-item">Annotation guideline training</li>
+                <li class="tl-check-item">Calibration exercises</li>
+                <li class="tl-check-item">Agreement benchmarking</li>
+                <li class="tl-check-item">Edge case refinement</li>
+              </ul>
+              <div class="tl-status-row">
+                <span>Status:</span>
+                <span class="tl-status-val">Calibrated</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Stage 4 -->
+        <div class="tl-stack-card" id="hiw-card-3">
+          <div class="tl-col-left">
+            <div class="tl-step-label">STEP 04</div>
+            <h3 class="tl-step-title">Data Acquisition &amp; Capture</h3>
+            <span class="tl-step-badge">Day 2–3</span>
+            <p class="tl-step-desc">We collect custom data or capture specific variables matching your target deployment setups.</p>
+            <a href="./contact.html" style="color:var(--cyan); font-size:13.5px; font-weight:700; text-decoration:none; display:inline-flex; align-items:center; gap:6px;">Learn More &rarr;</a>
+          </div>
+          <div class="tl-col-right">
+            <div class="tl-info-panel">
+              <div class="tl-panel-title">DATA ACQUISITION</div>
+              <ul class="tl-checklist">
+                <li class="tl-check-item">Controlled recording environments</li>
+                <li class="tl-check-item">Indoor &amp; outdoor capture</li>
+                <li class="tl-check-item">Multi-device collection</li>
+                <li class="tl-check-item">Real-world simulations</li>
+              </ul>
+              <div class="tl-status-row">
+                <span>Status:</span>
+                <span class="tl-status-val">Collecting</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stage 5 -->
+        <div class="tl-stack-card" id="hiw-card-4">
+          <div class="tl-col-left">
+            <div class="tl-step-label">STEP 05</div>
+            <h3 class="tl-step-title">Preparation &amp; Curation</h3>
+            <span class="tl-step-badge">Day 3</span>
+            <p class="tl-step-desc">Raw files are processed, indexed, structured, and loaded into labeling workspaces.</p>
+            <a href="./contact.html" style="color:var(--cyan); font-size:13.5px; font-weight:700; text-decoration:none; display:inline-flex; align-items:center; gap:6px;">Learn More &rarr;</a>
+          </div>
+          <div class="tl-col-right">
+            <div class="tl-info-panel">
+              <div class="tl-panel-title">PRE-PROCESSING</div>
+              <ul class="tl-checklist">
+                <li class="tl-check-item">Data trimming &amp; cleaning</li>
+                <li class="tl-check-item">Noise filtering</li>
+                <li class="tl-check-item">Metadata tagging</li>
+                <li class="tl-check-item">Schema standardization</li>
+              </ul>
+              <div class="tl-status-row">
+                <span>Status:</span>
+                <span class="tl-status-val">Preparing</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stage 6 -->
+        <div class="tl-stack-card" id="hiw-card-5">
+          <div class="tl-col-left">
+            <div class="tl-step-label">STEP 06</div>
+            <h3 class="tl-step-title">Annotation &amp; Labeling</h3>
+            <span class="tl-step-badge">Day 3–4</span>
+            <p class="tl-step-desc">Our specialists apply frame tracking, transcription, pixel-segmentation masks, or LLM rankings.</p>
+            <a href="./contact.html" style="color:var(--cyan); font-size:13.5px; font-weight:700; text-decoration:none; display:inline-flex; align-items:center; gap:6px;">Learn More &rarr;</a>
+          </div>
+          <div class="tl-col-right">
+            <div class="tl-info-panel">
+              <div class="tl-panel-title">ANNOTATION PRODUCTION</div>
+              <ul class="tl-checklist">
+                <li class="tl-check-item">Parallel annotation pods</li>
+                <li class="tl-check-item">Live progress monitoring</li>
+                <li class="tl-check-item">Daily milestone reporting</li>
+                <li class="tl-check-item">Edge case handling</li>
+              </ul>
+              <div class="tl-status-row">
+                <span>Status:</span>
+                <span class="tl-status-val">In Progress</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stage 7 -->
+        <div class="tl-stack-card" id="hiw-card-6">
+          <div class="tl-col-left">
+            <div class="tl-step-label">STEP 07</div>
+            <h3 class="tl-step-title">QA Review &amp; Audit</h3>
+            <span class="tl-step-badge">Day 4</span>
+            <p class="tl-step-desc">Automated validation checks run alongside senior expert review procedures to hit 99.2% SLA.</p>
+            <a href="./contact.html" style="color:var(--cyan); font-size:13.5px; font-weight:700; text-decoration:none; display:inline-flex; align-items:center; gap:6px;">Learn More &rarr;</a>
+          </div>
+          <div class="tl-col-right">
+            <div class="tl-info-panel">
+              <div class="tl-panel-title">QUALITY AUDIT</div>
+              <ul class="tl-checklist">
+                <li class="tl-check-item">Automated validation rules</li>
+                <li class="tl-check-item">Human QA sampling</li>
+                <li class="tl-check-item">Consensus review</li>
+                <li class="tl-check-item">Accuracy benchmarking</li>
+              </ul>
+              <div class="tl-status-row">
+                <span>Status:</span>
+                <span class="tl-status-val">Verified SLA</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stage 8 -->
+        <div class="tl-stack-card" id="hiw-card-7">
+          <div class="tl-col-left">
+            <div class="tl-step-label">STEP 08</div>
+            <h3 class="tl-step-title">Analytics &amp; Delivery</h3>
+            <span class="tl-step-badge">Day 5</span>
+            <p class="tl-step-desc">Deliver final structured files securely to your destination target database formats.</p>
+            <a href="./contact.html" style="color:var(--cyan); font-size:13.5px; font-weight:700; text-decoration:none; display:inline-flex; align-items:center; gap:6px;">Learn More &rarr;</a>
+          </div>
+          <div class="tl-col-right">
+            <div class="tl-info-panel">
+              <div class="tl-panel-title">FINAL DELIVERY</div>
+              <ul class="tl-checklist">
+                <li class="tl-check-item">Final dataset delivery</li>
+                <li class="tl-check-item">Comprehensive QA reports</li>
+                <li class="tl-check-item">Schema documentation</li>
+                <li class="tl-check-item">Client feedback review</li>
+              </ul>
+              <div class="tl-status-row">
+                <span>Status:</span>
+                <span class="tl-status-val">Delivered</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stage 9 -->
+        <div class="tl-stack-card" id="hiw-card-8">
+          <div class="tl-col-left">
+            <div class="tl-step-label">STEP 09</div>
+            <h3 class="tl-step-title">Active Learning Loop</h3>
+            <span class="tl-step-badge">Ongoing</span>
+            <p class="tl-step-desc">Continuous feedback loops ingest model failure modes for iterative retraining and fine-tuning.</p>
+            <a href="./contact.html" style="color:var(--cyan); font-size:13.5px; font-weight:700; text-decoration:none; display:inline-flex; align-items:center; gap:6px;">Learn More &rarr;</a>
+          </div>
+          <div class="tl-col-right">
+            <div class="tl-info-panel">
+              <div class="tl-panel-title">MODEL RETRAINING LOOP</div>
+              <ul class="tl-checklist">
+                <li class="tl-check-item">Production failure mode ingestion</li>
+                <li class="tl-check-item">Uncertainty sampling</li>
+                <li class="tl-check-item">Targeted re-annotation</li>
+                <li class="tl-check-item">Model accuracy benchmarking</li>
+              </ul>
+              <div class="tl-status-row">
+                <span>Status:</span>
+                <span class="tl-status-val">Active Loop</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
 
-      <!-- Stage 6 -->
-      <div class="tl-stack-card">
-        <div class="tl-col-left">
-          <div class="tl-step-label">STEP 06</div>
-          <h3 class="tl-step-title">Annotation &amp; Labeling</h3>
-          <span class="tl-step-badge">Day 3–4</span>
-          <p class="tl-step-desc">Our specialists apply frame tracking, transcription, pixel-segmentation masks, or LLM rankings.</p>
-          <a href="./contact.html" style="color:var(--cyan); font-size:14px; font-weight:700; text-decoration:none; display:inline-flex; align-items:center; gap:6px;">Learn More &rarr;</a>
-        </div>
-        <div class="tl-col-center">
-          <div class="tl-big-number">06</div>
-        </div>
-        <div class="tl-col-right">
-          <div class="tl-info-panel">
-            <div class="tl-panel-title">ANNOTATION</div>
-            <ul class="tl-checklist">
-              <li class="tl-check-item">Parallel annotation</li>
-              <li class="tl-check-item">Live progress monitoring</li>
-              <li class="tl-check-item">Daily reporting</li>
-              <li class="tl-check-item">Edge case handling</li>
-            </ul>
-            <div class="tl-status-row">
-              <span>Status:</span>
-              <span class="tl-status-val">In Progress</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Stage 7 -->
-      <div class="tl-stack-card">
-        <div class="tl-col-left">
-          <div class="tl-step-label">STEP 07</div>
-          <h3 class="tl-step-title">QA Review</h3>
-          <span class="tl-step-badge">Day 4</span>
-          <p class="tl-step-desc">Automated validation checks run alongside senior expert review procedures.</p>
-          <a href="./contact.html" style="color:var(--cyan); font-size:14px; font-weight:700; text-decoration:none; display:inline-flex; align-items:center; gap:6px;">Learn More &rarr;</a>
-        </div>
-        <div class="tl-col-center">
-          <div class="tl-big-number">07</div>
-        </div>
-        <div class="tl-col-right">
-          <div class="tl-info-panel">
-            <div class="tl-panel-title">QUALITY ASSURANCE</div>
-            <ul class="tl-checklist">
-              <li class="tl-check-item">Automated validation</li>
-              <li class="tl-check-item">Human QA</li>
-              <li class="tl-check-item">Consensus review</li>
-              <li class="tl-check-item">Accuracy benchmark</li>
-            </ul>
-            <div class="tl-status-row">
-              <span>Status:</span>
-              <span class="tl-status-val">Verified</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Stage 8 -->
-      <div class="tl-stack-card">
-        <div class="tl-col-left">
-          <div class="tl-step-label">STEP 08</div>
-          <h3 class="tl-step-title">Analytics &amp; Delivery</h3>
-          <span class="tl-step-badge">Day 5</span>
-          <p class="tl-step-desc">Deliver final structured files securely to your destination target database formats.</p>
-          <a href="./contact.html" style="color:var(--cyan); font-size:14px; font-weight:700; text-decoration:none; display:inline-flex; align-items:center; gap:6px;">Learn More &rarr;</a>
-        </div>
-        <div class="tl-col-center">
-          <div class="tl-big-number">08</div>
-        </div>
-        <div class="tl-col-right">
-          <div class="tl-info-panel">
-            <div class="tl-panel-title">DELIVERY</div>
-            <ul class="tl-checklist">
-              <li class="tl-check-item">Final dataset</li>
-              <li class="tl-check-item">QA reports</li>
-              <li class="tl-check-item">Documentation</li>
-              <li class="tl-check-item">Feedback loop</li>
-            </ul>
-            <div class="tl-status-row">
-              <span>Status:</span>
-              <span class="tl-status-val">Delivered</span>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 </section>
 
 <!-- 4. WHY COMPANIES CHOOSE DEEPANNOTATE -->
-<section class="hiw-choose-section">
+<section class="hiw-choose-section" style="background: linear-gradient(180deg, #EFF8FA 0%, #F6FCFD 100%); padding: 110px 0;">
   <div class="section-wrap">
     <div style="text-align:center;margin-bottom:56px;">
-      <p class="story-badge" style="margin-bottom:12px;">Why Teams Choose DeepAnnotate</p>
-      <h2 style="font-size:36px;font-weight:800;">Built for Scale. Verified by Experts.</h2>
+      <span style="display:inline-block; font-family:'IBM Plex Mono', monospace; font-size:11px; font-weight:700; color:#0BA8D3; background:rgba(11,168,211,0.1); border:1px solid rgba(11,168,211,0.2); border-radius:100px; padding:6px 16px; margin-bottom:14px; text-transform:uppercase; letter-spacing:0.12em;">Why Teams Choose DeepAnnotate</span>
+      <h2 style="font-size:clamp(28px, 3.8vw, 42px); font-weight:800; color:#0E1F3E !important;">Built for Scale. Verified by Experts.</h2>
     </div>
     <div class="choose-grid">
-      <div class="cap-card">
-        <h4 style="font-size:19px;font-weight:700;margin-bottom:12px;">Domain Experts</h4>
-        <p style="font-size:14.5px;line-height:1.6;color:var(--text-secondary);">Your data is processed by vetted specialists, not click-workers, matching your target domain.</p>
+      <div class="cap-card" style="background:#FFFFFF; border:1px solid rgba(11,168,211,0.15); border-radius:16px; padding:28px; box-shadow:0 8px 24px rgba(14,31,62,0.04);">
+        <h4 style="font-size:19px; font-weight:700; margin-bottom:12px; color:#0E1F3E !important;">Domain Experts</h4>
+        <p style="font-size:14.5px; line-height:1.6; color:rgba(14,31,62,0.75) !important;">Your data is processed by vetted specialists, not click-workers, matching your target domain.</p>
       </div>
-      <div class="cap-card">
-        <h4 style="font-size:19px;font-weight:700;margin-bottom:12px;">Security First</h4>
-        <p style="font-size:14.5px;line-height:1.6;color:var(--text-secondary);">SOC 2, ISO 27001, and HIPAA-compliant infrastructures ensure absolute security for your assets.</p>
+      <div class="cap-card" style="background:#FFFFFF; border:1px solid rgba(11,168,211,0.15); border-radius:16px; padding:28px; box-shadow:0 8px 24px rgba(14,31,62,0.04);">
+        <h4 style="font-size:19px; font-weight:700; margin-bottom:12px; color:#0E1F3E !important;">Security First</h4>
+        <p style="font-size:14.5px; line-height:1.6; color:rgba(14,31,62,0.75) !important;">SOC 2, ISO 27001, and HIPAA-compliant infrastructures ensure absolute security for your assets.</p>
       </div>
-      <div class="cap-card">
-        <h4 style="font-size:19px;font-weight:700;margin-bottom:12px;">API Integration</h4>
-        <p style="font-size:14.5px;line-height:1.6;color:var(--text-secondary);">Automate workflows by integrating with your cloud platforms and orchestrators directly.</p>
+      <div class="cap-card" style="background:#FFFFFF; border:1px solid rgba(11,168,211,0.15); border-radius:16px; padding:28px; box-shadow:0 8px 24px rgba(14,31,62,0.04);">
+        <h4 style="font-size:19px; font-weight:700; margin-bottom:12px; color:#0E1F3E !important;">API Integration</h4>
+        <p style="font-size:14.5px; line-height:1.6; color:rgba(14,31,62,0.75) !important;">Automate workflows by integrating with your cloud platforms and orchestrators directly.</p>
       </div>
-      <div class="cap-card">
-        <h4 style="font-size:19px;font-weight:700;margin-bottom:12px;">Active Learning Loop</h4>
-        <p style="font-size:14.5px;line-height:1.6;color:var(--text-secondary);">Build active feedback systems to iterate and label complex edge cases faster.</p>
+      <div class="cap-card" style="background:#FFFFFF; border:1px solid rgba(11,168,211,0.15); border-radius:16px; padding:28px; box-shadow:0 8px 24px rgba(14,31,62,0.04);">
+        <h4 style="font-size:19px; font-weight:700; margin-bottom:12px; color:#0E1F3E !important;">Active Learning Loop</h4>
+        <p style="font-size:14.5px; line-height:1.6; color:rgba(14,31,62,0.75) !important;">Build active feedback systems to iterate and label complex edge cases faster.</p>
       </div>
-      <div class="cap-card">
-        <h4 style="font-size:19px;font-weight:700;margin-bottom:12px;">Multi-layer Review</h4>
-        <p style="font-size:14.5px;line-height:1.6;color:var(--text-secondary);">Multi-stage consensus algorithms ensure near-perfect quality output targets.</p>
+      <div class="cap-card" style="background:#FFFFFF; border:1px solid rgba(11,168,211,0.15); border-radius:16px; padding:28px; box-shadow:0 8px 24px rgba(14,31,62,0.04);">
+        <h4 style="font-size:19px; font-weight:700; margin-bottom:12px; color:#0E1F3E !important;">Multi-layer Review</h4>
+        <p style="font-size:14.5px; line-height:1.6; color:rgba(14,31,62,0.75) !important;">Multi-stage consensus algorithms ensure near-perfect quality output targets.</p>
       </div>
-      <div class="cap-card">
-        <h4 style="font-size:19px;font-weight:700;margin-bottom:12px;">Elastic Scaling</h4>
-        <p style="font-size:14.5px;line-height:1.6;color:var(--text-secondary);">Scale pipeline resources up or down seamlessly based on annotation throughput needs.</p>
+      <div class="cap-card" style="background:#FFFFFF; border:1px solid rgba(11,168,211,0.15); border-radius:16px; padding:28px; box-shadow:0 8px 24px rgba(14,31,62,0.04);">
+        <h4 style="font-size:19px; font-weight:700; margin-bottom:12px; color:#0E1F3E !important;">Elastic Scaling</h4>
+        <p style="font-size:14.5px; line-height:1.6; color:rgba(14,31,62,0.75) !important;">Scale pipeline resources up or down seamlessly based on annotation throughput needs.</p>
       </div>
     </div>
   </div>

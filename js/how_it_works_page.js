@@ -35,16 +35,32 @@ function initCardStacking() {
   window.addEventListener('resize', cachePositions);
   window.addEventListener('load', cachePositions);
 
+  const navBtns = document.querySelectorAll('.hiw-step-nav-btn');
+  const fillLine = document.getElementById('pipeline-progress-fill');
+
+  // Click handler to smooth scroll to corresponding card
+  navBtns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const stepIdx = parseInt(btn.getAttribute('data-step') || '0', 10);
+      const targetCard = document.getElementById(`hiw-card-${stepIdx}`);
+      if (targetCard) {
+        const targetTop = targetCard.getBoundingClientRect().top + window.scrollY - 110;
+        window.scrollTo({ top: targetTop, behavior: 'smooth' });
+      }
+    });
+  });
+
   const handleScroll = () => {
     const scrollY = window.scrollY;
     const triggerPos = window.innerHeight * 0.25;
+    let activeIndex = 0;
     
     cards.forEach((card, idx) => {
-      // Calculate current card top relative to viewport without querying DOM
       const cardViewportTop = (wrapperTop + cachedOffsets[idx]) - scrollY;
       
       if (cardViewportTop <= triggerPos + 20) {
         card.classList.add('active');
+        activeIndex = idx;
         
         if (idx < cards.length - 1) {
           const nextCardViewportTop = (wrapperTop + cachedOffsets[idx + 1]) - scrollY;
@@ -69,6 +85,20 @@ function initCardStacking() {
         card.style.transform = 'translate3d(0, 0, 0) scale(1)';
       }
     });
+
+    // Update left pipeline sidebar active state and progress fill line
+    navBtns.forEach((btn, idx) => {
+      if (idx === activeIndex) {
+        btn.classList.add('active');
+      } else {
+        btn.classList.remove('active');
+      }
+    });
+
+    if (fillLine && cards.length > 1) {
+      const fillPct = (activeIndex / (cards.length - 1)) * 100;
+      fillLine.style.height = `${fillPct}%`;
+    }
     
     ticking = false;
   };
