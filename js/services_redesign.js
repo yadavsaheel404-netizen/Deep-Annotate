@@ -92,7 +92,6 @@ function initPipelineStepper() {
     activeIndex = index;
     const itemData = STEPPER_DATA[index];
 
-    // Update active button list styling
     const buttons = listContainer.querySelectorAll('.stepper-item');
     buttons.forEach((btn, idx) => {
       if (idx === index) {
@@ -104,7 +103,6 @@ function initPipelineStepper() {
       }
     });
 
-    // Animate content swap
     if (animate) {
       panelWrapper.classList.add('animating');
       setTimeout(() => {
@@ -115,7 +113,6 @@ function initPipelineStepper() {
       updatePanelDOM(itemData);
     }
 
-    // Update horizontal progress bar width (16.6% -> 100%)
     const pct = ((index + 1) / STEPPER_DATA.length) * 100;
     progressBar.style.width = `${pct}%`;
   };
@@ -138,7 +135,6 @@ function initPipelineStepper() {
     `;
   };
 
-  // Build list buttons
   listContainer.innerHTML = STEPPER_DATA.map((item, idx) => `
     <button class="stepper-item ${idx === 0 ? 'active' : ''}" data-idx="${idx}" aria-selected="${idx === 0 ? 'true' : 'false'}">
       <div class="stepper-num">${item.num}</div>
@@ -149,7 +145,6 @@ function initPipelineStepper() {
     </button>
   `).join('');
 
-  // Add event listeners
   const buttons = listContainer.querySelectorAll('.stepper-item');
   buttons.forEach((btn, idx) => {
     btn.addEventListener('click', () => {
@@ -172,7 +167,6 @@ function initPipelineStepper() {
     });
   });
 
-  // Auto-advance timer (every 6 seconds)
   const startAutoAdvance = () => {
     stopAutoAdvance();
     autoAdvanceTimer = setInterval(() => {
@@ -193,7 +187,6 @@ function initPipelineStepper() {
     stepperGrid.addEventListener('mouseleave', () => { isUserInteracting = false; });
   }
 
-  // Initial render
   renderStep(0, false);
   startAutoAdvance();
 }
@@ -216,40 +209,34 @@ function initAnnotationDemo() {
       id: 'person_standing',
       class: 'Person',
       rect: { x: 60, y: 110, w: 110, h: 220 },
-      depthVal: 0.9, // Near (warm)
       anchors: [{ x: 115, y: 140 }, { x: 115, y: 200 }, { x: 100, y: 300 }]
     },
     {
       id: 'robot_arm',
       class: 'Robot',
       rect: { x: 260, y: 130, w: 150, h: 200 },
-      depthVal: 0.6, // Mid-depth
       anchors: [{ x: 335, y: 160 }, { x: 335, y: 220 }, { x: 335, y: 290 }]
     },
     {
       id: 'crate_pallet',
       class: 'Object',
       rect: { x: 480, y: 220, w: 160, h: 110 },
-      depthVal: 0.3, // Far
       anchors: [{ x: 560, y: 240 }, { x: 560, y: 290 }]
     },
     {
       id: 'person_crouched',
       class: 'Person',
       rect: { x: 480, y: 60, w: 90, h: 120 },
-      depthVal: 0.2, // Far
       anchors: [{ x: 525, y: 80 }, { x: 525, y: 120 }]
     },
     {
       id: 'conveyor_surface',
       class: 'Surface',
       rect: { x: 240, y: 340, w: 200, h: 40 },
-      depthVal: 0.95, // Closest
       anchors: [{ x: 340, y: 360 }]
     }
   ];
 
-  // Starts with EMPTY annotations on load (0 count)
   let annotations = [];
   let history = [JSON.stringify(annotations)];
 
@@ -259,7 +246,6 @@ function initAnnotationDemo() {
   let polyPoints = [];
   let hasInteracted = false;
 
-  // Set canvas resolution
   const resizeCanvas = () => {
     const rect = canvas.getBoundingClientRect();
     canvas.width = rect.width * (window.devicePixelRatio || 1);
@@ -269,7 +255,6 @@ function initAnnotationDemo() {
 
   window.addEventListener('resize', resizeCanvas);
 
-  // Class Colors & Contrast Settings
   const CLASS_COLORS = {
     Person: '#3B82F6',   // Blue
     Robot: '#8B5CF6',    // Violet
@@ -280,7 +265,7 @@ function initAnnotationDemo() {
   const CLASS_TEXT_COLORS = {
     Person: '#FFFFFF',
     Robot: '#FFFFFF',
-    Object: '#1F2937',   // Dark text for high contrast on Amber!
+    Object: '#1F2937',   // Dark text for contrast on Amber
     Surface: '#FFFFFF'
   };
 
@@ -305,7 +290,6 @@ function initAnnotationDemo() {
     drawCanvas();
   };
 
-  // First-View Hint Prompt Management
   const hideHintPrompt = () => {
     if (!hasInteracted) {
       hasInteracted = true;
@@ -321,7 +305,6 @@ function initAnnotationDemo() {
     hasInteracted = true;
   }
 
-  // Floating Micro Toast for Empty Space Clicks
   const showEmptyToast = (x, y) => {
     const rect = canvas.getBoundingClientRect();
     const toast = document.createElement('div');
@@ -334,26 +317,7 @@ function initAnnotationDemo() {
     setTimeout(() => toast.remove(), 1600);
   };
 
-  // Sensor View Legend Bar Update
-  const updateSensorLegend = () => {
-    const existing = document.getElementById('sensor-legend-bar');
-    if (existing) existing.remove();
-
-    if (currentSensor === 'depth' || currentSensor === 'thermal') {
-      const bar = document.createElement('div');
-      bar.className = 'sensor-legend-bar';
-      bar.id = 'sensor-legend-bar';
-
-      if (currentSensor === 'depth') {
-        bar.innerHTML = `<span>NEAR</span><div class="sensor-scale-ramp depth-scale"></div><span>FAR</span>`;
-      } else {
-        bar.innerHTML = `<span>COLD</span><div class="sensor-scale-ramp thermal-scale"></div><span>HOT</span>`;
-      }
-      canvas.parentElement.appendChild(bar);
-    }
-  };
-
-  // Draw Background Scene with Grounding Shadows & Real Sensor Visualizations
+  // Draw Background Scene matching Reference Screenshots Exactly
   const drawBackground = () => {
     const w = canvas.width;
     const h = canvas.height;
@@ -365,7 +329,7 @@ function initAnnotationDemo() {
     const ledAlpha = prefersReducedMotion ? 1 : 0.4 + Math.sin(now * 0.005) * 0.6;
 
     if (currentSensor === 'scene') {
-      // 1. Room Depth Environment
+      // 1. Scene View Background
       const bgGrad = ctx.createLinearGradient(0, 0, 0, h);
       bgGrad.addColorStop(0, '#F1F5F9');
       bgGrad.addColorStop(0.7, '#E2E8F0');
@@ -391,9 +355,9 @@ function initAnnotationDemo() {
         ctx.fill();
       };
 
-      drawShadow(115, 335, 45, 10); // Standing Human shadow
-      drawShadow(335, 335, 75, 14); // Robot shadow
-      drawShadow(560, 335, 85, 12); // Crate shadow
+      drawShadow(115, 335, 45, 10);
+      drawShadow(335, 335, 75, 14);
+      drawShadow(560, 335, 85, 12);
 
       // Conveyor Surface (Bottom Center)
       ctx.fillStyle = '#94A3B8';
@@ -404,11 +368,11 @@ function initAnnotationDemo() {
       // Standing Human (Left: x=60..170)
       ctx.fillStyle = '#64748B';
       ctx.beginPath();
-      ctx.arc(115 * scale + swayOffset, 140 * scale, 18 * scale, 0, Math.PI * 2); // Head
+      ctx.arc(115 * scale + swayOffset, 140 * scale, 18 * scale, 0, Math.PI * 2);
       ctx.fill();
-      ctx.fillRect(100 * scale + swayOffset, 163 * scale, 30 * scale, 95 * scale); // Torso
-      ctx.fillRect(96 * scale + swayOffset, 258 * scale, 14 * scale, 72 * scale); // Leg L
-      ctx.fillRect(118 * scale + swayOffset, 258 * scale, 14 * scale, 72 * scale); // Leg R
+      ctx.fillRect(100 * scale + swayOffset, 163 * scale, 30 * scale, 95 * scale);
+      ctx.fillRect(96 * scale + swayOffset, 258 * scale, 14 * scale, 72 * scale);
+      ctx.fillRect(118 * scale + swayOffset, 258 * scale, 14 * scale, 72 * scale);
 
       // Crouched Human (Top Right: x=480..570)
       ctx.fillStyle = '#64748B';
@@ -420,8 +384,8 @@ function initAnnotationDemo() {
 
       // Robot Unit with Sensor Eye (Center: x=260..410)
       ctx.fillStyle = '#475569';
-      ctx.fillRect(270 * scale, 250 * scale, 130 * scale, 80 * scale); // Chassis
-      ctx.fillRect(290 * scale, 315 * scale, 90 * scale, 15 * scale); // Treads
+      ctx.fillRect(270 * scale, 250 * scale, 130 * scale, 80 * scale);
+      ctx.fillRect(290 * scale, 315 * scale, 90 * scale, 15 * scale);
 
       ctx.beginPath();
       ctx.arc(335 * scale, 210 * scale, 22 * scale, 0, Math.PI * 2);
@@ -442,51 +406,78 @@ function initAnnotationDemo() {
       ctx.strokeRect(480 * scale, 230 * scale, 160 * scale, 100 * scale);
 
     } else if (currentSensor === 'depth') {
-      // Real Depth Sensor Jet Colormap (Warm = Near, Cool = Far)
-      ctx.fillStyle = '#0F172A'; // Far background
+      // 2. Depth Map View (Exactly like Screenshot 1 Reference)
+      // Concentric Radial Heat Gradient centered on Canvas
+      const cx = w / 2;
+      const cy = h / 2;
+      const radGrad = ctx.createRadialGradient(cx, cy, 10 * scale, cx, cy, w * 0.75);
+      
+      radGrad.addColorStop(0, '#EF4444');    // Center: Red / Pink (NEAR)
+      radGrad.addColorStop(0.18, '#EC4899');
+      radGrad.addColorStop(0.38, '#F97316'); // Orange / Yellow
+      radGrad.addColorStop(0.55, '#EAB308');
+      radGrad.addColorStop(0.72, '#84CC16'); // Green / Emerald
+      radGrad.addColorStop(0.88, '#06B6D4'); // Cyan / Blue (FAR)
+      radGrad.addColorStop(1, '#2563EB');
+
+      ctx.fillStyle = radGrad;
       ctx.fillRect(0, 0, w, h);
 
-      // Depth Silhouettes per depthVal
-      SCENE_FIGURES.forEach((fig) => {
-        const { x, y, w: fw, h: fh } = fig.rect;
-        const val = fig.depthVal;
+      // Header Text Overlay (Matching Screenshot 1)
+      ctx.font = `bold ${10 * scale}px "IBM Plex Mono", monospace`;
+      ctx.fillStyle = '#FFFFFF';
+      ctx.fillText('NEAR', 20 * scale, 26 * scale);
 
-        // Color ramp map: 1.0 = Yellow/White (Closest), 0.6 = Orange, 0.3 = Indigo/Dark Blue (Far)
-        let color = '#4338CA';
-        if (val > 0.8) color = '#FACC15';
-        else if (val > 0.5) color = '#F97316';
+      ctx.font = `bold ${11 * scale}px "IBM Plex Mono", monospace`;
+      ctx.fillStyle = '#FACC15';
+      ctx.textAlign = 'center';
+      ctx.fillText('DEPTH MAP VIEW', w / 2, 26 * scale);
 
-        ctx.fillStyle = color;
-        ctx.fillRect(x * scale, y * scale, fw * scale, fh * scale);
-      });
+      ctx.font = `bold ${10 * scale}px "IBM Plex Mono", monospace`;
+      ctx.fillStyle = '#FFFFFF';
+      ctx.textAlign = 'right';
+      ctx.fillText('FAR', w - 20 * scale, 26 * scale);
+      ctx.textAlign = 'left'; // Reset alignment
 
     } else if (currentSensor === 'thermal') {
-      // Real Thermal Camera Visualization (FLIR Ironbow Heat Signature)
-      ctx.fillStyle = '#050B14';
+      // 3. Thermal IR View (Exactly like Screenshot 2 Reference)
+      // Dark Navy Background
+      ctx.fillStyle = '#070B19';
       ctx.fillRect(0, 0, w, h);
 
-      const drawHeatBlob = (cx, cy, rx, ry, color1, color2) => {
-        const bg = ctx.createRadialGradient(cx, cy, 5, cx, cy, rx);
-        bg.addColorStop(0, color1);
-        bg.addColorStop(0.65, color2);
-        bg.addColorStop(1, 'transparent');
-        ctx.fillStyle = bg;
+      // Header Text Overlay (Matching Screenshot 2)
+      ctx.font = `bold ${11 * scale}px "IBM Plex Mono", monospace`;
+      ctx.fillStyle = '#FACC15';
+      ctx.textAlign = 'center';
+      ctx.fillText('THERMAL IR VIEW', w / 2, 26 * scale);
+      ctx.textAlign = 'left'; // Reset alignment
+
+      // Radial Heat Blobs (Matching Thermal Camera Output in Reference)
+      const drawThermalHeatBlob = (bx, by, radius, tempText) => {
+        const hg = ctx.createRadialGradient(bx * scale, by * scale, 2 * scale, bx * scale, by * scale, radius * scale);
+        hg.addColorStop(0, '#FFFFFF');        // White core
+        hg.addColorStop(0.25, '#FACC15');     // Yellow
+        hg.addColorStop(0.55, '#F97316');     // Orange / Red
+        hg.addColorStop(0.85, 'rgba(239, 68, 68, 0.4)');
+        hg.addColorStop(1, 'transparent');
+
+        ctx.fillStyle = hg;
         ctx.beginPath();
-        ctx.ellipse(cx, cy, rx, ry, 0, 0, Math.PI * 2);
+        ctx.arc(bx * scale, by * scale, radius * scale, 0, Math.PI * 2);
         ctx.fill();
+
+        // Temperature Badge Overlay (e.g., 37.2°C as in Screenshot 2)
+        if (tempText) {
+          ctx.font = `bold ${10.5 * scale}px "IBM Plex Mono", monospace`;
+          ctx.fillStyle = '#F97316';
+          ctx.fillText(tempText, bx * scale - 18 * scale, by * scale - 28 * scale);
+        }
       };
 
-      // Humans = Warm glowing heat bloom cores
-      drawHeatBlob(115 * scale, 220 * scale, 55 * scale, 100 * scale, '#FFFFFF', '#EF4444');
-      drawHeatBlob(525 * scale, 120 * scale, 40 * scale, 50 * scale, '#FACC15', '#EF4444');
-
-      // Robot = Cooler body with localized motor heat spot
-      drawHeatBlob(335 * scale, 260 * scale, 60 * scale, 50 * scale, '#1E3A8A', '#050B14');
-      drawHeatBlob(335 * scale, 210 * scale, 20 * scale, 20 * scale, '#F97316', '#DC2626'); // Motor heat
-
-      // Inanimate Crate & Surface = Ambient/Cold
-      ctx.fillStyle = 'rgba(30, 58, 138, 0.3)';
-      ctx.fillRect(480 * scale, 230 * scale, 160 * scale, 100 * scale);
+      drawThermalHeatBlob(115, 230, 75, '37.2°C');  // Human Standing Heat
+      drawThermalHeatBlob(345, 230, 85, '42.8°C');  // Robot Motor Heat
+      drawThermalHeatBlob(525, 120, 50, '36.8°C');  // Human Crouched Heat
+      drawThermalHeatBlob(560, 275, 40, null);      // Crate ambient
     }
   };
 
@@ -877,8 +868,7 @@ function initAnnotationDemo() {
       document.querySelectorAll('.demo-tab-btn').forEach((b) => b.classList.remove('active'));
       btn.classList.add('active');
       currentSensor = btn.getAttribute('data-sensor');
-      document.getElementById('demo-mode-lbl').textContent = currentSensor.toUpperCase();
-      updateSensorLegend();
+      document.getElementById('demo-mode-lbl').textContent = currentSensor === 'depth' ? 'Depth' : (currentSensor === 'thermal' ? 'Thermal' : 'Scene View');
     });
   });
 
@@ -894,7 +884,7 @@ function initAnnotationDemo() {
       document.querySelectorAll('.demo-tool-btn').forEach((b) => b.classList.remove('active'));
       btn.classList.add('active');
       currentTool = tool;
-      document.getElementById('demo-tool-lbl').textContent = tool.toUpperCase();
+      document.getElementById('demo-tool-lbl').textContent = tool === 'bbox' ? 'Bounding Box' : (tool === 'keypoint' ? 'Keypoints' : 'Polygon');
       polyPoints = [];
       updateStatus('READY');
     });
@@ -995,7 +985,6 @@ function initAnnotationDemo() {
   resizeCanvas();
   updateStats();
   updateStatus('READY');
-  updateSensorLegend();
   drawCanvas();
 }
 
