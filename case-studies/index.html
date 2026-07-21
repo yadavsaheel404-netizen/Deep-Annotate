@@ -23,6 +23,11 @@
       --grey-muted: rgba(255, 255, 255, 0.7);
       --grey-dim: rgba(255, 255, 255, 0.45);
     }
+    
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+    
     body {
       background: #FFFFFF;
       color: var(--navy);
@@ -198,9 +203,20 @@
       position: relative;
       z-index: 1;
     }
-
-
+    
+    /* MOBILE RESPONSIVENESS */
+    @media (max-width: 768px) {
+      .section-wrap { padding: 0 24px; }
+      .cs-hero { padding-top: 100px; padding-bottom: 40px; }
+      .metrics-bar-grid { grid-template-columns: repeat(2, 1fr); padding: 24px 16px; gap: 20px 12px; }
+      .metric-val { font-size: 30px; }
+      .client-info-grid { grid-template-columns: 1fr; gap: 12px; margin-top: 24px; }
+      .testimonial-wrapper { padding: 60px 0; }
+      .big-quote-text { font-size: 18px; padding: 0 24px; }
+      .quote-glyph { left: 10px; font-size: 120px; }
+    }
   </style>
+<link rel="stylesheet" href="../css/responsive.css" />
 </head>
 <body>
 
@@ -211,11 +227,12 @@
     <li><a href="../services.html" style="font-size:13.5px;font-weight:500;color:rgba(14, 31, 62, 0.75);">Services</a></li>
     <li><a href="../how-it-works.html" style="font-size:13.5px;font-weight:500;color:rgba(14, 31, 62, 0.75);">How It Works</a></li>
     <li><a href="../datasets.html" style="font-size:13.5px;font-weight:500;color:rgba(14, 31, 62, 0.75);">Datasets</a></li>
-    <li><a href="../case-studies.html" style="font-size:13.5px;font-weight:500;color:rgba(14, 31, 62, 0.75);">Case Studies</a></li>
+    <li><a href="../case-studies.html" class="active" style="font-size:13.5px;font-weight:500;color:var(--teal);">Case Studies</a></li>
     <li><a href="../blog.html" style="font-size:13.5px;font-weight:500;color:rgba(14, 31, 62, 0.75);">Blog</a></li>
     <li><a href="../about.html" style="font-size:13.5px;font-weight:500;color:rgba(14, 31, 62, 0.75);">About</a></li>
   </ul>
   <a href="../contact.html" class="nav-cta" style="display:inline-flex;align-items:center;gap:7px;padding:10px 22px;border-radius:100px;font-size:13.5px;font-weight:600;color:#FFFFFF;background:#0E1F3E;transition:all 0.3s;box-shadow: 0 4px 12px rgba(14,31,62,0.15); border:1px solid #0E1F3E;">Connect to us</a>
+<div class="mobile-menu-btn" style="display:none; cursor:pointer;" onclick="document.querySelector('.nav-links').classList.toggle('open')"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#0E1F3E" stroke-width="2" stroke-linecap="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></div>
 </nav>
 
 <!-- 2. HERO BLOCK -->

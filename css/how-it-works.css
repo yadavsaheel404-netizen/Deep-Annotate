@@ -1,10 +1,4 @@
 /* how-it-works.css - Standalone How It Works Page Stylesheet (Optimized 60fps) */
-*, *::before, *::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
 :root {
   --bg-deep: #FFFFFF;
   --bg-panel: #FFFFFF;
@@ -29,7 +23,7 @@ body {
 /* HERO SECTION */
 .hiw-hero {
   position: relative;
-  padding: 120px 0 60px;
+  padding: 180px 0 100px;
   text-align: center;
   overflow: hidden;
   transform: translateZ(0);
@@ -319,7 +313,7 @@ body {
 }
 .choose-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
   gap: 24px;
   margin-top: 56px;
 }
@@ -503,22 +497,3 @@ body {
   line-height: 1.7;
   color: var(--text-secondary);
 }
-
-@media (max-width: 480px) {
-  .tl-stack-card {
-    padding: 24px 16px;
-    border-radius: 20px;
-    margin-bottom: 32px;
-  }
-  .tl-step-title {
-    font-size: 22px;
-  }
-  .tl-step-desc {
-    font-size: 14px;
-    line-height: 1.5;
-  }
-  .tl-info-panel {
-    padding: 20px 16px;
-  }
-}
-

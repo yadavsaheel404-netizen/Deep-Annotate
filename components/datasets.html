@@ -1,0 +1,233 @@
+<!-- Premium Datasets Catalog Component -->
+<div id="datasets" class="fade-in-section">
+  <div class="section-wrap section-pad">
+    
+    <!-- 1. Search Bar & Filter Chips -->
+    <div class="ds-search-wrapper" style="margin-bottom: 56px;">
+      <div class="search-box-container" style="position: relative; max-width: 640px; margin: 0 auto 24px;">
+        <input type="text" id="ds-search-input" class="form-input" style="padding: 16px 24px; border-radius: 100px; font-size: 15px; width: 100%; box-sizing: border-box;" placeholder="Search datasets, industries or modalities..."/>
+      </div>
+      <div class="filter-chips-list" style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+        <button class="filter-chip active" data-filter="all">All</button>
+        <button class="filter-chip" data-filter="manufacturing">Manufacturing</button>
+        <button class="filter-chip" data-filter="robotics">Robotics</button>
+        <button class="filter-chip" data-filter="smarthome">Smart Home</button>
+        <button class="filter-chip" data-filter="speech">Speech AI</button>
+        <button class="filter-chip" data-filter="video">Video</button>
+        <button class="filter-chip" data-filter="audio">Audio</button>
+      </div>
+    </div>
+
+    <!-- 2. Categorized Carousel Lists -->
+    <div id="ds-categories-container">
+      
+      <!-- Category 1: Manufacturing & Printing -->
+      <div class="ds-category-section" data-category="manufacturing" style="margin-bottom: 64px;">
+        <div class="category-header" style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 24px; border-bottom: 1px solid rgba(255,255,255,0.06); padding-bottom: 16px;">
+          <div>
+            <h3 style="font-size: 24px; font-weight: 800; color: #fff; margin-bottom: 6px;">🏭 Manufacturing &amp; Printing</h3>
+            <p style="color: var(--grey-muted); font-size: 14px; margin: 0;">Industrial workflows captured in real-world environments.</p>
+          </div>
+          <div style="font-size: 13.5px; color: var(--cyan); font-weight: 700;">8 Production datasets</div>
+        </div>
+        
+        <div class="carousel-track-wrapper" style="overflow-x: auto; display: flex; gap: 24px; padding-bottom: 16px; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch;">
+          <!-- Card 1 -->
+          <div class="ds-card" data-tags="video manufacturing" style="flex: 0 0 320px; scroll-snap-align: start; background: var(--navy-panel); border: 1px solid var(--border-sub); border-radius: 20px; padding: 24px; display: flex; flex-direction: column; justify-content: space-between; height: 380px;">
+            <div>
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                <span class="mod-badge" style="font-size: 10px; font-weight: 700; color: var(--cyan); background: rgba(0,212,255,0.08); padding: 4px 10px; border-radius: 4px;">VIDEO</span>
+                <span style="font-size: 11px; color: var(--grey-muted);">Manufacturing</span>
+              </div>
+              <h4 class="card-title" style="font-size: 17px; font-weight: 700; color: #fff; margin-bottom: 8px;">Pin Binding Machine</h4>
+              <p style="font-size: 13px; color: var(--grey-muted); line-height: 1.55;">Egocentric perspective tracking pin binding machine setups and triggers.</p>
+            </div>
+            <div style="border-top: 1px solid rgba(255,255,255,0.05); padding-top: 16px; display: flex; justify-content: space-between; align-items: center;">
+              <span style="font-size: 12px; color: var(--grey-muted);">99.2% Acc | 12k Files</span>
+              <a href="./contact.html" class="ds-card-link" style="font-size: 13px; color: var(--cyan); font-weight: 700; text-decoration: none;">Access Dataset &rarr;</a>
+            </div>
+          </div>
+          <!-- Card 2 -->
+          <div class="ds-card" data-tags="video manufacturing" style="flex: 0 0 320px; scroll-snap-align: start; background: var(--navy-panel); border: 1px solid var(--border-sub); border-radius: 20px; padding: 24px; display: flex; flex-direction: column; justify-content: space-between; height: 380px;">
+            <div>
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                <span class="mod-badge" style="font-size: 10px; font-weight: 700; color: var(--cyan); background: rgba(0,212,255,0.08); padding: 4px 10px; border-radius: 4px;">VIDEO</span>
+                <span style="font-size: 11px; color: var(--grey-muted);">Manufacturing</span>
+              </div>
+              <h4 class="card-title" style="font-size: 17px; font-weight: 700; color: #fff; margin-bottom: 8px;">3 Side Cutting Workflow</h4>
+              <p style="font-size: 13px; color: var(--grey-muted); line-height: 1.55;">Egocentric capture tracking multi-class object parameters on cutter panels.</p>
+            </div>
+            <div style="border-top: 1px solid rgba(255,255,255,0.05); padding-top: 16px; display: flex; justify-content: space-between; align-items: center;">
+              <span style="font-size: 12px; color: var(--grey-muted);">99.5% Acc | 18k Files</span>
+              <a href="./contact.html" class="ds-card-link" style="font-size: 13px; color: var(--cyan); font-weight: 700; text-decoration: none;">Access Dataset &rarr;</a>
+            </div>
+          </div>
+          <!-- Card 3 -->
+          <div class="ds-card" data-tags="video manufacturing" style="flex: 0 0 320px; scroll-snap-align: start; background: var(--navy-panel); border: 1px solid var(--border-sub); border-radius: 20px; padding: 24px; display: flex; flex-direction: column; justify-content: space-between; height: 380px;">
+            <div>
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                <span class="mod-badge" style="font-size: 10px; font-weight: 700; color: var(--cyan); background: rgba(0,212,255,0.08); padding: 4px 10px; border-radius: 4px;">VIDEO</span>
+                <span style="font-size: 11px; color: var(--grey-muted);">Manufacturing</span>
+              </div>
+              <h4 class="card-title" style="font-size: 17px; font-weight: 700; color: #fff; margin-bottom: 8px;">Book Packing Process</h4>
+              <p style="font-size: 13px; color: var(--grey-muted); line-height: 1.55;">High-definition egocentric packaging sequence with complete label sets.</p>
+            </div>
+            <div style="border-top: 1px solid rgba(255,255,255,0.05); padding-top: 16px; display: flex; justify-content: space-between; align-items: center;">
+              <span style="font-size: 12px; color: var(--grey-muted);">99.0% Acc | 8k Files</span>
+              <a href="./contact.html" class="ds-card-link" style="font-size: 13px; color: var(--cyan); font-weight: 700; text-decoration: none;">Access Dataset &rarr;</a>
+            </div>
+          </div>
+          <!-- Card 4 -->
+          <div class="ds-card" data-tags="video manufacturing" style="flex: 0 0 320px; scroll-snap-align: start; background: var(--navy-panel); border: 1px solid var(--border-sub); border-radius: 20px; padding: 24px; display: flex; flex-direction: column; justify-content: space-between; height: 380px;">
+            <div>
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                <span class="mod-badge" style="font-size: 10px; font-weight: 700; color: var(--cyan); background: rgba(0,212,255,0.08); padding: 4px 10px; border-radius: 4px;">VIDEO</span>
+                <span style="font-size: 11px; color: var(--grey-muted);">Manufacturing</span>
+              </div>
+              <h4 class="card-title" style="font-size: 17px; font-weight: 700; color: #fff; margin-bottom: 8px;">Cover Packing Machine</h4>
+              <p style="font-size: 13px; color: var(--grey-muted); line-height: 1.55;">Lamination processes tracking and mechanical setup label libraries.</p>
+            </div>
+            <div style="border-top: 1px solid rgba(255,255,255,0.05); padding-top: 16px; display: flex; justify-content: space-between; align-items: center;">
+              <span style="font-size: 12px; color: var(--grey-muted);">99.3% Acc | 14k Files</span>
+              <a href="./contact.html" class="ds-card-link" style="font-size: 13px; color: var(--cyan); font-weight: 700; text-decoration: none;">Access Dataset &rarr;</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Category 2: Industrial Robotics -->
+      <div class="ds-category-section" data-category="robotics" style="margin-bottom: 64px;">
+        <div class="category-header" style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 24px; border-bottom: 1px solid rgba(255,255,255,0.06); padding-bottom: 16px;">
+          <div>
+            <h3 style="font-size: 24px; font-weight: 800; color: #fff; margin-bottom: 6px;">⚙ Industrial Robotics</h3>
+            <p style="color: var(--grey-muted); font-size: 14px; margin: 0;">Robot perception datasets mapped to mechanical kinematics.</p>
+          </div>
+          <div style="font-size: 13.5px; color: var(--cyan); font-weight: 700;">4 Production datasets</div>
+        </div>
+        
+        <div class="carousel-track-wrapper" style="overflow-x: auto; display: flex; gap: 24px; padding-bottom: 16px; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch;">
+          <!-- Card 1 -->
+          <div class="ds-card" data-tags="video robotics" style="flex: 0 0 320px; scroll-snap-align: start; background: var(--navy-panel); border: 1px solid var(--border-sub); border-radius: 20px; padding: 24px; display: flex; flex-direction: column; justify-content: space-between; height: 380px;">
+            <div>
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                <span class="mod-badge" style="font-size: 10px; font-weight: 700; color: var(--cyan); background: rgba(0,212,255,0.08); padding: 4px 10px; border-radius: 4px;">VIDEO</span>
+                <span style="font-size: 11px; color: var(--grey-muted);">Robotics</span>
+              </div>
+              <h4 class="card-title" style="font-size: 17px; font-weight: 700; color: #fff; margin-bottom: 8px;">Metal Grinding Process</h4>
+              <p style="font-size: 13px; color: var(--grey-muted); line-height: 1.55;">Spatial coordinates tracking mechanical tooling friction boundaries.</p>
+            </div>
+            <div style="border-top: 1px solid rgba(255,255,255,0.05); padding-top: 16px; display: flex; justify-content: space-between; align-items: center;">
+              <span style="font-size: 12px; color: var(--grey-muted);">99.4% Acc | 15k Files</span>
+              <a href="./contact.html" class="ds-card-link" style="font-size: 13px; color: var(--cyan); font-weight: 700; text-decoration: none;">Access Dataset &rarr;</a>
+            </div>
+          </div>
+          <!-- Card 2 -->
+          <div class="ds-card" data-tags="video robotics" style="flex: 0 0 320px; scroll-snap-align: start; background: var(--navy-panel); border: 1px solid var(--border-sub); border-radius: 20px; padding: 24px; display: flex; flex-direction: column; justify-content: space-between; height: 380px;">
+            <div>
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                <span class="mod-badge" style="font-size: 10px; font-weight: 700; color: var(--cyan); background: rgba(0,212,255,0.08); padding: 4px 10px; border-radius: 4px;">VIDEO</span>
+                <span style="font-size: 11px; color: var(--grey-muted);">Robotics</span>
+              </div>
+              <h4 class="card-title" style="font-size: 17px; font-weight: 700; color: #fff; margin-bottom: 8px;">Metal Sharpening Activity</h4>
+              <p style="font-size: 13px; color: var(--grey-muted); line-height: 1.55;">Kinematic rotation trajectories tagging industrial robot perception feeds.</p>
+            </div>
+            <div style="border-top: 1px solid rgba(255,255,255,0.05); padding-top: 16px; display: flex; justify-content: space-between; align-items: center;">
+              <span style="font-size: 12px; color: var(--grey-muted);">99.6% Acc | 22k Files</span>
+              <a href="./contact.html" class="ds-card-link" style="font-size: 13px; color: var(--cyan); font-weight: 700; text-decoration: none;">Access Dataset &rarr;</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Category 3: Smart Home Activities -->
+      <div class="ds-category-section" data-category="smarthome" style="margin-bottom: 64px;">
+        <div class="category-header" style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 24px; border-bottom: 1px solid rgba(255,255,255,0.06); padding-bottom: 16px;">
+          <div>
+            <h3 style="font-size: 24px; font-weight: 800; color: #fff; margin-bottom: 6px;">🏠 Smart Home Activities</h3>
+            <p style="color: var(--grey-muted); font-size: 14px; margin: 0;">Daily domestic routines tagged for robot manipulation models.</p>
+          </div>
+          <div style="font-size: 13.5px; color: var(--cyan); font-weight: 700;">8 Production datasets</div>
+        </div>
+        
+        <div class="carousel-track-wrapper" style="overflow-x: auto; display: flex; gap: 24px; padding-bottom: 16px; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch;">
+          <!-- Card 1 -->
+          <div class="ds-card" data-tags="video smarthome" style="flex: 0 0 320px; scroll-snap-align: start; background: var(--navy-panel); border: 1px solid var(--border-sub); border-radius: 20px; padding: 24px; display: flex; flex-direction: column; justify-content: space-between; height: 380px;">
+            <div>
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                <span class="mod-badge" style="font-size: 10px; font-weight: 700; color: var(--cyan); background: rgba(0,212,255,0.08); padding: 4px 10px; border-radius: 4px;">VIDEO</span>
+                <span style="font-size: 11px; color: var(--grey-muted);">Smart Home</span>
+              </div>
+              <h4 class="card-title" style="font-size: 17px; font-weight: 700; color: #fff; margin-bottom: 8px;">Roti Making</h4>
+              <p style="font-size: 13px; color: var(--grey-muted); line-height: 1.55;">High-accuracy hand manipulation tracking dough kneading variables.</p>
+            </div>
+            <div style="border-top: 1px solid rgba(255,255,255,0.05); padding-top: 16px; display: flex; justify-content: space-between; align-items: center;">
+              <span style="font-size: 12px; color: var(--grey-muted);">99.1% Acc | 9k Files</span>
+              <a href="./contact.html" class="ds-card-link" style="font-size: 13px; color: var(--cyan); font-weight: 700; text-decoration: none;">Access Dataset &rarr;</a>
+            </div>
+          </div>
+          <!-- Card 2 -->
+          <div class="ds-card" data-tags="video smarthome" style="flex: 0 0 320px; scroll-snap-align: start; background: var(--navy-panel); border: 1px solid var(--border-sub); border-radius: 20px; padding: 24px; display: flex; flex-direction: column; justify-content: space-between; height: 380px;">
+            <div>
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                <span class="mod-badge" style="font-size: 10px; font-weight: 700; color: var(--cyan); background: rgba(0,212,255,0.08); padding: 4px 10px; border-radius: 4px;">VIDEO</span>
+                <span style="font-size: 11px; color: var(--grey-muted);">Smart Home</span>
+              </div>
+              <h4 class="card-title" style="font-size: 17px; font-weight: 700; color: #fff; margin-bottom: 8px;">Washing Machine</h4>
+              <p style="font-size: 13px; color: var(--grey-muted); line-height: 1.55;">Control panel tracking, dialing sequence triggers, and door lid locks.</p>
+            </div>
+            <div style="border-top: 1px solid rgba(255,255,255,0.05); padding-top: 16px; display: flex; justify-content: space-between; align-items: center;">
+              <span style="font-size: 12px; color: var(--grey-muted);">99.4% Acc | 16k Files</span>
+              <a href="./contact.html" class="ds-card-link" style="font-size: 13px; color: var(--cyan); font-weight: 700; text-decoration: none;">Access Dataset &rarr;</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Category 4: Speech AI -->
+      <div class="ds-category-section" data-category="speech" style="margin-bottom: 64px;">
+        <div class="category-header" style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 24px; border-bottom: 1px solid rgba(255,255,255,0.06); padding-bottom: 16px;">
+          <div>
+            <h3 style="font-size: 24px; font-weight: 800; color: #fff; margin-bottom: 6px;">🎙 Speech AI</h3>
+            <p style="color: var(--grey-muted); font-size: 14px; margin: 0;">High-fidelity acoustic speech datasets mapped to phoneme grids.</p>
+          </div>
+          <div style="font-size: 13.5px; color: var(--cyan); font-weight: 700;">3 Production datasets</div>
+        </div>
+        
+        <div class="carousel-track-wrapper" style="overflow-x: auto; display: flex; gap: 24px; padding-bottom: 16px; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch;">
+          <!-- Card 1 -->
+          <div class="ds-card" data-tags="audio speech" style="flex: 0 0 320px; scroll-snap-align: start; background: var(--navy-panel); border: 1px solid var(--border-sub); border-radius: 20px; padding: 24px; display: flex; flex-direction: column; justify-content: space-between; height: 380px;">
+            <div>
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                <span class="mod-badge" style="font-size: 10px; font-weight: 700; color: #0BA8D3; background: rgba(11,168,211,0.08); padding: 4px 10px; border-radius: 4px;">AUDIO</span>
+                <span style="font-size: 11px; color: var(--grey-muted);">Speech</span>
+              </div>
+              <h4 class="card-title" style="font-size: 17px; font-weight: 700; color: #fff; margin-bottom: 8px;">Telugu Mono Voice</h4>
+              <p style="font-size: 13px; color: var(--grey-muted); line-height: 1.55;">High-fidelity acoustic phonetic alignments verified by native speakers.</p>
+            </div>
+            <div style="border-top: 1px solid rgba(255,255,255,0.05); padding-top: 16px; display: flex; justify-content: space-between; align-items: center;">
+              <span style="font-size: 12px; color: var(--grey-muted);">99.8% Acc | 45 hr</span>
+              <a href="./contact.html" class="ds-card-link" style="font-size: 13px; color: var(--cyan); font-weight: 700; text-decoration: none;">Access Dataset &rarr;</a>
+            </div>
+          </div>
+          <!-- Card 2 -->
+          <div class="ds-card" data-tags="audio speech" style="flex: 0 0 320px; scroll-snap-align: start; background: var(--navy-panel); border: 1px solid var(--border-sub); border-radius: 20px; padding: 24px; display: flex; flex-direction: column; justify-content: space-between; height: 380px;">
+            <div>
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                <span class="mod-badge" style="font-size: 10px; font-weight: 700; color: #0BA8D3; background: rgba(11,168,211,0.08); padding: 4px 10px; border-radius: 4px;">AUDIO</span>
+                <span style="font-size: 11px; color: var(--grey-muted);">Speech</span>
+              </div>
+              <h4 class="card-title" style="font-size: 17px; font-weight: 700; color: #fff; margin-bottom: 8px;">Hindi Mono Voice</h4>
+              <p style="font-size: 13px; color: var(--grey-muted); line-height: 1.55;">Clean WAV records mapping phonetic stress benchmarks across native dialects.</p>
+            </div>
+            <div style="border-top: 1px solid rgba(255,255,255,0.05); padding-top: 16px; display: flex; justify-content: space-between; align-items: center;">
+              <span style="font-size: 12px; color: var(--grey-muted);">99.7% Acc | 60 hr</span>
+              <a href="./contact.html" class="ds-card-link" style="font-size: 13px; color: var(--cyan); font-weight: 700; text-decoration: none;">Access Dataset &rarr;</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>

@@ -65,7 +65,11 @@
     /* ── HERO ── */
     #hero {
       position: relative;
-      padding: 160px 48px 100px;
+      padding: 120px 48px 100px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
       background: var(--white);
       overflow: hidden;
     }
@@ -163,7 +167,6 @@
       color: var(--cyan); margin-bottom: 14px;
     }
     .roles-title {
-      font-family: 'Playfair Display', Georgia, serif;
       font-size: clamp(30px, 3.5vw, 44px);
       font-weight: 700;
       color: var(--navy);
@@ -232,7 +235,6 @@
     #freelancing .c-tag { color: var(--cyan);      background: rgba(11,168,211,0.08);    }
 
     .c-title {
-      font-family: 'Playfair Display', Georgia, serif;
       font-size: 26px; font-weight: 700;
       color: var(--navy);
       margin-bottom: 12px;
@@ -315,7 +317,6 @@
     }
     .values-header { text-align: center; margin-bottom: 64px; }
     .values-title {
-      font-family: 'Playfair Display', Georgia, serif;
       font-size: clamp(28px, 3vw, 40px); font-weight: 700;
       color: var(--navy); margin-bottom: 12px;
     }
@@ -390,6 +391,13 @@
       box-shadow: 0 16px 48px rgba(11,168,211,0.5);
       background: var(--cyan-light);
     }
+
+    @media (max-width: 768px) {
+      .c-grid { grid-template-columns: 1fr; }
+      .stats-inner { flex-direction: column; gap: 40px; }
+      .values-grid { grid-template-columns: 1fr; }
+      #roles, #stats-strip, #values-strip, #cta-banner { padding-left: 24px; padding-right: 24px; }
+    }
   </style>
 
   <!-- Navbar Style Override -->
@@ -420,6 +428,7 @@
       color: #0BA8D3 !important;
     }
   </style>
+<link rel="stylesheet" href="./css/responsive.css" />
 </head>
 <body>
 
@@ -437,7 +446,8 @@
       <li><a href="./about.html">About</a></li>
     </ul>
     <a href="./contact.html" class="nav-cta">Connect to us</a>
-  </nav>
+  <div class="mobile-menu-btn" style="display:none; cursor:pointer;" onclick="document.querySelector('.nav-links').classList.toggle('open')"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#0E1F3E" stroke-width="2" stroke-linecap="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></div>
+</nav>
 
   <!-- HERO -->
   <section id="hero">
@@ -574,6 +584,5 @@
     fetch('./components/footer.html').then(r=>r.text()).then(h=>{document.getElementById('footer-placeholder').innerHTML=h;});
   </script>
 
-  <script src="./js/nav.js"></script>
 </body>
 </html>

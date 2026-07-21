@@ -1,10 +1,4 @@
 /* programs.css - DeepAnnotate Client Programs & Training Stylesheet */
-*, *::before, *::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
 :root {
   --bg-deep: #FFFFFF;
   --bg-panel: #FFFFFF;
@@ -216,7 +210,7 @@ body {
 }
 .domains-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
   gap: 24px;
   margin-top: 56px;
 }

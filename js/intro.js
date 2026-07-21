@@ -10,12 +10,21 @@ export function initIntro() {
 
   // Wire scroll cue to scroll down past the intro section
   if (scrollCue) {
-    scrollCue.addEventListener('click', () => {
-      const targetScroll = introSection.offsetTop + introSection.offsetHeight;
+    const triggerScroll = () => {
+      // Offset by 68px for the fixed navbar height
+      const targetScroll = introSection.offsetTop + introSection.offsetHeight - 68;
       window.scrollTo({
-        top: targetScroll + 10,
+        top: targetScroll,
         behavior: 'smooth'
       });
+    };
+    
+    scrollCue.addEventListener('click', triggerScroll);
+    scrollCue.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        triggerScroll();
+      }
     });
   }
 

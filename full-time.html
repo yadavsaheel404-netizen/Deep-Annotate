@@ -12,11 +12,11 @@
   <style>
     :root {
       --navy: #0E1F3E;
-      --navy-deep: #060e1c;
+      --navy-deep: #F8FAFC;
       --cyan: #0BA8D3;
-      --cyan-light: #25E0E2;
-      --grey: #F1F5F9;
-      --grey-muted: rgba(241, 245, 249, 0.7);
+      --cyan-light: #0BA8D3;
+      --grey: #0E1F3E;
+      --grey-muted: rgba(14, 31, 62, 0.7);
     }
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
     html{scroll-behavior:smooth;}
@@ -70,9 +70,9 @@
       font-family: "Outfit", sans-serif;
       font-size: clamp(32px, 5vw, 48px);
       font-weight: 800;
-      letter-spacing: -0.02em;
+      line-height: 1.1;
       margin-bottom: 24px;
-      color: #ffffff;
+      color: var(--navy);
     }
 
     .msg-sub {
@@ -130,6 +130,7 @@
       color: #0BA8D3 !important;
     }
   </style>
+<link rel="stylesheet" href="./css/responsive.css" />
 </head>
 <body>
 
@@ -145,6 +146,7 @@
       <li><a href="./about.html">About</a></li>
     </ul>
     <a href="./contact.html" class="nav-cta">Connect to us</a>
+    <div class="mobile-menu-btn" style="display:none; cursor:pointer;" onclick="document.querySelector('.nav-links').classList.toggle('open')"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#0E1F3E" stroke-width="2" stroke-linecap="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></div>
   </nav>
 
   <section id="hero">
@@ -161,6 +163,5 @@
     fetch('./components/footer.html').then(r=>r.text()).then(h=>{document.getElementById('footer-placeholder').innerHTML=h;});
   </script>
 
-  <script src="./js/nav.js"></script>
 </body>
 </html>

@@ -134,41 +134,48 @@
 }
 
 @media (max-width: 768px) {
+  /* Bespoke Mobile Redesign: Sidebar becomes a premium horizontal header */
   .cs2-card {
-    grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: column;
+    max-width: 95%;
+    margin: 0 auto;
   }
   .cs2-sidebar {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 4px 16px;
     border-right: none;
     border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-    padding: 32px;
+    padding: 20px 24px;
+  }
+  .cs2-stat {
+    grid-column: 2 / 3;
+    grid-row: 1 / 2;
+    font-size: 24px;
+    margin-bottom: 0;
+    text-align: right;
+  }
+  .cs2-tag {
+    grid-column: 1 / 2;
+    grid-row: 1 / 3;
+    font-size: 11px;
+    margin-bottom: 0;
+    text-align: left;
+  }
+  .cs2-stat-lbl {
+    grid-column: 2 / 3;
+    grid-row: 2 / 3;
+    font-size: 11px;
+    margin-left: 0;
+    text-align: right;
   }
   .cs2-body {
-    padding: 32px;
-  }
-  .cs2-header {
-    padding-bottom: 40px;
+    padding: 24px;
   }
   .cs2-all-link {
     position: static;
     margin-top: 16px;
   }
 }
-
-@media (max-width: 480px) {
-  .cs2-wrap {
-    padding: 64px 20px;
-  }
-  .cs2-sidebar {
-    padding: 24px 20px;
-  }
-  .cs2-body {
-    padding: 24px 20px;
-  }
-  .cs2-stat {
-    font-size: 32px;
-  }
-  .cs2-title {
-    font-size: 18px;
-  }
-}
-

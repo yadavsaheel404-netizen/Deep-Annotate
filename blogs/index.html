@@ -14,7 +14,7 @@
   
   <style>
     :root {
-      --bg-deep: #D4D4D4;
+      --bg-deep: #FFFFFF;
       --bg-panel: rgba(255, 255, 255, 0.85);
       --cyan: #0BA8D3;
       --border-sub: rgba(14, 31, 62, 0.08);
@@ -26,7 +26,7 @@
       font-family: 'Inter', sans-serif;
       margin: 0;
     }
-    .section-wrap { max-width: 800px; margin: 0 auto; padding: 120px 40px; }
+    main.section-wrap { max-width: 800px; margin: 0 auto; padding: 120px 40px; }
     
     .blog-content {
       line-height: 1.8;
@@ -55,6 +55,35 @@
       box-shadow: 0 10px 30px rgba(14, 31, 62, 0.04);
     }
   </style>
+<link rel="stylesheet" href="../css/responsive.css?v=2" />
+  <!-- Navbar Style Override -->
+  <style>
+    .nav-links a {
+      padding: 8px 16px;
+      border-radius: 100px;
+      transition: all 0.3s ease !important;
+      position: relative;
+      overflow: hidden;
+    }
+    .nav-links a::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(11, 168, 211, 0.08);
+      border-radius: 100px;
+      transform: scale(0.8);
+      opacity: 0;
+      transition: all 0.3s ease;
+      z-index: -1;
+    }
+    .nav-links a:hover::before, .nav-links a.active::before {
+      transform: scale(1);
+      opacity: 1;
+    }
+    .nav-links a:hover, .nav-links a.active {
+      color: #0E1F3E !important;
+    }
+  </style>
 </head>
 <body>
 
@@ -66,10 +95,12 @@
     <li><a href="../how-it-works.html" style="font-size:13.5px;font-weight:500;color:rgba(14, 31, 62, 0.75);">How It Works</a></li>
     <li><a href="../datasets.html" style="font-size:13.5px;font-weight:500;color:rgba(14, 31, 62, 0.75);">Datasets</a></li>
     <li><a href="../case-studies.html" style="font-size:13.5px;font-weight:500;color:rgba(14, 31, 62, 0.75);">Case Studies</a></li>
-    <li><a href="../blog.html" style="font-size:13.5px;font-weight:500;color:rgba(14, 31, 62, 0.75);">Blog</a></li>
+    <li><a href="../blog.html" class="active" style="font-size:13.5px;font-weight:700;color:#0E1F3E;">Blog</a></li>
+    <li><a href="../careers.html" style="font-size:13.5px;font-weight:500;color:rgba(14, 31, 62, 0.75);">Careers</a></li>
     <li><a href="../about.html" style="font-size:13.5px;font-weight:500;color:rgba(14, 31, 62, 0.75);">About</a></li>
   </ul>
   <a href="../contact.html" class="nav-cta" style="display:inline-flex;align-items:center;gap:7px;padding:10px 22px;border-radius:100px;font-size:13.5px;font-weight:600;color:#FFFFFF;background:#0E1F3E;transition:all 0.3s;box-shadow: 0 4px 12px rgba(14,31,62,0.15); border:1px solid #0E1F3E;">Connect to us</a>
+<div class="mobile-menu-btn" style="display:none; cursor:pointer;" onclick="document.querySelector('.nav-links').classList.toggle('open')"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#0E1F3E" stroke-width="2" stroke-linecap="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></div>
 </nav>
 
 <main class="section-wrap">

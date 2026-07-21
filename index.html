@@ -374,6 +374,13 @@
       display: flex;
       flex-direction: column;
       gap: 11px;
+      /* Premium glassmorphic background for visual separation from robot */
+      background: rgba(6, 14, 28, 0.4);
+      padding: 16px 12px;
+      border-radius: 20px;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
     }
 
     .s-dot {
@@ -1315,37 +1322,23 @@
 
       .s-center,
       .s-cta {
-        left: 20px !important;
-        right: 20px !important;
-        transform: none !important;
-        min-width: unset !important;
-        width: calc(100% - 40px) !important;
+        left: 20px;
+        right: 20px;
+        transform: none;
+        min-width: unset;
         text-align: center;
       }
 
       .s-left,
       .s-right,
       .s-mid {
-        left: 20px !important;
-        right: 20px !important;
-        width: calc(100% - 40px) !important;
+        left: 20px;
+        right: 20px;
         text-align: center;
         bottom: 10vh;
         top: auto;
-        transform: none !important;
+        transform: none;
       }
-
-      .scene-copy {
-        width: calc(100% - 40px) !important;
-        max-width: 100% !important;
-      }
-
-      .scene-sub {
-        max-width: 100% !important;
-        margin-left: auto !important;
-        margin-right: auto !important;
-      }
-
 
       .stats-grid {
         grid-template-columns: 1fr 1fr;
@@ -1404,14 +1397,6 @@
         height: 36px;
         font-size: 13px;
       }
-
-      #trust-bar {
-        padding: 40px 20px !important;
-      }
-
-      .trust-logos {
-        gap: 10px !important;
-      }
     }
   
     /* DROPDOWN MENU */
@@ -1453,6 +1438,7 @@
       color: #0BA8D3 !important;
     }
   </style>
+<link rel="stylesheet" href="./css/responsive.css" />
 </head>
 
 <body>
@@ -1473,8 +1459,9 @@
       <li><a href="./about.html">About</a></li>
     </ul>
     <a href="./contact.html" class="nav-cta">Connect to us</a>
-    <button class="nav-hamburger" id="hamburger"><span></span><span></span><span></span></button>
-  </nav>
+    
+  <div class="mobile-menu-btn" style="display:none; cursor:pointer;" onclick="document.querySelector('.nav-links').classList.toggle('open')"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#0E1F3E" stroke-width="2" stroke-linecap="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></div>
+</nav>
 
   <!-- Modular Component Placeholders -->
   <div id="hero-placeholder"></div>
@@ -1527,7 +1514,7 @@
             powering Computer Vision, Generative AI, Physical AI, Robotics and Large Language Models.</p>
 
           <div
-            style="font-size: 13.5px; color: rgba(255,255,255,0.6); margin-bottom: 28px; display: grid; grid-template-columns: 1fr 1fr; gap: 8px 16px;">
+            style="font-size: 13.5px; color: #0c1a30; font-weight: 600; opacity: 0.85; margin-bottom: 28px; display: grid; grid-template-columns: 1fr 1fr; gap: 8px 16px;">
             <div>&bull; Image Annotation</div>
             <div>&bull; Video Annotation</div>
             <div>&bull; Audio Annotation</div>
@@ -1630,7 +1617,7 @@
 
   <script>
     'use strict';
-    const SCENES = [{ id: 4, frames: 186, folder: '45' }, { id: 6, frames: 96, folder: '6' }];
+    const SCENES = [{ id: 4, frames: 186, folder: '45' }, { id: 6, frames: 100, folder: '6' }];
     const PAD = n => String(n).padStart(3, '0');
     const FURL = (f, i) => { if (f === '45') { return i <= 90 ? './4/ezgif-frame-' + PAD(i) + '.jpg' : './5/ezgif-frame-' + PAD(i - 90) + '.jpg'; } return './' + f + '/ezgif-frame-' + PAD(i) + '.jpg'; };
     const S = { images: {}, totalLoaded: 0, ready: false };
@@ -1687,9 +1674,15 @@
 
       let s = Math.min(w_val / img.naturalWidth, h_val / img.naturalHeight);
       if (id === 4) {
-        // Scale robot to 92% of canvas height — fills screen margins during deconstruction
-        const targetS = (h_val * 0.92) / img.naturalHeight;
-        s = Math.min(s, targetS);
+        if (window.innerWidth <= 900) {
+          // Scale to 105% of screen height on mobile to completely remove the top and bottom
+          // canvas background seams. The JPG background will now seamlessly fill the vertical space.
+          s = (h_val * 1.05) / img.naturalHeight;
+        } else {
+          // Scale robot to 92% of canvas height — fills screen margins during deconstruction
+          const targetS = (h_val * 0.92) / img.naturalHeight;
+          s = Math.min(s, targetS);
+        }
       }
       if (id === 5) {
         // Keep Scene 5 robot scaled to 78%
@@ -1716,7 +1709,23 @@
       ctx.drawImage(img, dx, dy, dW, dH);
     }
 
-    function preload(id, done) { const sc = SCENES.find(s => s.id === id); if (!sc || S.images[id]) { done && done(); return; } S.images[id] = []; let n = 0; for (let i = 1; i <= sc.frames; i++) { const img = new Image(); img.onload = img.onerror = () => { n++; S.totalLoaded++; if (n === sc.frames) done && done(); }; img.src = FURL(sc.folder, i); S.images[id][i - 1] = img; } }
+    function preload(id, done) { 
+      const sc = SCENES.find(s => s.id === id); 
+      if (!sc || S.images[id]) { done && done(); return; } 
+      S.images[id] = []; 
+      let n = 0; 
+      for (let i = 1; i <= sc.frames; i++) { 
+        const img = new Image(); 
+        img.onload = img.onerror = () => { 
+          n++; 
+          S.totalLoaded++; 
+          requestAnimationFrame(tick); // Force redraw as images load!
+          if (n === sc.frames) done && done(); 
+        }; 
+        img.src = FURL(sc.folder, i); 
+        S.images[id][i - 1] = img; 
+      } 
+    }
 
     let raf = false;
     function onScroll() { if (raf) return; raf = true; requestAnimationFrame(() => { raf = false; tick(); }); }
@@ -1727,14 +1736,29 @@
         if (!sec) return;
         const st = sec.offsetTop, sh = sec.offsetHeight;
         const p = Math.max(0, Math.min(1, (sy - st) / (sh - wh)));
+        let anim_p = p;
+
+        if (window.innerWidth <= 900 && sc.id !== 4) {
+          const c = C[sc.id];
+          if (c) {
+            const rect = c.getBoundingClientRect();
+            const c_top = rect.top + sy;
+            // Start rotating exactly when the top of the canvas enters from the bottom of the screen
+            const start = c_top - wh;
+            // Finish rotating exactly when the bottom of the canvas leaves the top of the screen
+            const end = c_top + rect.height;
+            anim_p = Math.max(0, Math.min(1, (sy - start) / (end - start || 1)));
+          }
+        }
+
         if (S.images[sc.id]) {
           let fi;
           if (sc.id === 4) {
             // Skip the early static stance frames and map scroll progress to frames 35-89
             const startFrame = 35;
-            fi = startFrame + Math.min(Math.floor(p * (sc.frames - startFrame)), sc.frames - startFrame - 1);
+            fi = startFrame + Math.min(Math.floor(anim_p * (sc.frames - startFrame)), sc.frames - startFrame - 1);
           } else {
-            fi = Math.min(Math.floor(p * (sc.frames - 1)), sc.frames - 1);
+            fi = Math.min(Math.floor(anim_p * (sc.frames - 1)), sc.frames - 1);
           }
           draw(sc.id, fi);
         }
@@ -1756,8 +1780,13 @@
           const chips = document.querySelectorAll('#s3-capability-pills .story-pill');
           chips.forEach((chip, idx) => {
             const threshold = 0.1 + (idx * 0.07); // staggered thresholds from 0.1 to 0.8
-            chip.style.opacity = (p >= threshold) ? "1" : "0";
-            chip.style.transform = (p >= threshold) ? "translateY(0)" : "translateY(6px)";
+            if (window.innerWidth <= 900) {
+              chip.style.opacity = "1";
+              chip.style.transform = "none";
+            } else {
+              chip.style.opacity = (p >= threshold) ? "1" : "0";
+              chip.style.transform = (p >= threshold) ? "translateY(0)" : "translateY(6px)";
+            }
           });
         }
 
@@ -1766,14 +1795,24 @@
           const badges = document.querySelectorAll('#s4-certification-badges .story-pill');
           badges.forEach((badge, idx) => {
             const threshold = 0.55 + (idx * 0.08); // staggered thresholds in the second half
-            badge.style.opacity = (p >= threshold) ? "1" : "0";
-            badge.style.transform = (p >= threshold) ? "translateY(0)" : "translateY(6px)";
+            if (window.innerWidth <= 900) {
+              badge.style.opacity = "1";
+              badge.style.transform = "none";
+            } else {
+              badge.style.opacity = (p >= threshold) ? "1" : "0";
+              badge.style.transform = (p >= threshold) ? "translateY(0)" : "translateY(6px)";
+            }
           });
         }
 
         if (st - sy < wh * 2.5 && !S.images[sc.id]) preload(sc.id, () => draw(sc.id, 0));
       });
       dots.forEach(d => d.classList.toggle('active', parseInt(d.dataset.scene) === active));
+      const sceneDotsContainer = document.getElementById('scene-dots');
+      if (sceneDotsContainer) {
+        sceneDotsContainer.style.opacity = sy > wh * 0.8 ? '1' : '0';
+        sceneDotsContainer.style.pointerEvents = sy > wh * 0.8 ? 'all' : 'none';
+      }
     }
 
     function init() {
@@ -1792,7 +1831,6 @@
     import { loadAllComponents } from "./js/loader.js";
     document.addEventListener("DOMContentLoaded", loadAllComponents);
   </script>
-  <script src="./js/nav.js"></script>
 </body>
 
 </html>

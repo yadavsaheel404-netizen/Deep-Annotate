@@ -1,9 +1,4 @@
 /* css/case-studies.css - Case Studies Page Stylesheet */
-*, *::before, *::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
 
 :root {
   --navy: #0E1F3E;
@@ -172,26 +167,3 @@
     gap: 16px;
   }
 }
-
-@media (max-width: 480px) {
-  .case-showcase-content {
-    padding: 24px 20px;
-  }
-  .case-title {
-    font-size: 18px;
-  }
-  .case-desc {
-    font-size: 13.5px;
-    margin-bottom: 20px;
-  }
-  .case-stats-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
-    padding-top: 16px;
-    margin-bottom: 20px;
-  }
-  .stat-val {
-    font-size: 18px;
-  }
-}
-
