@@ -1,0 +1,127 @@
+/* css/global-theme.css — Site-wide Theme, Spacing, and Alternating Backgrounds */
+
+:root {
+  --navy-deep: #060E1C;
+  --navy: #0E1F3E;
+  --navy-panel: #0A1830;
+  --cyan: #0BA8D3;
+  --cyan-bright: #00D4FF;
+  --cyan-tint-bg: #EFF8FA;
+  --cyan-tint-card: #F6FCFD;
+  --cyan-border: rgba(11, 168, 211, 0.14);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   1. GLOBAL SPACING SYSTEM (115px Sections, 64px Header Gaps)
+─────────────────────────────────────────────────────────────── */
+section, 
+.section-pad, 
+.srv-new-section,
+.hero-section,
+.intro-section,
+.cta-banner,
+.how-section {
+  padding-top: 115px;
+  padding-bottom: 115px;
+  position: relative;
+}
+
+.center-header, 
+.srv-section-header, 
+.section-header,
+.hero-header {
+  margin-bottom: 64px !important;
+}
+
+.srv-eyebrow, 
+.srv-eyebrow-cyan, 
+.eyebrow,
+.eyebrow-tag {
+  margin-bottom: 16px !important;
+  display: inline-block;
+}
+
+h1, h2, h3, 
+.section-title, 
+.srv-section-title {
+  margin-bottom: 20px;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   2. ALTERNATING SECTION BACKGROUND PATTERN ACROSS ALL PAGES
+─────────────────────────────────────────────────────────────── */
+/* Default Light Sections (Subtle Cyan Tint Wash) */
+.bg-white,
+.bg-light,
+.bg-light-tint,
+section.light-bg {
+  background: linear-gradient(180deg, #EFF8FA 0%, #F6FCFD 100%) !important;
+  color: var(--navy) !important;
+}
+
+/* Default Dark Sections (Deep Navy) */
+.bg-dark,
+.bg-navy,
+section.dark-bg {
+  background: var(--navy-deep) !important;
+  color: #FFFFFF !important;
+}
+
+/* Automatic nth-of-type section alternating fallback */
+body > section:nth-of-type(odd):not(.bg-white):not(.bg-light-tint) {
+  background-color: var(--navy-deep);
+  color: #FFFFFF;
+}
+
+body > section:nth-of-type(even):not(.bg-dark):not(.bg-navy) {
+  background: linear-gradient(180deg, #EFF8FA 0%, #F6FCFD 100%);
+  color: var(--navy);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   3. CARD SYSTEM WITH SUBTLE CYAN TINTING & BORDERS
+─────────────────────────────────────────────────────────────── */
+/* Cards inside Light Sections */
+.bg-white .card,
+.bg-light .card,
+.bg-light-tint .card,
+.cap-card,
+.sector-card,
+.format-card,
+.feature-card,
+.metric-card-sm,
+.ds-card {
+  background-color: #FFFFFF !important;
+  border: 1px solid var(--cyan-border) !important;
+  box-shadow: 0 10px 30px rgba(14, 31, 62, 0.04) !important;
+  border-radius: 16px;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cap-card:hover,
+.sector-card:hover,
+.format-card:hover,
+.feature-card:hover,
+.ds-card:hover {
+  border-color: var(--cyan) !important;
+  box-shadow: 0 14px 35px rgba(11, 168, 211, 0.15) !important;
+  transform: translateY(-2px);
+}
+
+/* Cards inside Dark Sections */
+.bg-dark .card,
+.bg-navy .card,
+.dark-card,
+.quality-card,
+.stepper-panel {
+  background: linear-gradient(135deg, #0A1830 0%, #060E1C 100%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 18px;
+  color: #FFFFFF;
+}
+
+/* Sticky Bottom Bar Styling */
+.sticky-bottom-bar {
+  background: linear-gradient(90deg, #FFFFFF 0%, #EFF8FA 100%) !important;
+  border-top: 1px solid var(--cyan-border) !important;
+}
