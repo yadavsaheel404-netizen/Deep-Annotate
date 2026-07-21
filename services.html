@@ -12,6 +12,7 @@
   
   <!-- Standalone Services style overrides -->
   <link rel="stylesheet" href="./css/services.css"/>
+  <link rel="stylesheet" href="./css/services-redesign.css"/>
   <link rel="stylesheet" href="./css/footer.css"/>
   
   <style>
@@ -76,13 +77,13 @@
     <li><a href="./case-studies.html">Case Studies</a></li>
     <li><a href="./blog.html">Blog</a></li>
     <li><a href="./careers.html">Careers</a></li>
-      <li><a href="./about.html">About</a></li>
+    <li><a href="./about.html">About</a></li>
   </ul>
   <a href="./contact.html" class="nav-cta">Connect to us</a>
 <div class="mobile-menu-btn" style="display:none; cursor:pointer;" onclick="document.querySelector('.nav-links').classList.toggle('open')"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#0E1F3E" stroke-width="2" stroke-linecap="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></div>
 </nav>
 
-<!-- 2. PREMIUM HERO (Dark Navy Background) -->
+<!-- 1. HERO (Dark Navy Background — Untouched) -->
 <header class="srv-hero">
   <div class="section-wrap">
     <div class="srv-hero-grid">
@@ -91,7 +92,7 @@
         <h1 class="srv-hero-title">Enterprise AI<span>Data Infrastructure.</span></h1>
         <p class="srv-hero-sub">High-quality annotation, data generation, and human feedback pipelines powering world-class multimodal systems and physical AI.</p>
         <div class="hero-ctas">
-          <a href="#sticky-nav" class="btn-primary-b2b">View Services</a>
+          <a href="#pipeline-stepper" class="btn-primary-b2b">View Services</a>
           <a href="./contact.html" class="btn-secondary-b2b">Schedule Consultation</a>
         </div>
       </div>
@@ -139,410 +140,229 @@
   </div>
 </header>
 
-<!-- 4. MODALITY TAB PANELS (Dark Navy Background) -->
-<div class="srv-modality-wrapper">
-  
-  <!-- 3. STICKY NAV (Hero bottom tab row) -->
-  <nav class="srv-sticky-nav" id="sticky-nav">
-    <div class="section-wrap srv-nav-wrap">
-      <div class="srv-nav-card active" data-target="sec-audio">
-        <svg class="srv-nav-icon-svg" viewBox="0 0 24 24"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/></svg>
-        <span>Audio AI</span>
-      </div>
-      <div class="srv-nav-card" data-target="sec-physical">
-        <svg class="srv-nav-icon-svg" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M12 8v8"/><path d="M8 12h8"/></svg>
-        <span>Physical AI</span>
-      </div>
-      <div class="srv-nav-card" data-target="sec-image">
-        <svg class="srv-nav-icon-svg" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
-        <span>Image &amp; Vision</span>
-      </div>
-      <div class="srv-nav-card" data-target="sec-video">
-        <svg class="srv-nav-icon-svg" viewBox="0 0 24 24"><path d="m22 8-6 4 6 4V8Z"/><rect width="14" height="12" x="2" y="6" rx="2"/></svg>
-        <span>Video AI</span>
-      </div>
-      <div class="srv-nav-card" data-target="sec-lidar">
-        <svg class="srv-nav-icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/><path d="M2 12h20"/></svg>
-        <span>3D LiDAR</span>
-      </div>
-      <div class="srv-nav-card" data-target="sec-rlhf">
-        <svg class="srv-nav-icon-svg" viewBox="0 0 24 24"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="m9 12 2 2 4-4"/></svg>
-        <span>RLHF</span>
-      </div>
+<!-- 2. PIPELINE STEPPER SECTION ("OUR SERVICES") -->
+<section class="srv-new-section bg-dark" id="pipeline-stepper">
+  <div class="section-wrap">
+    <div class="srv-section-header">
+      <span class="srv-eyebrow-cyan">OUR SERVICES</span>
+      <h2 class="srv-section-title">One Platform, Six Data Modalities.</h2>
     </div>
-  </nav>
 
-<!-- 4. MODALITY TAB PANELS (Alternating Backgrounds) -->
-<div class="srv-modality-wrapper">
+    <div class="stepper-grid">
+      <!-- Left Stepper List (35% width) -->
+      <div class="stepper-list" id="stepper-list"></div>
 
-  <!-- AUDIO AI (White Theme) -->
-  <section class="srv-section active theme-white" id="sec-audio">
-    <div class="section-wrap srv-grid">
-      <div class="srv-content">
-        <span class="srv-eyebrow">Acoustic Audio Modality</span>
-        <h2 class="srv-title">Emotional Voice &amp; Transcription</h2>
-        <p class="srv-desc">High-fidelity speech training data. We compile native emotional speech recordings, turn-taking timestamps, and multilingual phonetic segments.</p>
-        
-        <div class="srv-feature-list">
-          <div class="srv-feature-item">
-            <svg class="srv-feature-check" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
-            <div class="srv-feature-text"><strong>Speaker Diarization:</strong> Millisecond-accurate start/stop audio bounds.</div>
-          </div>
-          <div class="srv-feature-item">
-            <svg class="srv-feature-check" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
-            <div class="srv-feature-text"><strong>Phonetic Stress:</strong> Detailed pronunciation prosody annotations.</div>
-          </div>
-          <div class="srv-feature-item">
-            <svg class="srv-feature-check" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
-            <div class="srv-feature-text"><strong>Diverse Corpus:</strong> Native pronunciation recordings in over 34 languages.</div>
-          </div>
-        </div>
-      </div>
-      
-      <div class="srv-visual">
-        <div class="illustration-card">
-          <span class="illustration-card-title">Audio Annotation Pipeline</span>
-          <div class="illustration-svg-container">
-            <svg viewBox="0 0 400 280" xmlns="http://www.w3.org/2000/svg">
-              <path d="M 60 140 L 150 140 M 150 140 L 250 140 M 250 140 L 340 140" class="illust-connection" stroke-width="1.5" stroke-dasharray="4 4" />
-              <path d="M 60 140 L 340 140" class="illust-connection-active" stroke-width="2" stroke-linecap="round" stroke-dasharray="10 80" stroke-dashoffset="0">
-                <animate attributeName="stroke-dashoffset" values="90;0" dur="3s" repeatCount="indefinite" />
-              </path>
-              
-              <!-- Input Node -->
-              <circle cx="60" cy="140" r="24" class="illust-node-bg" stroke-width="1.5" />
-              <circle cx="60" cy="140" r="4" class="illust-node-accent" />
-              <text x="60" y="190" font-family="IBM Plex Mono" font-size="8.5" class="illust-node-text-muted" text-anchor="middle">RAW AUDIO</text>
-              
-              <!-- Center Modality Node -->
-              <circle cx="150" cy="140" r="28" class="illust-node-bg" stroke-width="1.5" />
-              <!-- Waveform paths -->
-              <path d="M 136 140 L 136 140 M 141 130 L 141 150 M 146 122 L 146 158 M 151 126 L 151 154 M 156 134 L 156 146 M 161 130 L 161 150 M 166 140 L 166 140" class="illust-icon" stroke-width="2.5" stroke-linecap="round" />
-              <text x="150" y="190" font-family="IBM Plex Mono" font-size="8.5" class="illust-node-text-muted" text-anchor="middle">SPECTRUM</text>
-              
-              <!-- Validation Node -->
-              <circle cx="250" cy="140" r="24" class="illust-node-bg" stroke-width="1.5" />
-              <path d="M 242 140 L 247 145 L 258 134" class="illust-icon" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-              <text x="250" y="190" font-family="IBM Plex Mono" font-size="8.5" class="illust-node-text-muted" text-anchor="middle">ALIGN QA</text>
-              
-              <!-- Ready Node -->
-              <circle cx="340" cy="140" r="24" class="illust-node-bg" stroke-width="1.5" />
-              <circle cx="340" cy="140" r="4" class="illust-node-accent" />
-              <text x="340" y="190" font-family="IBM Plex Mono" font-size="8.5" class="illust-node-text-primary" text-anchor="middle">MODEL READY</text>
-            </svg>
-          </div>
+      <!-- Right Detail Panel (65% width) -->
+      <div class="stepper-panel">
+        <div class="stepper-content-wrapper" id="stepper-panel-content"></div>
+        <div class="stepper-progress-bg">
+          <div class="stepper-progress-bar" id="stepper-progress-bar"></div>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- PHYSICAL AI (Dark Theme) -->
-  <section class="srv-section theme-dark" id="sec-physical">
-    <div class="section-wrap srv-grid">
-      <div class="srv-content">
-        <span class="srv-eyebrow">Embodied Systems</span>
-        <h2 class="srv-title">Physical AI &amp; Robotics</h2>
-        <p class="srv-desc">Unlock physical coordination. Specialist annotation for visual motor controls, spatial mapping, and mechanical trajectory affordances.</p>
-        
-        <div class="srv-feature-list">
-          <div class="srv-feature-item">
-            <svg class="srv-feature-check" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
-            <div class="srv-feature-text"><strong>Kinematic Trajectories:</strong> Robotic arm movement coordination files.</div>
-          </div>
-          <div class="srv-feature-item">
-            <svg class="srv-feature-check" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
-            <div class="srv-feature-text"><strong>Hand-Object Pose:</strong> Alignment indexing for physical object grasping.</div>
-          </div>
-          <div class="srv-feature-item">
-            <svg class="srv-feature-check" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
-            <div class="srv-feature-text"><strong>Depth Mapping:</strong> Spatial navigation vectors for autonomous bots.</div>
-          </div>
+<!-- 3. INTERACTIVE ANNOTATION DEMO SECTION -->
+<section class="srv-new-section bg-navy" id="annotation-demo">
+  <div class="section-wrap">
+    <div class="srv-section-header">
+      <span class="srv-eyebrow-cyan">INTERACTIVE DEMO</span>
+      <h2 class="srv-section-title">Model-Assisted Annotation Canvas.</h2>
+    </div>
+
+    <div class="demo-wrapper">
+      <!-- Top Controls Bar -->
+      <div class="demo-top-bar">
+        <!-- Sensor Tabs -->
+        <div class="demo-tabs">
+          <button class="demo-tab-btn active" data-sensor="scene">Scene View</button>
+          <button class="demo-tab-btn" data-sensor="depth">Depth Map</button>
+          <button class="demo-tab-btn" data-sensor="thermal">Thermal</button>
+        </div>
+
+        <!-- Annotation Tools -->
+        <div class="demo-tools-group">
+          <button class="demo-tool-btn active" data-tool="bbox">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>
+            Bounding Box
+          </button>
+          <button class="demo-tool-btn" data-tool="polygon">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+            Polygon
+          </button>
+          <button class="demo-tool-btn" data-tool="keypoint">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/></svg>
+            Keypoints
+          </button>
+          <button class="demo-tool-btn btn-auto" data-tool="auto">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3L12 3z"/></svg>
+            Auto-Label
+          </button>
+        </div>
+
+        <!-- Action Buttons -->
+        <div style="display:flex; gap:8px;">
+          <button class="demo-action-btn" id="btn-demo-undo">Undo ↩</button>
+          <button class="demo-action-btn" id="btn-demo-clear">Clear 🗑</button>
         </div>
       </div>
-      
-      <div class="srv-visual">
-        <div class="illustration-card">
-          <span class="illustration-card-title">Robotics Kinematic Pipeline</span>
-          <div class="illustration-svg-container">
-            <svg viewBox="0 0 400 280" xmlns="http://www.w3.org/2000/svg">
-              <path d="M 60 140 L 150 140 M 150 140 L 250 140 M 250 140 L 340 140" class="illust-connection" stroke-width="1.5" stroke-dasharray="4 4" />
-              <path d="M 60 140 L 340 140" class="illust-connection-active" stroke-width="2" stroke-linecap="round" stroke-dasharray="10 80" stroke-dashoffset="0">
-                <animate attributeName="stroke-dashoffset" values="90;0" dur="3s" repeatCount="indefinite" />
-              </path>
-              
-              <!-- Input Node -->
-              <circle cx="60" cy="140" r="24" class="illust-node-bg" stroke-width="1.5" />
-              <circle cx="60" cy="140" r="4" class="illust-node-accent" />
-              <text x="60" y="190" font-family="IBM Plex Mono" font-size="8.5" class="illust-node-text-muted" text-anchor="middle">RAW SENSORS</text>
-              
-              <!-- Center Modality Node (Robotic Joint) -->
-              <circle cx="150" cy="140" r="28" class="illust-node-bg" stroke-width="1.5" />
-              <circle cx="150" cy="140" r="4" class="illust-node-accent" />
-              <path d="M 140 152 L 150 140 L 162 146" class="illust-icon" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" />
-              <text x="150" y="190" font-family="IBM Plex Mono" font-size="8.5" class="illust-node-text-muted" text-anchor="middle">TRAJECTORY</text>
-              
-              <!-- Validation Node -->
-              <circle cx="250" cy="140" r="24" class="illust-node-bg" stroke-width="1.5" />
-              <path d="M 242 140 L 247 145 L 258 134" class="illust-icon" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-              <text x="250" y="190" font-family="IBM Plex Mono" font-size="8.5" class="illust-node-text-muted" text-anchor="middle">POSE ALIGN</text>
-              
-              <!-- Ready Node -->
-              <circle cx="340" cy="140" r="24" class="illust-node-bg" stroke-width="1.5" />
-              <circle cx="340" cy="140" r="4" class="illust-node-accent" />
-              <text x="340" y="190" font-family="IBM Plex Mono" font-size="8.5" class="illust-node-text-primary" text-anchor="middle">MODEL READY</text>
-            </svg>
+
+      <!-- Demo Grid -->
+      <div class="demo-grid">
+        <!-- Canvas Left Column -->
+        <div>
+          <div class="demo-canvas-wrap">
+            <canvas id="annotation-canvas"></canvas>
+            <div class="demo-shimmer-overlay" id="demo-shimmer"></div>
           </div>
+          <!-- Status Bar -->
+          <div class="demo-status-bar">
+            <div>Mode: <strong id="demo-mode-lbl">SCENE VIEW</strong> &bull; Tool: <strong id="demo-tool-lbl">BBOX</strong></div>
+            <div class="status-pill" id="demo-status-pill">READY</div>
+          </div>
+        </div>
+
+        <!-- Stats Right Column -->
+        <div class="demo-stats-col">
+          <div class="demo-stat-box">
+            <div class="demo-stat-head">Objects Labeled</div>
+            <div class="demo-count-big" id="demo-obj-count">3</div>
+          </div>
+
+          <div class="demo-stat-box">
+            <div class="demo-stat-head">Class Distribution</div>
+            <div class="class-dist-list">
+              <div class="dist-row">
+                <div class="dist-meta"><span>Person</span><span id="dist-cnt-person">1</span></div>
+                <div class="dist-bar-bg"><div class="dist-bar-fill chip-person" id="dist-bar-person" style="width:33%;"></div></div>
+              </div>
+              <div class="dist-row">
+                <div class="dist-meta"><span>Robot</span><span id="dist-cnt-robot">1</span></div>
+                <div class="dist-bar-bg"><div class="dist-bar-fill chip-robot" id="dist-bar-robot" style="width:33%;"></div></div>
+              </div>
+              <div class="dist-row">
+                <div class="dist-meta"><span>Object</span><span id="dist-cnt-object">1</span></div>
+                <div class="dist-bar-bg"><div class="dist-bar-fill chip-object" id="dist-bar-object" style="width:33%;"></div></div>
+              </div>
+              <div class="dist-row">
+                <div class="dist-meta"><span>Surface</span><span id="dist-cnt-surface">0</span></div>
+                <div class="dist-bar-bg"><div class="dist-bar-fill chip-surface" id="dist-bar-surface" style="width:0%;"></div></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="demo-stat-box" style="background: rgba(11, 168, 211, 0.06); border-color: rgba(11, 168, 211, 0.2);">
+            <div class="demo-stat-head" style="color: var(--cyan);">Accuracy (SLA)</div>
+            <div class="demo-count-big" style="font-size:28px; color:var(--navy);">99.2%</div>
+            <div style="font-size:11px; color:rgba(14,31,62,0.6); margin-top:4px;">Guaranteed Human Verification SLA</div>
+          </div>
+
+          <button class="btn-export-json" id="btn-export-json">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Export Annotations (JSON)
+          </button>
+          
+          <a href="./contact.html" class="btn-request-ds">Request Full Dataset &rarr;</a>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- IMAGE & VISION (White Theme) -->
-  <section class="srv-section theme-white" id="sec-image">
-    <div class="section-wrap srv-grid">
-      <div class="srv-content">
-        <span class="srv-eyebrow">Image AI</span>
-        <h2 class="srv-title">Image &amp; Document Vision</h2>
-        <p class="srv-desc">High-precision segmentation masks, bounding box maps, and text extraction for advanced computer vision systems.</p>
-        
-        <div class="srv-feature-list">
-          <div class="srv-feature-item">
-            <svg class="srv-feature-check" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
-            <div class="srv-feature-text"><strong>Pixel-perfect Masks:</strong> Ultra-fine semantic segmentation arrays.</div>
-          </div>
-          <div class="srv-feature-item">
-            <svg class="srv-feature-check" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
-            <div class="srv-feature-text"><strong>Document Parsing:</strong> Metadata taxonomy indexing from complex invoices.</div>
-          </div>
-          <div class="srv-feature-item">
-            <svg class="srv-feature-check" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
-            <div class="srv-feature-text"><strong>OCR Classification:</strong> Precise structural language localization.</div>
-          </div>
-        </div>
-      </div>
-      
-      <div class="srv-visual">
-        <div class="illustration-card">
-          <span class="illustration-card-title">Vision Segmentation Pipeline</span>
-          <div class="illustration-svg-container">
-            <svg viewBox="0 0 400 280" xmlns="http://www.w3.org/2000/svg">
-              <path d="M 60 140 L 150 140 M 150 140 L 250 140 M 250 140 L 340 140" class="illust-connection" stroke-width="1.5" stroke-dasharray="4 4" />
-              <path d="M 60 140 L 340 140" class="illust-connection-active" stroke-width="2" stroke-linecap="round" stroke-dasharray="10 80" stroke-dashoffset="0">
-                <animate attributeName="stroke-dashoffset" values="90;0" dur="3s" repeatCount="indefinite" />
-              </path>
-              
-              <!-- Input Node -->
-              <circle cx="60" cy="140" r="24" class="illust-node-bg" stroke-width="1.5" />
-              <circle cx="60" cy="140" r="4" class="illust-node-accent" />
-              <text x="60" y="190" font-family="IBM Plex Mono" font-size="8.5" class="illust-node-text-muted" text-anchor="middle">RAW IMAGES</text>
-              
-              <!-- Center Modality Node (Bounding Box) -->
-              <circle cx="150" cy="140" r="28" class="illust-node-bg" stroke-width="1.5" />
-              <rect x="138" y="128" width="24" height="24" rx="2" class="illust-icon" stroke-width="1.8" fill="none" />
-              <path d="M 134 134 L 134 126 L 142 126 M 158 126 L 166 126 L 166 134 M 166 146 L 166 154 L 158 154 M 142 154 L 134 154 L 134 146" class="illust-icon" stroke-width="2.2" fill="none" />
-              <text x="150" y="190" font-family="IBM Plex Mono" font-size="8.5" class="illust-node-text-muted" text-anchor="middle">SEGMENT</text>
-              
-              <!-- Validation Node -->
-              <circle cx="250" cy="140" r="24" class="illust-node-bg" stroke-width="1.5" />
-              <path d="M 242 140 L 247 145 L 258 134" class="illust-icon" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-              <text x="250" y="190" font-family="IBM Plex Mono" font-size="8.5" class="illust-node-text-muted" text-anchor="middle">OCR CLASS</text>
-              
-              <!-- Ready Node -->
-              <circle cx="340" cy="140" r="24" class="illust-node-bg" stroke-width="1.5" />
-              <circle cx="340" cy="140" r="4" class="illust-node-accent" />
-              <text x="340" y="190" font-family="IBM Plex Mono" font-size="8.5" class="illust-node-text-primary" text-anchor="middle">MODEL READY</text>
-            </svg>
-          </div>
-        </div>
-      </div>
+<!-- JSON Modal Popup -->
+<div class="json-modal-backdrop" id="json-modal">
+  <div class="json-modal-card">
+    <div class="json-modal-header">
+      <span class="json-modal-title">EXPORTED ANNOTATIONS JSON</span>
+      <button class="json-modal-close" id="json-modal-close">&times;</button>
     </div>
-  </section>
-
-  <!-- VIDEO AI (Dark Theme) -->
-  <section class="srv-section theme-dark" id="sec-video">
-    <div class="section-wrap srv-grid">
-      <div class="srv-content">
-        <span class="srv-eyebrow">Dynamic Video</span>
-        <h2 class="srv-title">Video Tracking &amp; Action</h2>
-        <p class="srv-desc">Cross-frame object association, dynamic boundary predictions, and temporal action labels for traffic networks and sports analytics.</p>
-        
-        <div class="srv-feature-list">
-          <div class="srv-feature-item">
-            <svg class="srv-feature-check" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
-            <div class="srv-feature-text"><strong>Cross-Frame IDs:</strong> Continuous tracking coordinates for moving objects.</div>
-          </div>
-          <div class="srv-feature-item">
-            <svg class="srv-feature-check" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
-            <div class="srv-feature-text"><strong>Event Boundaries:</strong> Action classification metadata at millisecond scale.</div>
-          </div>
-          <div class="srv-feature-item">
-            <svg class="srv-feature-check" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
-            <div class="srv-feature-text"><strong>Occlusion Tracking:</strong> Pre-calculated paths for hidden targets.</div>
-          </div>
-        </div>
-      </div>
-      
-      <div class="srv-visual">
-        <div class="illustration-card">
-          <span class="illustration-card-title">Video Tracking Pipeline</span>
-          <div class="illustration-svg-container">
-            <svg viewBox="0 0 400 280" xmlns="http://www.w3.org/2000/svg">
-              <path d="M 60 140 L 150 140 M 150 140 L 250 140 M 250 140 L 340 140" class="illust-connection" stroke-width="1.5" stroke-dasharray="4 4" />
-              <path d="M 60 140 L 340 140" class="illust-connection-active" stroke-width="2" stroke-linecap="round" stroke-dasharray="10 80" stroke-dashoffset="0">
-                <animate attributeName="stroke-dashoffset" values="90;0" dur="3s" repeatCount="indefinite" />
-              </path>
-              
-              <!-- Input Node -->
-              <circle cx="60" cy="140" r="24" class="illust-node-bg" stroke-width="1.5" />
-              <circle cx="60" cy="140" r="4" class="illust-node-accent" />
-              <text x="60" y="190" font-family="IBM Plex Mono" font-size="8.5" class="illust-node-text-muted" text-anchor="middle">RAW VIDEOS</text>
-              
-              <!-- Center Modality Node (Play/Frame Tracker) -->
-              <circle cx="150" cy="140" r="28" class="illust-node-bg" stroke-width="1.5" />
-              <rect x="138" y="128" width="24" height="24" rx="2" class="illust-icon" stroke-width="1.8" stroke-dasharray="2 2" fill="none" />
-              <polygon points="146,134 158,140 146,146" class="illust-icon-fill" />
-              <text x="150" y="190" font-family="IBM Plex Mono" font-size="8.5" class="illust-node-text-muted" text-anchor="middle">CROSS-FRAME</text>
-              
-              <!-- Validation Node -->
-              <circle cx="250" cy="140" r="24" class="illust-node-bg" stroke-width="1.5" />
-              <path d="M 242 140 L 247 145 L 258 134" class="illust-icon" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-              <text x="250" y="190" font-family="IBM Plex Mono" font-size="8.5" class="illust-node-text-muted" text-anchor="middle">TEMPORAL QA</text>
-              
-              <!-- Ready Node -->
-              <circle cx="340" cy="140" r="24" class="illust-node-bg" stroke-width="1.5" />
-              <circle cx="340" cy="140" r="4" class="illust-node-accent" />
-              <text x="340" y="190" font-family="IBM Plex Mono" font-size="8.5" class="illust-node-text-primary" text-anchor="middle">MODEL READY</text>
-            </svg>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 3D LiDAR (White Theme) -->
-  <section class="srv-section theme-white" id="sec-lidar">
-    <div class="section-wrap srv-grid">
-      <div class="srv-content">
-        <span class="srv-eyebrow">Spatial Point Cloud</span>
-        <h2 class="srv-title">3D Point Cloud &amp; LiDAR</h2>
-        <p class="srv-desc">Sensor-fusion timestamp mapping and 3D bounding box coordinate tracking for autonomous driving fleets.</p>
-        
-        <div class="srv-feature-list">
-          <div class="srv-feature-item">
-            <svg class="srv-feature-check" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
-            <div class="srv-feature-text"><strong>3D Cuboids:</strong> Bounding tracking vectors in point clouds.</div>
-          </div>
-          <div class="srv-feature-item">
-            <svg class="srv-feature-check" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
-            <div class="srv-feature-text"><strong>LiDAR Segmentation:</strong> High-density spatial coordinate mapping.</div>
-          </div>
-          <div class="srv-feature-item">
-            <svg class="srv-feature-check" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
-            <div class="srv-feature-text"><strong>Sensor Projection:</strong> Matrix synchronization with camera feeds.</div>
-          </div>
-        </div>
-      </div>
-      
-      <div class="srv-visual">
-        <div class="illustration-card">
-          <span class="illustration-card-title">LiDAR Point Cloud Pipeline</span>
-          <div class="illustration-svg-container">
-            <svg viewBox="0 0 400 280" xmlns="http://www.w3.org/2000/svg">
-              <path d="M 60 140 L 150 140 M 150 140 L 250 140 M 250 140 L 340 140" class="illust-connection" stroke-width="1.5" stroke-dasharray="4 4" />
-              <path d="M 60 140 L 340 140" class="illust-connection-active" stroke-width="2" stroke-linecap="round" stroke-dasharray="10 80" stroke-dashoffset="0">
-                <animate attributeName="stroke-dashoffset" values="90;0" dur="3s" repeatCount="indefinite" />
-              </path>
-              
-              <!-- Input Node -->
-              <circle cx="60" cy="140" r="24" class="illust-node-bg" stroke-width="1.5" />
-              <circle cx="60" cy="140" r="4" class="illust-node-accent" />
-              <text x="60" y="190" font-family="IBM Plex Mono" font-size="8.5" class="illust-node-text-muted" text-anchor="middle">POINT CLOUDS</text>
-              
-              <!-- Center Modality Node (Isometric Cuboid) -->
-              <circle cx="150" cy="140" r="28" class="illust-node-bg" stroke-width="1.5" />
-              <path d="M 138 138 L 150 130 L 162 138 L 150 146 Z M 138 138 L 138 150 L 150 158 L 150 146 M 162 138 L 162 150 L 150 158" class="illust-icon" stroke-width="1.5" fill="none" stroke-linejoin="round" />
-              <text x="150" y="190" font-family="IBM Plex Mono" font-size="8.5" class="illust-node-text-muted" text-anchor="middle">3D CUBOIDS</text>
-              
-              <!-- Validation Node -->
-              <circle cx="250" cy="140" r="24" class="illust-node-bg" stroke-width="1.5" />
-              <path d="M 242 140 L 247 145 L 258 134" class="illust-icon" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-              <text x="250" y="190" font-family="IBM Plex Mono" font-size="8.5" class="illust-node-text-muted" text-anchor="middle">SENSOR FUSION</text>
-              
-              <!-- Ready Node -->
-              <circle cx="340" cy="140" r="24" class="illust-node-bg" stroke-width="1.5" />
-              <circle cx="340" cy="140" r="4" class="illust-node-accent" />
-              <text x="340" y="190" font-family="IBM Plex Mono" font-size="8.5" class="illust-node-text-primary" text-anchor="middle">MODEL READY</text>
-            </svg>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- RLHF (Dark Theme) -->
-  <section class="srv-section theme-dark" id="sec-rlhf">
-    <div class="section-wrap srv-grid">
-      <div class="srv-content">
-        <span class="srv-eyebrow">Foundation Models</span>
-        <h2 class="srv-title">RLHF &amp; LLM Training</h2>
-        <p class="srv-desc">Constitutional alignment protocols, instruction formatting, and safety checks for LLMs.</p>
-        
-        <div class="srv-feature-list">
-          <div class="srv-feature-item">
-            <svg class="srv-feature-check" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
-            <div class="srv-feature-text"><strong>Preference Ranking:</strong> Diverse prompt and response comparison pairs.</div>
-          </div>
-          <div class="srv-feature-item">
-            <svg class="srv-feature-check" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
-            <div class="srv-feature-text"><strong>Constitutional Prompts:</strong> Safety policy validation checks.</div>
-          </div>
-          <div class="srv-feature-item">
-            <svg class="srv-feature-check" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
-            <div class="srv-feature-text"><strong>Instruction Tuning:</strong> Multi-turn technical coding prompts.</div>
-          </div>
-        </div>
-      </div>
-      
-      <div class="srv-visual">
-        <div class="illustration-card">
-          <span class="illustration-card-title">LLM Alignment Pipeline</span>
-          <div class="illustration-svg-container">
-            <svg viewBox="0 0 400 280" xmlns="http://www.w3.org/2000/svg">
-              <path d="M 60 140 L 150 140 M 150 140 L 250 140 M 250 140 L 340 140" class="illust-connection" stroke-width="1.5" stroke-dasharray="4 4" />
-              <path d="M 60 140 L 340 140" class="illust-connection-active" stroke-width="2" stroke-linecap="round" stroke-dasharray="10 80" stroke-dashoffset="0">
-                <animate attributeName="stroke-dashoffset" values="90;0" dur="3s" repeatCount="indefinite" />
-              </path>
-              
-              <!-- Input Node -->
-              <circle cx="60" cy="140" r="24" class="illust-node-bg" stroke-width="1.5" />
-              <circle cx="60" cy="140" r="4" class="illust-node-accent" />
-              <text x="60" y="190" font-family="IBM Plex Mono" font-size="8.5" class="illust-node-text-muted" text-anchor="middle">PROMPT RUNS</text>
-              
-              <!-- Center Modality Node (Preference ticks) -->
-              <circle cx="150" cy="140" r="28" class="illust-node-bg" stroke-width="1.5" />
-              <path d="M 140 140 L 147 147 L 160 133" class="illust-icon" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
-              <path d="M 144 146 L 151 153 L 164 139" class="illust-icon" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" opacity="0.6" />
-              <text x="150" y="190" font-family="IBM Plex Mono" font-size="8.5" class="illust-node-text-muted" text-anchor="middle">PREFERENCES</text>
-              
-              <!-- Validation Node -->
-              <circle cx="250" cy="140" r="24" class="illust-node-bg" stroke-width="1.5" />
-              <path d="M 242 140 L 247 145 L 258 134" class="illust-icon" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-              <text x="250" y="190" font-family="IBM Plex Mono" font-size="8.5" class="illust-node-text-muted" text-anchor="middle">SAFETY QA</text>
-              
-              <!-- Ready Node -->
-              <circle cx="340" cy="140" r="24" class="illust-node-bg" stroke-width="1.5" />
-              <circle cx="340" cy="140" r="4" class="illust-node-accent" />
-              <text x="340" y="190" font-family="IBM Plex Mono" font-size="8.5" class="illust-node-text-primary" text-anchor="middle">MODEL READY</text>
-            </svg>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
+    <div class="json-code-box" id="json-code-preview"></div>
+  </div>
 </div>
 
-<!-- 5. CAPABILITIES (White Background) -->
+<!-- 4. NAVIGATION SIMULATION SECTION -->
+<section class="srv-new-section bg-dark" id="nav-simulation">
+  <div class="section-wrap">
+    <div class="srv-section-header">
+      <span class="srv-eyebrow-cyan">AUTONOMOUS SIMULATION</span>
+      <h2 class="srv-section-title">Real-Time Kinematics &amp; Path Planning.</h2>
+    </div>
+
+    <div class="sim-wrapper">
+      <div class="sim-grid">
+        <!-- Canvas Left Column -->
+        <div class="sim-canvas-wrap">
+          <canvas id="nav-canvas"></canvas>
+        </div>
+
+        <!-- Controls Right Column -->
+        <div class="sim-controls-col">
+          <!-- Mode Switcher -->
+          <div class="sim-mode-switcher">
+            <button class="sim-mode-btn active" data-mode="nav">Navigation</button>
+            <button class="sim-mode-btn" data-mode="slam">SLAM Map</button>
+            <button class="sim-mode-btn" data-mode="manipulation">Arm Joint</button>
+          </div>
+
+          <!-- Parameter Sliders -->
+          <div class="sim-card">
+            <div class="sim-card-title">Parameters</div>
+            <div class="sim-control-group">
+              <div class="slider-row">
+                <div class="slider-label-wrap"><span>Robot Speed</span></div>
+                <input type="range" class="sim-slider" id="sim-speed-slider" min="0.02" max="0.15" step="0.01" value="0.05"/>
+              </div>
+              <div class="slider-row">
+                <div class="slider-label-wrap"><span>Sensor Range</span></div>
+                <input type="range" class="sim-slider" id="sim-range-slider" min="40" max="120" step="5" value="70"/>
+              </div>
+              <div class="slider-row">
+                <div class="slider-label-wrap"><span>Obstacle Density</span></div>
+                <input type="range" class="sim-slider" id="sim-obs-slider" min="0" max="2" step="1" value="1"/>
+              </div>
+            </div>
+          </div>
+
+          <!-- Live Metrics Readout -->
+          <div class="sim-card">
+            <div class="sim-card-title">Live Telemetry</div>
+            <div class="sim-metrics-grid">
+              <div class="metric-card-sm">
+                <div class="metric-sm-lbl">Mode</div>
+                <div class="metric-sm-val" id="sim-mode-readout">NAV</div>
+              </div>
+              <div class="metric-card-sm">
+                <div class="metric-sm-lbl">Obstacles</div>
+                <div class="metric-sm-val" id="sim-obs-readout">6</div>
+              </div>
+              <div class="metric-card-sm">
+                <div class="metric-sm-lbl">Path Dist</div>
+                <div class="metric-sm-val" id="sim-dist-readout">0 px</div>
+              </div>
+              <div class="metric-card-sm">
+                <div class="metric-sm-lbl">FPS</div>
+                <div class="metric-sm-val" id="sim-fps-readout">60</div>
+              </div>
+              <div class="metric-card-sm">
+                <div class="metric-sm-lbl">Confidence</div>
+                <div class="metric-sm-val" id="sim-conf-readout" style="color:#00D4FF;">98%</div>
+              </div>
+              <div class="metric-card-sm">
+                <div class="metric-sm-lbl">Collisions</div>
+                <div class="metric-sm-val" id="sim-coll-readout" style="color:#FFBA08;">0</div>
+              </div>
+            </div>
+          </div>
+
+          <button class="btn-sim-reset" id="btn-sim-reset">Reset Path &amp; Metrics</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. CAPABILITIES (White Background — Untouched) -->
 <section class="srv-capabilities">
   <div class="section-wrap">
     <div class="center-header">
@@ -602,7 +422,7 @@
   </div>
 </section>
 
-<!-- 6. SECTORS SERVED (White Background) -->
+<!-- 6. SECTORS SERVED (Enterprise Domain Expertise — Untouched) -->
 <section class="srv-sectors">
   <div class="section-wrap">
     <div class="center-header">
@@ -646,67 +466,7 @@
   </div>
 </section>
 
-<!-- 7. PROCESS WORKFLOW (White Background) -->
-<section class="srv-workflow">
-  <div class="section-wrap">
-    <div class="center-header">
-      <span class="srv-eyebrow">Process Workflow</span>
-      <h2 class="section-title">Our Operational Lifecycle</h2>
-    </div>
-    
-    <div class="workflow-container">
-      <div class="workflow-line"></div>
-      <div class="workflow-grid">
-        <!-- Step 1 -->
-        <div class="workflow-step">
-          <div class="workflow-badge">1</div>
-          <h4 class="workflow-title">Data Collection</h4>
-          <p class="workflow-desc">We ingest raw point cloud, acoustic audio, or image files via secure API endpoints.</p>
-        </div>
-        <!-- Step 2 -->
-        <div class="workflow-step">
-          <div class="workflow-badge">2</div>
-          <h4 class="workflow-title">Annotation</h4>
-          <p class="workflow-desc">Expert squads label elements based on your custom taxonomy rules.</p>
-        </div>
-        <!-- Step 3 -->
-        <div class="workflow-step">
-          <div class="workflow-badge">3</div>
-          <h4 class="workflow-title">Quality Assurance</h4>
-          <p class="workflow-desc">Multi-stage human verification and custom validation checks.</p>
-        </div>
-        <!-- Step 4 -->
-        <div class="workflow-step">
-          <div class="workflow-badge">4</div>
-          <h4 class="workflow-title">Delivery</h4>
-          <p class="workflow-desc">Data delivered in your required formats (COCO, YOLO, PCD, CSV, etc.) directly into your workspace.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- 8. METRICS (Dark Navy Background) -->
-<section class="srv-metrics" id="metrics-section">
-  <div class="section-wrap">
-    <div class="metrics-row">
-      <div class="metric-item">
-        <div class="metric-num" data-metric="qa">99.8%</div>
-        <div class="metric-label">QA Accuracy</div>
-      </div>
-      <div class="metric-item">
-        <div class="metric-num" data-metric="assets">10M+</div>
-        <div class="metric-label">Annotations Delivered</div>
-      </div>
-      <div class="metric-item">
-        <div class="metric-num" data-metric="turnaround">24 Hours</div>
-        <div class="metric-label">Turnaround SLA</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- 9. TECHNOLOGY FORMATS (White Background) -->
+<!-- 7. TECHNOLOGY FORMATS (Supported Target Formats — Untouched) -->
 <section class="srv-formats">
   <div class="section-wrap">
     <div class="center-header">
@@ -753,7 +513,7 @@
   </div>
 </section>
 
-<!-- 10. QUALITY ASSURANCE & SLA (Dark Background) -->
+<!-- 8. QUALITY ASSURANCE & SLA (Dark Background — Untouched) -->
 <section class="srv-quality">
   <div class="section-wrap">
     <div class="center-header">
@@ -781,7 +541,7 @@
   </div>
 </section>
 
-<!-- 11. CTA SECTION (Reuses Homepage CTA design pattern) -->
+<!-- 9. CTA SECTION (Final CTA — Untouched) -->
 <link rel="stylesheet" href="./css/cta.css" />
 <section class="cta-banner" style="background-color: var(--navy); border-top: 1px solid rgba(255, 255, 255, 0.05); padding: 90px 0;">
   <div class="section-wrap">
@@ -801,12 +561,12 @@
   </div>
 </section>
 
-<!-- 12. FOOTER PLACEHOLDER -->
+<!-- FOOTER PLACEHOLDER -->
 <div id="footer-placeholder"></div>
 
 <!-- Scripts -->
 <script type="module">
-  import { initServicesPage } from './js/services_page.js';
+  import { initServicesRedesign } from './js/services_redesign.js';
   
   document.addEventListener('DOMContentLoaded', () => {
     // Mount the footer component placeholder dynamically
@@ -819,7 +579,7 @@
         });
     }
     
-    initServicesPage();
+    initServicesRedesign();
   });
 </script>
 </body>
