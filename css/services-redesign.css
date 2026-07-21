@@ -26,7 +26,7 @@
    GLOBAL SECTION WRAPPERS & HEADERS
 ─────────────────────────────────────────────────────────────── */
 .srv-new-section {
-  padding: 90px 0;
+  padding: 115px 0;
   position: relative;
 }
 
@@ -48,7 +48,7 @@
 .srv-section-header {
   text-align: center;
   max-width: 720px;
-  margin: 0 auto 50px auto;
+  margin: 0 auto 64px auto;
 }
 
 .srv-eyebrow-cyan {
@@ -59,7 +59,7 @@
   text-transform: uppercase;
   color: var(--cyan);
   display: inline-block;
-  margin-bottom: 12px;
+  margin-bottom: 16px;
 }
 
 .srv-section-title {
@@ -69,6 +69,7 @@
   letter-spacing: -0.03em;
   line-height: 1.15;
   color: inherit;
+  margin-top: 8px;
 }
 
 /* Cyan value helper */

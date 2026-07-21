@@ -535,12 +535,12 @@ a {
   color: var(--teal); /* Blue text */
 }
 
-/* 4. SECTORS SERVED (Subtle Cyan Background) */
+/* 4. SECTORS SERVED (Dark Navy Background for Alternating Sequence) */
 .srv-sectors {
-  background-color: #EFF8FA;
-  color: var(--navy);
-  padding: 100px 0;
-  border-top: 1px solid rgba(11, 168, 211, 0.1);
+  background-color: #060E1C;
+  color: #FFFFFF;
+  padding: 115px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .sectors-grid {
@@ -551,8 +551,9 @@ a {
 
 .sector-card {
   padding: 28px;
-  background-color: #FFFFFF;
-  border: 1px solid rgba(11, 168, 211, 0.12);
+  background-color: #0A1830;
+  color: #FFFFFF;
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 12px;
   transition: var(--transition-smooth);
 }
