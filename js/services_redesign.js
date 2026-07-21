@@ -941,7 +941,7 @@ function initAnnotationDemo() {
 
 
 /* ─────────────────────────────────────────────────────────────
-   SECTION 3: NAVIGATION SIMULATION LOGIC (MATCHING REFERENCE SCREENSHOT)
+   SECTION 3: NAVIGATION SIMULATION LOGIC (OPAQUE OBSTACLES + CYAN PALETTE)
 ─────────────────────────────────────────────────────────────── */
 function initNavigationSimulation() {
   const canvas = document.getElementById('nav-canvas');
@@ -970,7 +970,7 @@ function initNavigationSimulation() {
   let frameCount = 0;
   let measuredFps = 42;
 
-  // Obstacles list
+  // Solid Opaque Obstacle Blocks
   let obstacles = [];
 
   const generateObstacles = () => {
@@ -1091,7 +1091,7 @@ function initNavigationSimulation() {
     ctx.fillStyle = '#F8FAFC';
     ctx.fillRect(0, 0, w, h);
 
-    // Subtle light grid background (Matching Reference Screenshot)
+    // Subtle light grid background
     ctx.strokeStyle = 'rgba(148, 163, 184, 0.15)';
     ctx.lineWidth = 1;
     for (let x = 0; x < w; x += 30) {
@@ -1114,16 +1114,50 @@ function initNavigationSimulation() {
     ctx.fillStyle = '#94A3B8';
     ctx.fillText(`POS: (${Math.round(rx)}, ${Math.round(ry)})`, 16, 40);
 
-    // 3. Move Robot smoothly towards target
-    const dx = targetX - rx;
-    const dy = targetY - ry;
-    const dist = Math.hypot(dx, dy);
+    // 3. Move Robot smoothly towards target + Obstacle Deflection Physics
+    let stepDx = (targetX - rx) * robotSpeedFactor;
+    let stepDy = (targetY - ry) * robotSpeedFactor;
+    let nextRx = rx + stepDx;
+    let nextRy = ry + stepDy;
+
+    const robotRadius = 10;
+    let hasCollided = false;
+
+    // Check collision against solid opaque obstacle blocks
+    obstacles.forEach((obs) => {
+      // Find nearest point on rectangle to robot position
+      const closestX = Math.max(obs.x, Math.min(nextRx, obs.x + obs.w));
+      const closestY = Math.max(obs.y, Math.min(nextRy, obs.y + obs.h));
+      const distX = nextRx - closestX;
+      const distY = nextRy - closestY;
+      const d = Math.hypot(distX, distY);
+
+      if (d < robotRadius) {
+        hasCollided = true;
+        // Slide/deflect along block perimeter towards target
+        const overlap = robotRadius - d;
+        if (d > 0) {
+          nextRx += (distX / d) * overlap;
+          nextRy += (distY / d) * overlap;
+        } else {
+          nextRx += stepDx;
+        }
+      }
+    });
+
+    if (hasCollided) {
+      collisionCount++;
+      const collEl = document.getElementById('sim-coll-readout');
+      if (collEl) collEl.textContent = Math.floor(collisionCount / 30);
+    }
+
+    const dist = Math.hypot(targetX - rx, targetY - ry);
 
     if (dist > 1) {
-      rx += dx * robotSpeedFactor;
-      ry += dy * robotSpeedFactor;
-      angle = Math.atan2(dy, dx);
-      distanceTraveled += Math.round(Math.hypot(dx * robotSpeedFactor, dy * robotSpeedFactor));
+      rx = nextRx;
+      ry = nextRy;
+      angle = Math.atan2(targetY - ry, targetX - rx);
+      distanceTraveled += Math.round(Math.hypot(stepDx, stepDy));
 
       if (currentMode === 'nav') {
         trailPoints.push({ x: rx, y: ry });
@@ -1133,11 +1167,16 @@ function initNavigationSimulation() {
       }
     }
 
-    // 4. Draw Obstacles (Clean light gray boxes with subtle borders)
+    // 4. Draw SOLID OPAQUE Obstacle Blocks (No transparency)
     obstacles.forEach((obs) => {
-      ctx.fillStyle = '#E2E8F0';
+      // Soft shadow under block
+      ctx.fillStyle = 'rgba(148, 163, 184, 0.2)';
+      ctx.fillRect(obs.x + 3, obs.y + 3, obs.w, obs.h);
+
+      // Solid opaque block fill
+      ctx.fillStyle = '#E2E8F0'; // Solid opaque light gray
       ctx.strokeStyle = '#CBD5E1';
-      ctx.lineWidth = 1.5;
+      ctx.lineWidth = 1.8;
 
       ctx.beginPath();
       ctx.roundRect(obs.x, obs.y, obs.w, obs.h, 6);
@@ -1145,19 +1184,8 @@ function initNavigationSimulation() {
       ctx.stroke();
     });
 
-    // 5. Render Right-side Lidar Arc Waves Decor (Blue wave graphic on right edge)
-    ctx.save();
-    ctx.strokeStyle = 'rgba(59, 130, 246, 0.4)';
-    ctx.lineWidth = 1.5;
-    for (let i = 0; i < 8; i++) {
-      ctx.beginPath();
-      ctx.arc(w - 10, h / 2, 80 + i * 25, Math.PI * 0.7, Math.PI * 1.3);
-      ctx.stroke();
-    }
-    ctx.restore();
-
-    // 6. Draw Target Red Crosshair `+` at mouse target position (Matching Screenshot)
-    ctx.strokeStyle = '#C8322B';
+    // 5. Draw Target Cyan Crosshair `+` at mouse target position
+    ctx.strokeStyle = '#0BA8D3';
     ctx.lineWidth = 1.8;
     ctx.beginPath();
     ctx.arc(targetX, targetY, 8, 0, Math.PI * 2);
@@ -1165,7 +1193,7 @@ function initNavigationSimulation() {
     ctx.moveTo(targetX, targetY - 12); ctx.lineTo(targetX, targetY + 12);
     ctx.stroke();
 
-    // 7. Render Robot Movement & Sensor Range
+    // 6. Render Robot Movement & Sensor Range
     if (currentMode === 'nav') {
       // Trail line
       if (trailPoints.length > 1) {
@@ -1174,16 +1202,16 @@ function initNavigationSimulation() {
           if (i === 0) ctx.moveTo(pt.x, pt.y);
           else ctx.lineTo(pt.x, pt.y);
         });
-        ctx.strokeStyle = '#C8322B';
+        ctx.strokeStyle = '#0BA8D3';
         ctx.lineWidth = 2;
         ctx.stroke();
       }
 
-      // Robot Icon (Directional Coral Arrow)
+      // Robot Icon (Directional Cyan Arrow)
       ctx.save();
       ctx.translate(rx, ry);
       ctx.rotate(angle);
-      ctx.fillStyle = '#C8322B';
+      ctx.fillStyle = '#0BA8D3';
       ctx.beginPath();
       ctx.moveTo(12, 0);
       ctx.lineTo(-9, -8);
@@ -1234,14 +1262,14 @@ function initNavigationSimulation() {
       ctx.beginPath();
       ctx.moveTo(baseX, baseY);
       ctx.lineTo(joint1X, joint1Y);
-      ctx.strokeStyle = '#C8322B';
+      ctx.strokeStyle = '#0BA8D3';
       ctx.lineWidth = 5;
       ctx.stroke();
 
       ctx.beginPath();
       ctx.moveTo(joint1X, joint1Y);
       ctx.lineTo(endX, endY);
-      ctx.strokeStyle = '#0BA8D3';
+      ctx.strokeStyle = '#00D4FF';
       ctx.lineWidth = 4;
       ctx.stroke();
 

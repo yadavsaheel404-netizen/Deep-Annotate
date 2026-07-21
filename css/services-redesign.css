@@ -7,8 +7,6 @@
   --cyan: #0BA8D3;
   --cyan-bright: #00D4FF;
   --cyan-glow: rgba(11, 168, 211, 0.15);
-  --coral: #C8322B;
-  --coral-light: rgba(200, 50, 43, 0.08);
   --grey-light: #F8FAFC;
   --grey-border: rgba(14, 31, 62, 0.08);
   --font-sans: 'Inter', sans-serif;
@@ -70,9 +68,9 @@
   color: inherit;
 }
 
-/* Coral value helper */
-.val-coral {
-  color: var(--coral) !important;
+/* Cyan value helper */
+.val-cyan {
+  color: var(--cyan) !important;
   font-weight: 700 !important;
 }
 
@@ -757,7 +755,7 @@
 }
 
 /* ─────────────────────────────────────────────────────────────
-   SECTION 3: NAVIGATION SIMULATION (LIGHT CARD MATCHING SCREENSHOT)
+   SECTION 3: NAVIGATION SIMULATION (LIGHT CARD MATCHING BRAND CYAN)
 ─────────────────────────────────────────────────────────────── */
 .sim-wrapper {
   background: #F8FAFC;
@@ -862,7 +860,7 @@
 .sim-stat-val {
   font-size: 15px;
   font-weight: 800;
-  color: var(--coral);
+  color: var(--cyan);
   font-family: var(--font-mono);
 }
 
@@ -891,7 +889,7 @@
   margin-bottom: 14px;
 }
 
-/* Vertical Stacked Mode Buttons (Red/Coral Active State) */
+/* Vertical Stacked Mode Buttons (Cyan Brand Active State) */
 .sim-mode-list {
   display: flex;
   flex-direction: column;
@@ -920,10 +918,10 @@
 }
 
 .sim-mode-btn.active {
-  background: var(--coral);
+  background: var(--cyan);
   color: #FFFFFF;
-  border-color: var(--coral);
-  box-shadow: 0 6px 20px rgba(200, 50, 43, 0.3);
+  border-color: var(--cyan);
+  box-shadow: 0 6px 20px rgba(11, 168, 211, 0.3);
 }
 
 /* Parameter Sliders Styling */
@@ -949,7 +947,7 @@
 
 .sim-slider {
   width: 100%;
-  accent-color: var(--coral);
+  accent-color: var(--cyan);
   cursor: pointer;
 }
 
@@ -979,7 +977,7 @@
 .metric-sm-val {
   font-size: 18px;
   font-weight: 800;
-  color: var(--coral);
+  color: var(--cyan);
   margin-top: 2px;
   font-family: var(--font-mono);
 }
