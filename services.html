@@ -242,70 +242,113 @@
     <div class="sim-wrapper">
       <div class="sim-grid">
         <!-- Canvas Left Column -->
-        <div class="sim-canvas-wrap">
-          <canvas id="nav-canvas"></canvas>
+        <div class="sim-canvas-container">
+          <!-- Top Header Bar inside Canvas -->
+          <div class="sim-canvas-header">
+            <div class="sim-header-left">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+              <span>MOVE CURSOR TO GUIDE ROBOT &middot; CLICK TO SET TARGET</span>
+            </div>
+            <div class="sim-status-pill">&bull; RUNNING</div>
+          </div>
+
+          <!-- Canvas Viewport -->
+          <div class="sim-canvas-wrap">
+            <canvas id="nav-canvas"></canvas>
+          </div>
+
+          <!-- Bottom Telemetry Bar inside Canvas -->
+          <div class="sim-bottom-bar">
+            <div class="sim-stat-item">
+              <span class="sim-stat-lbl">MODE</span>
+              <span class="sim-stat-val val-coral" id="sim-mode-bottom">Navigation</span>
+            </div>
+            <div class="sim-stat-item">
+              <span class="sim-stat-lbl">OBSTACLES</span>
+              <span class="sim-stat-val val-coral" id="sim-obs-bottom">10</span>
+            </div>
+            <div class="sim-stat-item">
+              <span class="sim-stat-lbl">PATH DIST</span>
+              <span class="sim-stat-val val-coral" id="sim-dist-bottom">0px</span>
+            </div>
+            <div class="sim-stat-item">
+              <span class="sim-stat-lbl">FPS</span>
+              <span class="sim-stat-val val-coral" id="sim-fps-bottom">60 Fps</span>
+            </div>
+          </div>
         </div>
 
         <!-- Controls Right Column -->
         <div class="sim-controls-col">
-          <!-- Mode Switcher -->
-          <div class="sim-mode-switcher">
-            <button class="sim-mode-btn active" data-mode="nav">Navigation</button>
-            <button class="sim-mode-btn" data-mode="slam">SLAM Map</button>
-            <button class="sim-mode-btn" data-mode="manipulation">Arm Joint</button>
+          <!-- Mode Selector Card -->
+          <div class="sim-card">
+            <div class="sim-card-title">MODE</div>
+            <div class="sim-mode-list">
+              <button class="sim-mode-btn active" data-mode="nav">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
+                Navigation
+              </button>
+              <button class="sim-mode-btn" data-mode="slam">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                SLAM Mapping
+              </button>
+              <button class="sim-mode-btn" data-mode="manipulation">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M2 12h20"/><circle cx="12" cy="12" r="4"/></svg>
+                Manipulation
+              </button>
+            </div>
           </div>
 
-          <!-- Parameter Sliders -->
+          <!-- Parameter Sliders Card -->
           <div class="sim-card">
-            <div class="sim-card-title">Parameters</div>
+            <div class="sim-card-title">PARAMETERS</div>
             <div class="sim-control-group">
               <div class="slider-row">
-                <div class="slider-label-wrap"><span>Robot Speed</span></div>
-                <input type="range" class="sim-slider" id="sim-speed-slider" min="0.02" max="0.15" step="0.01" value="0.05"/>
+                <div class="slider-label-wrap">
+                  <span>Robot Speed</span>
+                  <span class="val-coral" id="sim-speed-val">0.6</span>
+                </div>
+                <input type="range" class="sim-slider" id="sim-speed-slider" min="0.02" max="0.15" step="0.01" value="0.06"/>
               </div>
               <div class="slider-row">
-                <div class="slider-label-wrap"><span>Sensor Range</span></div>
-                <input type="range" class="sim-slider" id="sim-range-slider" min="40" max="120" step="5" value="70"/>
+                <div class="slider-label-wrap">
+                  <span>Sensor Range</span>
+                  <span class="val-coral" id="sim-range-val">120</span>
+                </div>
+                <input type="range" class="sim-slider" id="sim-range-slider" min="40" max="180" step="5" value="120"/>
               </div>
               <div class="slider-row">
-                <div class="slider-label-wrap"><span>Obstacle Density</span></div>
+                <div class="slider-label-wrap">
+                  <span>Obstacles</span>
+                  <span class="val-coral" id="sim-obs-val">Medium</span>
+                </div>
                 <input type="range" class="sim-slider" id="sim-obs-slider" min="0" max="2" step="1" value="1"/>
               </div>
             </div>
           </div>
 
-          <!-- Live Metrics Readout -->
+          <!-- Live Metrics Readout Card -->
           <div class="sim-card">
-            <div class="sim-card-title">Live Telemetry</div>
+            <div class="sim-card-title">LIVE METRICS</div>
             <div class="sim-metrics-grid">
               <div class="metric-card-sm">
-                <div class="metric-sm-lbl">Mode</div>
-                <div class="metric-sm-val" id="sim-mode-readout">NAV</div>
+                <div class="metric-sm-lbl">CONFIDENCE</div>
+                <div class="metric-sm-val val-coral" id="sim-conf-readout">96%</div>
               </div>
               <div class="metric-card-sm">
-                <div class="metric-sm-lbl">Obstacles</div>
-                <div class="metric-sm-val" id="sim-obs-readout">6</div>
+                <div class="metric-sm-lbl">COLLISIONS</div>
+                <div class="metric-sm-val val-coral" id="sim-coll-readout">0</div>
               </div>
               <div class="metric-card-sm">
-                <div class="metric-sm-lbl">Path Dist</div>
-                <div class="metric-sm-val" id="sim-dist-readout">0 px</div>
+                <div class="metric-sm-lbl">COVERAGE</div>
+                <div class="metric-sm-val val-coral" id="sim-cov-readout">100%</div>
               </div>
               <div class="metric-card-sm">
-                <div class="metric-sm-lbl">FPS</div>
-                <div class="metric-sm-val" id="sim-fps-readout">60</div>
-              </div>
-              <div class="metric-card-sm">
-                <div class="metric-sm-lbl">Confidence</div>
-                <div class="metric-sm-val" id="sim-conf-readout" style="color:#00D4FF;">98%</div>
-              </div>
-              <div class="metric-card-sm">
-                <div class="metric-sm-lbl">Collisions</div>
-                <div class="metric-sm-val" id="sim-coll-readout" style="color:#FFBA08;">0</div>
+                <div class="metric-sm-lbl">WAYPOINTS</div>
+                <div class="metric-sm-val val-coral" id="sim-wp-readout">37</div>
               </div>
             </div>
           </div>
-
-          <button class="btn-sim-reset" id="btn-sim-reset">Reset Path &amp; Metrics</button>
         </div>
       </div>
     </div>

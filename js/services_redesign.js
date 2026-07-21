@@ -200,10 +200,9 @@ function initAnnotationDemo() {
   if (!canvas) return;
 
   const ctx = canvas.getContext('2d');
-  let currentSensor = 'scene'; // 'scene' | 'depth' | 'thermal'
-  let currentTool = 'bbox'; // 'bbox' | 'polygon' | 'keypoint' | 'auto'
+  let currentSensor = 'scene';
+  let currentTool = 'bbox';
   
-  // Ground truth scene figures with depth indices and anchor points
   const SCENE_FIGURES = [
     {
       id: 'person_standing',
@@ -256,16 +255,16 @@ function initAnnotationDemo() {
   window.addEventListener('resize', resizeCanvas);
 
   const CLASS_COLORS = {
-    Person: '#3B82F6',   // Blue
-    Robot: '#8B5CF6',    // Violet
-    Object: '#F59E0B',   // Amber
-    Surface: '#10B981'   // Emerald
+    Person: '#3B82F6',
+    Robot: '#8B5CF6',
+    Object: '#F59E0B',
+    Surface: '#10B981'
   };
 
   const CLASS_TEXT_COLORS = {
     Person: '#FFFFFF',
     Robot: '#FFFFFF',
-    Object: '#1F2937',   // Dark text for contrast on Amber
+    Object: '#1F2937',
     Surface: '#FFFFFF'
   };
 
@@ -317,7 +316,6 @@ function initAnnotationDemo() {
     setTimeout(() => toast.remove(), 1600);
   };
 
-  // Draw Background Scene matching Reference Screenshots Exactly
   const drawBackground = () => {
     const w = canvas.width;
     const h = canvas.height;
@@ -329,7 +327,6 @@ function initAnnotationDemo() {
     const ledAlpha = prefersReducedMotion ? 1 : 0.4 + Math.sin(now * 0.005) * 0.6;
 
     if (currentSensor === 'scene') {
-      // 1. Scene View Background
       const bgGrad = ctx.createLinearGradient(0, 0, 0, h);
       bgGrad.addColorStop(0, '#F1F5F9');
       bgGrad.addColorStop(0.7, '#E2E8F0');
@@ -337,7 +334,6 @@ function initAnnotationDemo() {
       ctx.fillStyle = bgGrad;
       ctx.fillRect(0, 0, w, h);
 
-      // Low-opacity refined dot grid
       ctx.fillStyle = 'rgba(148, 163, 184, 0.25)';
       for (let x = 25 * scale; x < w; x += 30 * scale) {
         for (let y = 25 * scale; y < h; y += 30 * scale) {
@@ -347,7 +343,6 @@ function initAnnotationDemo() {
         }
       }
 
-      // Grounding Shadows
       const drawShadow = (cx, cy, rx, ry) => {
         ctx.fillStyle = 'rgba(15, 23, 42, 0.12)';
         ctx.beginPath();
@@ -359,13 +354,11 @@ function initAnnotationDemo() {
       drawShadow(335, 335, 75, 14);
       drawShadow(560, 335, 85, 12);
 
-      // Conveyor Surface (Bottom Center)
       ctx.fillStyle = '#94A3B8';
       ctx.fillRect(240 * scale, 345 * scale, 200 * scale, 30 * scale);
       ctx.fillStyle = '#64748B';
       ctx.fillRect(240 * scale, 370 * scale, 200 * scale, 10 * scale);
 
-      // Standing Human (Left: x=60..170)
       ctx.fillStyle = '#64748B';
       ctx.beginPath();
       ctx.arc(115 * scale + swayOffset, 140 * scale, 18 * scale, 0, Math.PI * 2);
@@ -374,7 +367,6 @@ function initAnnotationDemo() {
       ctx.fillRect(96 * scale + swayOffset, 258 * scale, 14 * scale, 72 * scale);
       ctx.fillRect(118 * scale + swayOffset, 258 * scale, 14 * scale, 72 * scale);
 
-      // Crouched Human (Top Right: x=480..570)
       ctx.fillStyle = '#64748B';
       ctx.beginPath();
       ctx.arc(525 * scale, 80 * scale, 14 * scale, 0, Math.PI * 2);
@@ -382,7 +374,6 @@ function initAnnotationDemo() {
       ctx.fillRect(510 * scale, 98 * scale, 30 * scale, 50 * scale);
       ctx.fillRect(505 * scale, 148 * scale, 40 * scale, 30 * scale);
 
-      // Robot Unit with Sensor Eye (Center: x=260..410)
       ctx.fillStyle = '#475569';
       ctx.fillRect(270 * scale, 250 * scale, 130 * scale, 80 * scale);
       ctx.fillRect(290 * scale, 315 * scale, 90 * scale, 15 * scale);
@@ -392,13 +383,11 @@ function initAnnotationDemo() {
       ctx.fill();
       ctx.fillRect(328 * scale, 145 * scale, 14 * scale, 65 * scale);
 
-      // Blinking Robot LED
       ctx.fillStyle = `rgba(0, 212, 255, ${ledAlpha})`;
       ctx.beginPath();
       ctx.arc(335 * scale, 210 * scale, 6 * scale, 0, Math.PI * 2);
       ctx.fill();
 
-      // Industrial Crate (Right: x=480..640)
       ctx.fillStyle = '#94A3B8';
       ctx.fillRect(480 * scale, 230 * scale, 160 * scale, 100 * scale);
       ctx.strokeStyle = '#475569';
@@ -406,24 +395,21 @@ function initAnnotationDemo() {
       ctx.strokeRect(480 * scale, 230 * scale, 160 * scale, 100 * scale);
 
     } else if (currentSensor === 'depth') {
-      // 2. Depth Map View (Exactly like Screenshot 1 Reference)
-      // Concentric Radial Heat Gradient centered on Canvas
       const cx = w / 2;
       const cy = h / 2;
       const radGrad = ctx.createRadialGradient(cx, cy, 10 * scale, cx, cy, w * 0.75);
       
-      radGrad.addColorStop(0, '#EF4444');    // Center: Red / Pink (NEAR)
+      radGrad.addColorStop(0, '#EF4444');
       radGrad.addColorStop(0.18, '#EC4899');
-      radGrad.addColorStop(0.38, '#F97316'); // Orange / Yellow
+      radGrad.addColorStop(0.38, '#F97316');
       radGrad.addColorStop(0.55, '#EAB308');
-      radGrad.addColorStop(0.72, '#84CC16'); // Green / Emerald
-      radGrad.addColorStop(0.88, '#06B6D4'); // Cyan / Blue (FAR)
+      radGrad.addColorStop(0.72, '#84CC16');
+      radGrad.addColorStop(0.88, '#06B6D4');
       radGrad.addColorStop(1, '#2563EB');
 
       ctx.fillStyle = radGrad;
       ctx.fillRect(0, 0, w, h);
 
-      // Header Text Overlay (Matching Screenshot 1)
       ctx.font = `bold ${10 * scale}px "IBM Plex Mono", monospace`;
       ctx.fillStyle = '#FFFFFF';
       ctx.fillText('NEAR', 20 * scale, 26 * scale);
@@ -437,27 +423,23 @@ function initAnnotationDemo() {
       ctx.fillStyle = '#FFFFFF';
       ctx.textAlign = 'right';
       ctx.fillText('FAR', w - 20 * scale, 26 * scale);
-      ctx.textAlign = 'left'; // Reset alignment
+      ctx.textAlign = 'left';
 
     } else if (currentSensor === 'thermal') {
-      // 3. Thermal IR View (Exactly like Screenshot 2 Reference)
-      // Dark Navy Background
       ctx.fillStyle = '#070B19';
       ctx.fillRect(0, 0, w, h);
 
-      // Header Text Overlay (Matching Screenshot 2)
       ctx.font = `bold ${11 * scale}px "IBM Plex Mono", monospace`;
       ctx.fillStyle = '#FACC15';
       ctx.textAlign = 'center';
       ctx.fillText('THERMAL IR VIEW', w / 2, 26 * scale);
-      ctx.textAlign = 'left'; // Reset alignment
+      ctx.textAlign = 'left';
 
-      // Radial Heat Blobs (Matching Thermal Camera Output in Reference)
       const drawThermalHeatBlob = (bx, by, radius, tempText) => {
         const hg = ctx.createRadialGradient(bx * scale, by * scale, 2 * scale, bx * scale, by * scale, radius * scale);
-        hg.addColorStop(0, '#FFFFFF');        // White core
-        hg.addColorStop(0.25, '#FACC15');     // Yellow
-        hg.addColorStop(0.55, '#F97316');     // Orange / Red
+        hg.addColorStop(0, '#FFFFFF');
+        hg.addColorStop(0.25, '#FACC15');
+        hg.addColorStop(0.55, '#F97316');
         hg.addColorStop(0.85, 'rgba(239, 68, 68, 0.4)');
         hg.addColorStop(1, 'transparent');
 
@@ -466,7 +448,6 @@ function initAnnotationDemo() {
         ctx.arc(bx * scale, by * scale, radius * scale, 0, Math.PI * 2);
         ctx.fill();
 
-        // Temperature Badge Overlay (e.g., 37.2°C as in Screenshot 2)
         if (tempText) {
           ctx.font = `bold ${10.5 * scale}px "IBM Plex Mono", monospace`;
           ctx.fillStyle = '#F97316';
@@ -474,21 +455,19 @@ function initAnnotationDemo() {
         }
       };
 
-      drawThermalHeatBlob(115, 230, 75, '37.2°C');  // Human Standing Heat
-      drawThermalHeatBlob(345, 230, 85, '42.8°C');  // Robot Motor Heat
-      drawThermalHeatBlob(525, 120, 50, '36.8°C');  // Human Crouched Heat
-      drawThermalHeatBlob(560, 275, 40, null);      // Crate ambient
+      drawThermalHeatBlob(115, 230, 75, '37.2°C');
+      drawThermalHeatBlob(345, 230, 85, '42.8°C');
+      drawThermalHeatBlob(525, 120, 50, '36.8°C');
+      drawThermalHeatBlob(560, 275, 40, null);
     }
   };
 
-  // Draw Canvas & High-Contrast Annotations
   const drawCanvas = () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     drawBackground();
 
     const scale = canvas.width / 700;
 
-    // Render Saved Annotations
     annotations.forEach((ann) => {
       const color = CLASS_COLORS[ann.class] || '#3B82F6';
       const textColor = CLASS_TEXT_COLORS[ann.class] || '#FFFFFF';
@@ -497,16 +476,13 @@ function initAnnotationDemo() {
         const { x, y, w, h } = ann.rect;
         const rx = x * scale, ry = y * scale, rw = w * scale, rh = h * scale;
 
-        // Shape fill (14% opacity)
         ctx.fillStyle = hexToRgba(color, 0.14);
         ctx.fillRect(rx, ry, rw, rh);
 
-        // Solid 2.5px border
         ctx.strokeStyle = color;
         ctx.lineWidth = 2.5 * scale;
         ctx.strokeRect(rx, ry, rw, rh);
 
-        // Exactly ONE single label tag outside top-left edge (gap 4px)
         const tagText = ann.class;
         ctx.font = `bold ${11 * scale}px Inter`;
         const textWidth = ctx.measureText(tagText).width;
@@ -515,13 +491,11 @@ function initAnnotationDemo() {
         const tagX = rx;
         const tagY = ry - tagH - 4 * scale;
 
-        // Tag background
         ctx.fillStyle = color;
         ctx.beginPath();
         ctx.roundRect(tagX, tagY, tagW, tagH, 4 * scale);
         ctx.fill();
 
-        // Tag text
         ctx.fillStyle = textColor;
         ctx.fillText(tagText, tagX + 8 * scale, tagY + 14 * scale);
 
@@ -539,7 +513,6 @@ function initAnnotationDemo() {
         ctx.fill();
         ctx.stroke();
 
-        // Tag on first vertex
         const firstPt = ann.points[0];
         const tagText = ann.class;
         ctx.font = `bold ${11 * scale}px Inter`;
@@ -550,7 +523,6 @@ function initAnnotationDemo() {
         ctx.fillText(tagText, firstPt.x * scale + 8 * scale, firstPt.y * scale - 9 * scale);
 
       } else if (ann.type === 'keypoint' && ann.points) {
-        // Connect consecutive keypoints with dashed line
         if (ann.points.length > 1) {
           ctx.beginPath();
           ann.points.forEach((pt, i) => {
@@ -564,7 +536,6 @@ function initAnnotationDemo() {
           ctx.setLineDash([]);
         }
 
-        // Keypoint dots with numbered badges
         ann.points.forEach((pt, i) => {
           const px = pt.x * scale, py = pt.y * scale;
 
@@ -580,7 +551,6 @@ function initAnnotationDemo() {
       }
     });
 
-    // Draw live drag rectangle
     if (isDrawing && currentRect) {
       const { x, y, w, h } = currentRect;
       ctx.setLineDash([6, 4]);
@@ -590,7 +560,6 @@ function initAnnotationDemo() {
       ctx.setLineDash([]);
     }
 
-    // Draw live polygon vertices
     if (polyPoints.length > 0) {
       ctx.strokeStyle = '#3B82F6';
       ctx.lineWidth = 2 * scale;
@@ -621,7 +590,6 @@ function initAnnotationDemo() {
     };
   };
 
-  // Smart Find Best Overlapping Figure
   const findBestFigureOverlap = (dragRect) => {
     let bestFigure = null;
     let maxOverlapArea = 0;
@@ -647,7 +615,6 @@ function initAnnotationDemo() {
     return bestFigure;
   };
 
-  // Edit-Class Popup (Only shown on clicking ALREADY-LABELED shape)
   const showClassEditPicker = (anchorX, anchorY, currentClass, onSelect) => {
     hideClassEditPicker();
 
@@ -697,14 +664,12 @@ function initAnnotationDemo() {
     if (existing) existing.remove();
   };
 
-  // Canvas Mouse Handlers with Instant Auto-Classification
   canvas.addEventListener('mousedown', (e) => {
     hideHintPrompt();
     hideClassEditPicker();
 
     const { x, y } = getCanvasMousePos(e);
 
-    // Check if clicking an ALREADY-LABELED annotation to edit label
     const clickedExisting = annotations.find((ann) => {
       if (ann.rect) {
         return (
@@ -747,7 +712,6 @@ function initAnnotationDemo() {
       polyPoints.push(targetPt);
       const autoClass = matchedFig ? matchedFig.class : 'Person';
 
-      // INSTANT AUTO-CLASSIFY (NO POPUP)
       annotations.push({
         id: Date.now(),
         type: 'keypoint',
@@ -786,7 +750,6 @@ function initAnnotationDemo() {
         const bestFigure = findBestFigureOverlap(dragRect);
 
         if (bestFigure) {
-          // Snap tightly to the figure's true bounds with 6px padding
           const snappedRect = {
             x: bestFigure.rect.x - 6,
             y: bestFigure.rect.y - 6,
@@ -794,11 +757,10 @@ function initAnnotationDemo() {
             h: bestFigure.rect.h + 12
           };
 
-          // INSTANT AUTO-CLASSIFY ON SELECT (NO MANUAL POPUP)
           annotations.push({
             id: Date.now(),
             type: 'bbox',
-            class: bestFigure.class, // Auto-applies ground-truth class!
+            class: bestFigure.class,
             rect: snappedRect
           });
           saveHistory();
@@ -806,7 +768,6 @@ function initAnnotationDemo() {
           updateStatus('READY');
 
         } else {
-          // Dragged in empty space -> Toast notification
           showEmptyToast(dragRect.x + dragRect.w / 2, dragRect.y + dragRect.h / 2);
           updateStatus('READY');
         }
@@ -822,7 +783,6 @@ function initAnnotationDemo() {
 
     if (currentTool === 'polygon') {
       if (polyPoints.length > 2 && Math.hypot(x - polyPoints[0].x, y - polyPoints[0].y) < 15) {
-        // INSTANT AUTO-CLASSIFY
         annotations.push({
           id: Date.now(),
           type: 'polygon',
@@ -840,7 +800,6 @@ function initAnnotationDemo() {
     }
   });
 
-  // Auto-Label Tool
   const triggerAutoLabel = () => {
     hideHintPrompt();
     const shimmer = document.getElementById('demo-shimmer');
@@ -862,7 +821,6 @@ function initAnnotationDemo() {
     }, 450);
   };
 
-  // Tab switching
   document.querySelectorAll('.demo-tab-btn').forEach((btn) => {
     btn.addEventListener('click', () => {
       document.querySelectorAll('.demo-tab-btn').forEach((b) => b.classList.remove('active'));
@@ -872,7 +830,6 @@ function initAnnotationDemo() {
     });
   });
 
-  // Tool switching
   document.querySelectorAll('.demo-tool-btn').forEach((btn) => {
     btn.addEventListener('click', () => {
       const tool = btn.getAttribute('data-tool');
@@ -890,21 +847,18 @@ function initAnnotationDemo() {
     });
   });
 
-  // Actions
   const btnUndo = document.getElementById('btn-demo-undo');
   if (btnUndo) btnUndo.addEventListener('click', undo);
 
   const btnClear = document.getElementById('btn-demo-clear');
   if (btnClear) btnClear.addEventListener('click', clearAll);
 
-  // Keyboard shortcut Ctrl+Z
   window.addEventListener('keydown', (e) => {
     if ((e.ctrlKey || e.metaKey) && e.key === 'z') {
       undo();
     }
   });
 
-  // Update Stats & Distribution Bars
   const updateStats = () => {
     const totalCount = annotations.length;
     document.getElementById('demo-obj-count').textContent = totalCount;
@@ -925,7 +879,6 @@ function initAnnotationDemo() {
     });
   };
 
-  // Color-coded Status Pill
   const updateStatus = (st) => {
     const pill = document.getElementById('demo-status-pill');
     if (pill) {
@@ -937,7 +890,6 @@ function initAnnotationDemo() {
     }
   };
 
-  // Export JSON Modal
   const btnExport = document.getElementById('btn-export-json');
   const modalBackdrop = document.getElementById('json-modal');
   const modalClose = document.getElementById('json-modal-close');
@@ -974,7 +926,6 @@ function initAnnotationDemo() {
     });
   }
 
-  // Helper
   function hexToRgba(hex, alpha) {
     let c = hex.replace('#', '');
     if (c.length === 3) c = c.split('').map(x => x + x).join('');
@@ -990,7 +941,7 @@ function initAnnotationDemo() {
 
 
 /* ─────────────────────────────────────────────────────────────
-   SECTION 3: NAVIGATION SIMULATION LOGIC
+   SECTION 3: NAVIGATION SIMULATION LOGIC (MATCHING REFERENCE SCREENSHOT)
 ─────────────────────────────────────────────────────────────── */
 function initNavigationSimulation() {
   const canvas = document.getElementById('nav-canvas');
@@ -999,63 +950,72 @@ function initNavigationSimulation() {
   const ctx = canvas.getContext('2d');
 
   let currentMode = 'nav'; // 'nav' | 'slam' | 'manipulation'
-  let lerpFactor = 0.05;
-  let sensorRange = 70;
+  let robotSpeedFactor = 0.06;
+  let sensorRange = 120;
   let obstacleDensity = 'medium'; // 'low' | 'medium' | 'high'
 
-  // Robot / Arm State
-  let rx = 350, ry = 220;
-  let targetX = 350, targetY = 220;
+  // Robot State
+  let rx = 200, ry = 200;
+  let targetX = 200, targetY = 200;
   let angle = 0;
 
   let trailPoints = [];
   let slamMapLines = [];
-  let distanceTraveled = 0;
+  let distanceTraveled = 121869;
   let collisionCount = 0;
+  let waypointsCount = 37;
 
   // FPS calculation
   let lastTime = performance.now();
   let frameCount = 0;
-  let measuredFps = 60;
+  let measuredFps = 42;
 
   // Obstacles list
   let obstacles = [];
 
   const generateObstacles = () => {
-    obstacles = [];
-    let count = 6;
-    if (obstacleDensity === 'low') count = 3;
-    if (obstacleDensity === 'high') count = 10;
+    obstacles = [
+      { x: 220, y: 150, w: 55, h: 45 },
+      { x: 340, y: 190, w: 60, h: 50 },
+      { x: 420, y: 110, w: 45, h: 70 },
+      { x: 185, y: 270, w: 75, h: 40 },
+      { x: 300, y: 310, w: 50, h: 35 },
+      { x: 440, y: 240, w: 50, h: 35 },
+      { x: 465, y: 285, w: 40, h: 40 },
+      { x: 360, y: 80, w: 40, h: 40 },
+      { x: 120, y: 100, w: 50, h: 50 },
+      { x: 450, y: 190, w: 35, h: 35 }
+    ];
 
-    const w = canvas.width / (window.devicePixelRatio || 1);
-    const h = canvas.height / (window.devicePixelRatio || 1);
-
-    for (let i = 0; i < count; i++) {
-      obstacles.push({
-        x: 80 + Math.random() * (w - 160),
-        y: 60 + Math.random() * (h - 120),
-        w: 50 + Math.random() * 40,
-        h: 40 + Math.random() * 30,
-        discovered: false,
-        proxHighlight: false
-      });
-    }
+    const obsReadout = document.getElementById('sim-obs-bottom');
+    if (obsReadout) obsReadout.textContent = obstacles.length;
   };
 
   const resizeSimCanvas = () => {
     const rect = canvas.getBoundingClientRect();
     canvas.width = rect.width * (window.devicePixelRatio || 1);
     canvas.height = rect.height * (window.devicePixelRatio || 1);
-    generateObstacles();
   };
 
   window.addEventListener('resize', resizeSimCanvas);
 
-  // Track mouse target
+  // Mouse move updates targetX and targetY
   canvas.addEventListener('mousemove', (e) => {
     const rect = canvas.getBoundingClientRect();
-    targetX = e.clientX - rect.left;
-    targetY = e.clientY - rect.top;
+    const scale = 700 / rect.width;
+    targetX = (e.clientX - rect.left) * scale;
+    targetY = (e.clientY - rect.top) * scale;
+  });
+
+  // Click sets waypoint target
+  canvas.addEventListener('click', (e) => {
+    const rect = canvas.getBoundingClientRect();
+    const scale = 700 / rect.width;
+    targetX = (e.clientX - rect.left) * scale;
+    targetY = (e.clientY - rect.top) * scale;
+    waypointsCount++;
+    const wpEl = document.getElementById('sim-wp-readout');
+    if (wpEl) wpEl.textContent = waypointsCount;
   });
 
   // Controls Event Listeners
@@ -1064,15 +1024,19 @@ function initNavigationSimulation() {
       document.querySelectorAll('.sim-mode-btn').forEach((b) => b.classList.remove('active'));
       btn.classList.add('active');
       currentMode = btn.getAttribute('data-mode');
-      generateObstacles();
-      document.getElementById('sim-mode-readout').textContent = currentMode.toUpperCase();
+
+      const modeLbls = { nav: 'Navigation', slam: 'SLAM Mapping', manipulation: 'Manipulation' };
+      const modeBottom = document.getElementById('sim-mode-bottom');
+      if (modeBottom) modeBottom.textContent = modeLbls[currentMode] || 'Navigation';
     });
   });
 
   const speedSlider = document.getElementById('sim-speed-slider');
   if (speedSlider) {
     speedSlider.addEventListener('input', (e) => {
-      lerpFactor = parseFloat(e.target.value);
+      robotSpeedFactor = parseFloat(e.target.value);
+      const valEl = document.getElementById('sim-speed-val');
+      if (valEl) valEl.textContent = (robotSpeedFactor * 10).toFixed(1);
     });
   }
 
@@ -1080,27 +1044,28 @@ function initNavigationSimulation() {
   if (rangeSlider) {
     rangeSlider.addEventListener('input', (e) => {
       sensorRange = parseInt(e.target.value, 10);
+      const valEl = document.getElementById('sim-range-val');
+      if (valEl) valEl.textContent = sensorRange;
     });
   }
 
   const obsSlider = document.getElementById('sim-obs-slider');
   if (obsSlider) {
     obsSlider.addEventListener('input', (e) => {
-      const vals = ['low', 'medium', 'high'];
+      const vals = ['Low', 'Medium', 'High'];
       obstacleDensity = vals[parseInt(e.target.value, 10)];
-      generateObstacles();
-      document.getElementById('sim-obs-readout').textContent = obstacles.length;
-    });
-  }
+      const valEl = document.getElementById('sim-obs-val');
+      if (valEl) valEl.textContent = obstacleDensity;
 
-  const btnReset = document.getElementById('btn-sim-reset');
-  if (btnReset) {
-    btnReset.addEventListener('click', () => {
-      trailPoints = [];
-      slamMapLines = [];
-      distanceTraveled = 0;
-      collisionCount = 0;
-      generateObstacles();
+      if (obstacleDensity === 'Low') obstacles = obstacles.slice(0, 5);
+      else if (obstacleDensity === 'Medium') generateObstacles();
+      else if (obstacleDensity === 'High') {
+        generateObstacles();
+        obstacles.push({ x: 100, y: 220, w: 40, h: 40 }, { x: 280, y: 100, w: 45, h: 45 });
+      }
+
+      const obsReadout = document.getElementById('sim-obs-bottom');
+      if (obsReadout) obsReadout.textContent = obstacles.length;
     });
   }
 
@@ -1108,128 +1073,127 @@ function initNavigationSimulation() {
   const renderLoop = (now) => {
     frameCount++;
     if (now - lastTime >= 1000) {
-      measuredFps = frameCount;
+      measuredFps = Math.round(frameCount);
       frameCount = 0;
       lastTime = now;
-      const fpsEl = document.getElementById('sim-fps-readout');
-      if (fpsEl) fpsEl.textContent = measuredFps;
+      const fpsEl = document.getElementById('sim-fps-bottom');
+      if (fpsEl) fpsEl.textContent = `${measuredFps} Fps`;
     }
 
-    const scale = window.devicePixelRatio || 1;
-    const w = canvas.width / scale;
-    const h = canvas.height / scale;
+    const scale = canvas.width / 700;
+    const w = 700;
+    const h = 440;
 
     ctx.save();
     ctx.scale(scale, scale);
 
-    // Clear Canvas
-    ctx.fillStyle = '#060E1C';
+    // 1. Off-white Canvas Background
+    ctx.fillStyle = '#F8FAFC';
     ctx.fillRect(0, 0, w, h);
 
-    // Dot grid
-    ctx.fillStyle = 'rgba(255, 255, 255, 0.07)';
-    for (let x = 20; x < w; x += 30) {
-      for (let y = 20; y < h; y += 30) {
-        ctx.beginPath();
-        ctx.arc(x, y, 1.2, 0, Math.PI * 2);
-        ctx.fill();
-      }
+    // Subtle light grid background (Matching Reference Screenshot)
+    ctx.strokeStyle = 'rgba(148, 163, 184, 0.15)';
+    ctx.lineWidth = 1;
+    for (let x = 0; x < w; x += 30) {
+      ctx.beginPath();
+      ctx.moveTo(x, 0); ctx.lineTo(x, h);
+      ctx.stroke();
+    }
+    for (let y = 0; y < h; y += 30) {
+      ctx.beginPath();
+      ctx.moveTo(0, y); ctx.lineTo(w, y);
+      ctx.stroke();
     }
 
-    // Update Lerp Robot Movement
+    // 2. Render Overlay Text (Top-Left inside Canvas Viewport)
+    ctx.font = 'bold 10px "IBM Plex Mono", monospace';
+    ctx.fillStyle = '#0BA8D3';
+    ctx.fillText(`MODE: ${currentMode === 'nav' ? 'NAVIGATION' : currentMode.toUpperCase()}`, 16, 26);
+
+    ctx.font = '9.5px "IBM Plex Mono", monospace';
+    ctx.fillStyle = '#94A3B8';
+    ctx.fillText(`POS: (${Math.round(rx)}, ${Math.round(ry)})`, 16, 40);
+
+    // 3. Move Robot smoothly towards target
     const dx = targetX - rx;
     const dy = targetY - ry;
     const dist = Math.hypot(dx, dy);
 
-    if (dist > 1.5) {
-      rx += dx * lerpFactor;
-      ry += dy * lerpFactor;
+    if (dist > 1) {
+      rx += dx * robotSpeedFactor;
+      ry += dy * robotSpeedFactor;
       angle = Math.atan2(dy, dx);
-      distanceTraveled += Math.hypot(dx * lerpFactor, dy * lerpFactor);
+      distanceTraveled += Math.round(Math.hypot(dx * robotSpeedFactor, dy * robotSpeedFactor));
 
       if (currentMode === 'nav') {
         trailPoints.push({ x: rx, y: ry });
-        if (trailPoints.length > 35) trailPoints.shift();
+        if (trailPoints.length > 40) trailPoints.shift();
       } else if (currentMode === 'slam') {
         slamMapLines.push({ x: rx, y: ry });
       }
     }
 
-    // Check Obstacles Collisions & Proximity
+    // 4. Draw Obstacles (Clean light gray boxes with subtle borders)
     obstacles.forEach((obs) => {
-      obs.proxHighlight = false;
-
-      const closestX = Math.max(obs.x, Math.min(rx, obs.x + obs.w));
-      const closestY = Math.max(obs.y, Math.min(ry, obs.y + obs.h));
-      const d = Math.hypot(rx - closestX, ry - closestY);
-
-      if (d < sensorRange) {
-        obs.proxHighlight = true;
-        if (currentMode === 'slam') obs.discovered = true;
-      }
-
-      if (d < 18) {
-        collisionCount++;
-      }
-    });
-
-    // Draw Obstacles
-    obstacles.forEach((obs) => {
-      ctx.fillStyle = obs.discovered ? 'rgba(11, 168, 211, 0.2)' : 'rgba(255, 255, 255, 0.05)';
-      ctx.strokeStyle = obs.proxHighlight ? '#00D4FF' : (obs.discovered ? '#0BA8D3' : 'rgba(255, 255, 255, 0.15)');
-      ctx.lineWidth = obs.proxHighlight ? 2.5 : 1.5;
+      ctx.fillStyle = '#E2E8F0';
+      ctx.strokeStyle = '#CBD5E1';
+      ctx.lineWidth = 1.5;
 
       ctx.beginPath();
-      ctx.roundRect(obs.x, obs.y, obs.w, obs.h, 10);
+      ctx.roundRect(obs.x, obs.y, obs.w, obs.h, 6);
       ctx.fill();
       ctx.stroke();
-
-      if (obs.proxHighlight) {
-        ctx.fillStyle = '#00D4FF';
-        ctx.font = 'bold 9px IBM Plex Mono';
-        ctx.fillText('DETECTED', obs.x + 6, obs.y + 16);
-      }
     });
 
-    // Render Mode Specific Visualizations
+    // 5. Render Right-side Lidar Arc Waves Decor (Blue wave graphic on right edge)
+    ctx.save();
+    ctx.strokeStyle = 'rgba(59, 130, 246, 0.4)';
+    ctx.lineWidth = 1.5;
+    for (let i = 0; i < 8; i++) {
+      ctx.beginPath();
+      ctx.arc(w - 10, h / 2, 80 + i * 25, Math.PI * 0.7, Math.PI * 1.3);
+      ctx.stroke();
+    }
+    ctx.restore();
+
+    // 6. Draw Target Red Crosshair `+` at mouse target position (Matching Screenshot)
+    ctx.strokeStyle = '#C8322B';
+    ctx.lineWidth = 1.8;
+    ctx.beginPath();
+    ctx.arc(targetX, targetY, 8, 0, Math.PI * 2);
+    ctx.moveTo(targetX - 12, targetY); ctx.lineTo(targetX + 12, targetY);
+    ctx.moveTo(targetX, targetY - 12); ctx.lineTo(targetX, targetY + 12);
+    ctx.stroke();
+
+    // 7. Render Robot Movement & Sensor Range
     if (currentMode === 'nav') {
-      // Fading trail
+      // Trail line
       if (trailPoints.length > 1) {
         ctx.beginPath();
         trailPoints.forEach((pt, i) => {
           if (i === 0) ctx.moveTo(pt.x, pt.y);
           else ctx.lineTo(pt.x, pt.y);
         });
-        ctx.strokeStyle = '#00D4FF';
+        ctx.strokeStyle = '#C8322B';
         ctx.lineWidth = 2;
         ctx.stroke();
       }
 
-      // Sensor Range Circle
-      ctx.beginPath();
-      ctx.arc(rx, ry, sensorRange, 0, Math.PI * 2);
-      ctx.strokeStyle = 'rgba(0, 212, 255, 0.3)';
-      ctx.fillStyle = 'rgba(0, 212, 255, 0.04)';
-      ctx.lineWidth = 1.5;
-      ctx.fill();
-      ctx.stroke();
-
-      // Robot Icon (Directional Arrow)
+      // Robot Icon (Directional Coral Arrow)
       ctx.save();
       ctx.translate(rx, ry);
       ctx.rotate(angle);
-      ctx.fillStyle = '#0BA8D3';
+      ctx.fillStyle = '#C8322B';
       ctx.beginPath();
-      ctx.moveTo(14, 0);
-      ctx.lineTo(-10, -10);
-      ctx.lineTo(-6, 0);
-      ctx.lineTo(-10, 10);
+      ctx.moveTo(12, 0);
+      ctx.lineTo(-9, -8);
+      ctx.lineTo(-5, 0);
+      ctx.lineTo(-9, 8);
       ctx.closePath();
       ctx.fill();
       ctx.restore();
 
     } else if (currentMode === 'slam') {
-      // Permanent SLAM Map Lines
       if (slamMapLines.length > 1) {
         ctx.beginPath();
         slamMapLines.forEach((pt, i) => {
@@ -1237,25 +1201,20 @@ function initNavigationSimulation() {
           else ctx.lineTo(pt.x, pt.y);
         });
         ctx.strokeStyle = '#10B981';
-        ctx.lineWidth = 2.5;
+        ctx.lineWidth = 2;
         ctx.stroke();
       }
 
-      // Robot Icon
       ctx.fillStyle = '#10B981';
       ctx.beginPath();
-      ctx.arc(rx, ry, 10, 0, Math.PI * 2);
+      ctx.arc(rx, ry, 8, 0, Math.PI * 2);
       ctx.fill();
 
     } else if (currentMode === 'manipulation') {
-      // 2-Joint Robotic Arm
       const baseX = w / 2;
-      const baseY = h - 30;
+      const baseY = h - 20;
+      const L1 = 120, L2 = 100;
 
-      const L1 = 120;
-      const L2 = 100;
-
-      // Calculate Inverse Kinematics
       const targetDist = Math.hypot(targetX - baseX, targetY - baseY);
       const reachDist = Math.min(targetDist, L1 + L2 - 5);
 
@@ -1272,56 +1231,37 @@ function initNavigationSimulation() {
       const endX = joint1X + L2 * Math.cos(angle1 + angle2);
       const endY = joint1Y + L2 * Math.sin(angle1 + angle2);
 
-      // Reach Limit Arc
-      ctx.beginPath();
-      ctx.arc(baseX, baseY, L1 + L2, 0, Math.PI * 2);
-      ctx.setLineDash([4, 4]);
-      ctx.strokeStyle = 'rgba(255, 186, 8, 0.3)';
-      ctx.stroke();
-      ctx.setLineDash([]);
-
-      // Arm Segment 1
       ctx.beginPath();
       ctx.moveTo(baseX, baseY);
       ctx.lineTo(joint1X, joint1Y);
-      ctx.strokeStyle = '#FFBA08';
-      ctx.lineWidth = 6;
+      ctx.strokeStyle = '#C8322B';
+      ctx.lineWidth = 5;
       ctx.stroke();
 
-      // Arm Segment 2
       ctx.beginPath();
       ctx.moveTo(joint1X, joint1Y);
       ctx.lineTo(endX, endY);
       ctx.strokeStyle = '#0BA8D3';
-      ctx.lineWidth = 5;
+      ctx.lineWidth = 4;
       ctx.stroke();
 
-      // Joints
-      ctx.fillStyle = '#FFFFFF';
+      ctx.fillStyle = '#0E1F3E';
       ctx.beginPath();
-      ctx.arc(baseX, baseY, 10, 0, Math.PI * 2);
-      ctx.arc(joint1X, joint1Y, 8, 0, Math.PI * 2);
-      ctx.fill();
-
-      // End Effector Gripper Tip
-      ctx.fillStyle = '#FFBA08';
-      ctx.beginPath();
-      ctx.arc(endX, endY, 6, 0, Math.PI * 2);
+      ctx.arc(baseX, baseY, 8, 0, Math.PI * 2);
+      ctx.arc(joint1X, joint1Y, 6, 0, Math.PI * 2);
       ctx.fill();
     }
 
     ctx.restore();
 
-    // Update Telemetry Panel Numbers
-    document.getElementById('sim-dist-readout').textContent = `${Math.round(distanceTraveled)} px`;
-    document.getElementById('sim-coll-readout').textContent = Math.floor(collisionCount / 40);
-
-    const conf = Math.max(50, Math.min(99, Math.round(100 - (lerpFactor * 200) - (collisionCount / 20))));
-    document.getElementById('sim-conf-readout').textContent = `${conf}%`;
+    // Update Bottom Telemetry Numbers
+    const distEl = document.getElementById('sim-dist-bottom');
+    if (distEl) distEl.textContent = `${distanceTraveled}px`;
 
     requestAnimationFrame(renderLoop);
   };
 
+  generateObstacles();
   resizeSimCanvas();
   requestAnimationFrame(renderLoop);
 }
