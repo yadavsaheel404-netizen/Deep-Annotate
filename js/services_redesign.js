@@ -213,8 +213,8 @@ function initAnnotationDemo() {
     {
       id: 'robot_arm',
       class: 'Robot',
-      rect: { x: 260, y: 130, w: 150, h: 200 },
-      anchors: [{ x: 335, y: 160 }, { x: 335, y: 220 }, { x: 335, y: 290 }]
+      rect: { x: 270, y: 125, w: 130, h: 195 },
+      anchors: [{ x: 335, y: 150 }, { x: 335, y: 220 }, { x: 335, y: 285 }]
     },
     {
       id: 'crate_pallet',
@@ -327,6 +327,7 @@ function initAnnotationDemo() {
     const ledAlpha = prefersReducedMotion ? 1 : 0.4 + Math.sin(now * 0.005) * 0.6;
 
     if (currentSensor === 'scene') {
+      // Background gradient
       const bgGrad = ctx.createLinearGradient(0, 0, 0, h);
       bgGrad.addColorStop(0, '#F1F5F9');
       bgGrad.addColorStop(0.7, '#E2E8F0');
@@ -334,6 +335,7 @@ function initAnnotationDemo() {
       ctx.fillStyle = bgGrad;
       ctx.fillRect(0, 0, w, h);
 
+      // Dot grid
       ctx.fillStyle = 'rgba(148, 163, 184, 0.25)';
       for (let x = 25 * scale; x < w; x += 30 * scale) {
         for (let y = 25 * scale; y < h; y += 30 * scale) {
@@ -343,6 +345,7 @@ function initAnnotationDemo() {
         }
       }
 
+      // Grounding Shadows
       const drawShadow = (cx, cy, rx, ry) => {
         ctx.fillStyle = 'rgba(15, 23, 42, 0.12)';
         ctx.beginPath();
@@ -351,48 +354,199 @@ function initAnnotationDemo() {
       };
 
       drawShadow(115, 335, 45, 10);
-      drawShadow(335, 335, 75, 14);
+      drawShadow(335, 325, 65, 14);
       drawShadow(560, 335, 85, 12);
 
+      // Conveyor Surface (Bottom Center)
       ctx.fillStyle = '#94A3B8';
       ctx.fillRect(240 * scale, 345 * scale, 200 * scale, 30 * scale);
       ctx.fillStyle = '#64748B';
       ctx.fillRect(240 * scale, 370 * scale, 200 * scale, 10 * scale);
 
-      ctx.fillStyle = '#64748B';
-      ctx.beginPath();
-      ctx.arc(115 * scale + swayOffset, 140 * scale, 18 * scale, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.fillRect(100 * scale + swayOffset, 163 * scale, 30 * scale, 95 * scale);
-      ctx.fillRect(96 * scale + swayOffset, 258 * scale, 14 * scale, 72 * scale);
-      ctx.fillRect(118 * scale + swayOffset, 258 * scale, 14 * scale, 72 * scale);
+      // 1. DETAILED STANDING HUMAN (Left: Head, Torso, Arms, Hands, Legs, Shoes)
+      const px = 115 * scale + swayOffset;
 
-      ctx.fillStyle = '#64748B';
-      ctx.beginPath();
-      ctx.arc(525 * scale, 80 * scale, 14 * scale, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.fillRect(510 * scale, 98 * scale, 30 * scale, 50 * scale);
-      ctx.fillRect(505 * scale, 148 * scale, 40 * scale, 30 * scale);
-
+      // Head with hair/facial profile
       ctx.fillStyle = '#475569';
-      ctx.fillRect(270 * scale, 250 * scale, 130 * scale, 80 * scale);
-      ctx.fillRect(290 * scale, 315 * scale, 90 * scale, 15 * scale);
-
       ctx.beginPath();
-      ctx.arc(335 * scale, 210 * scale, 22 * scale, 0, Math.PI * 2);
+      ctx.arc(px, 138 * scale, 16 * scale, 0, Math.PI * 2);
       ctx.fill();
-      ctx.fillRect(328 * scale, 145 * scale, 14 * scale, 65 * scale);
+
+      // Torso / Shirt
+      ctx.fillStyle = '#64748B';
+      ctx.beginPath();
+      ctx.roundRect(px - 17 * scale, 158 * scale, 34 * scale, 92 * scale, 6 * scale);
+      ctx.fill();
+
+      // Left Arm & Hand
+      ctx.fillStyle = '#475569';
+      ctx.beginPath();
+      ctx.roundRect(px - 30 * scale, 160 * scale, 12 * scale, 85 * scale, 4 * scale); // Left Arm
+      ctx.fill();
+      ctx.beginPath();
+      ctx.arc(px - 24 * scale, 248 * scale, 6 * scale, 0, Math.PI * 2); // Left Hand
+      ctx.fill();
+
+      // Right Arm & Hand
+      ctx.beginPath();
+      ctx.roundRect(px + 18 * scale, 160 * scale, 12 * scale, 85 * scale, 4 * scale); // Right Arm
+      ctx.fill();
+      ctx.beginPath();
+      ctx.arc(px + 24 * scale, 248 * scale, 6 * scale, 0, Math.PI * 2); // Right Hand
+      ctx.fill();
+
+      // Pants / Legs & Shoes
+      ctx.fillStyle = '#334155';
+      ctx.fillRect(px - 15 * scale, 252 * scale, 14 * scale, 75 * scale); // Left Leg
+      ctx.fillRect(px + 2 * scale, 252 * scale, 14 * scale, 75 * scale); // Right Leg
+
+      // Shoes
+      ctx.fillStyle = '#1E293B';
+      ctx.beginPath();
+      ctx.roundRect(px - 20 * scale, 324 * scale, 21 * scale, 10 * scale, 4 * scale); // Left Shoe
+      ctx.roundRect(px + 1 * scale, 324 * scale, 21 * scale, 10 * scale, 4 * scale); // Right Shoe
+      ctx.fill();
+
+      // 2. DETAILED CROUCHED HUMAN (Top Right: Head, Arms, Knees, Shoes)
+      const cpx = 525 * scale;
+      ctx.fillStyle = '#475569';
+      ctx.beginPath();
+      ctx.arc(cpx, 78 * scale, 14 * scale, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.fillStyle = '#64748B';
+      ctx.beginPath();
+      ctx.roundRect(cpx - 15 * scale, 94 * scale, 30 * scale, 52 * scale, 6 * scale);
+      ctx.fill();
+
+      // Bent Arms with Hands on Knees
+      ctx.fillStyle = '#475569';
+      ctx.beginPath();
+      ctx.roundRect(cpx - 26 * scale, 105 * scale, 12 * scale, 45 * scale, 4 * scale);
+      ctx.roundRect(cpx + 14 * scale, 105 * scale, 12 * scale, 45 * scale, 4 * scale);
+      ctx.fill();
+
+      // Crouched Legs & Shoes
+      ctx.fillStyle = '#334155';
+      ctx.fillRect(cpx - 22 * scale, 148 * scale, 44 * scale, 28 * scale);
+      ctx.fillStyle = '#1E293B';
+      ctx.fillRect(cpx - 25 * scale, 172 * scale, 24 * scale, 10 * scale);
+      ctx.fillRect(cpx + 3 * scale, 172 * scale, 24 * scale, 10 * scale);
+
+      // 3. SLEEK HIGH-TECH ROBOT (Center: x=270..400)
+      // A. Heavy-Duty Mobile Base with Dual Wheels
+      ctx.fillStyle = '#334155';
+      ctx.beginPath();
+      ctx.roundRect(275 * scale, 275 * scale, 120 * scale, 40 * scale, 8 * scale);
+      ctx.fill();
+
+      ctx.fillStyle = '#1E293B';
+      ctx.beginPath();
+      ctx.arc(295 * scale, 305 * scale, 14 * scale, 0, Math.PI * 2);
+      ctx.arc(375 * scale, 305 * scale, 14 * scale, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.fillStyle = '#0BA8D3';
+      ctx.beginPath();
+      ctx.arc(295 * scale, 305 * scale, 5 * scale, 0, Math.PI * 2);
+      ctx.arc(375 * scale, 305 * scale, 5 * scale, 0, Math.PI * 2);
+      ctx.fill();
+
+      // B. Armor-Plated Torso Body
+      ctx.fillStyle = '#475569';
+      ctx.beginPath();
+      ctx.roundRect(290 * scale, 195 * scale, 90 * scale, 75 * scale, 10 * scale);
+      ctx.fill();
+
+      ctx.fillStyle = '#64748B';
+      ctx.beginPath();
+      ctx.roundRect(302 * scale, 205 * scale, 66 * scale, 40 * scale, 6 * scale);
+      ctx.fill();
+
+      ctx.fillStyle = `rgba(0, 212, 255, ${ledAlpha})`;
+      ctx.fillRect(315 * scale, 212 * scale, 40 * scale, 5 * scale);
+
+      // C. Articulated Shoulder Joints & Manipulator Arm
+      ctx.fillStyle = '#334155';
+      ctx.beginPath();
+      ctx.arc(282 * scale, 210 * scale, 10 * scale, 0, Math.PI * 2);
+      ctx.arc(388 * scale, 210 * scale, 10 * scale, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.lineWidth = 6 * scale;
+      ctx.strokeStyle = '#475569';
+      ctx.beginPath();
+      ctx.moveTo(388 * scale, 210 * scale);
+      ctx.lineTo(410 * scale, 235 * scale);
+      ctx.lineTo(405 * scale, 260 * scale);
+      ctx.stroke();
+
+      ctx.fillStyle = '#0BA8D3';
+      ctx.beginPath();
+      ctx.arc(405 * scale, 260 * scale, 6 * scale, 0, Math.PI * 2);
+      ctx.fill();
+
+      // D. Metallic Neck
+      ctx.fillStyle = '#334155';
+      ctx.fillRect(325 * scale, 178 * scale, 20 * scale, 18 * scale);
+
+      // E. Robot Head & Glowing Sensor Visor
+      ctx.fillStyle = '#475569';
+      ctx.beginPath();
+      ctx.roundRect(300 * scale, 132 * scale, 70 * scale, 48 * scale, 12 * scale);
+      ctx.fill();
 
       ctx.fillStyle = `rgba(0, 212, 255, ${ledAlpha})`;
       ctx.beginPath();
-      ctx.arc(335 * scale, 210 * scale, 6 * scale, 0, Math.PI * 2);
+      ctx.roundRect(310 * scale, 144 * scale, 50 * scale, 18 * scale, 9 * scale);
       ctx.fill();
 
-      ctx.fillStyle = '#94A3B8';
-      ctx.fillRect(480 * scale, 230 * scale, 160 * scale, 100 * scale);
-      ctx.strokeStyle = '#475569';
+      ctx.fillStyle = '#0E1F3E';
+      ctx.beginPath();
+      ctx.arc(335 * scale, 153 * scale, 5 * scale, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.fillStyle = '#334155';
+      ctx.fillRect(333 * scale, 122 * scale, 4 * scale, 12 * scale);
+      ctx.fillStyle = '#00D4FF';
+      ctx.beginPath();
+      ctx.arc(335 * scale, 120 * scale, 4 * scale, 0, Math.PI * 2);
+      ctx.fill();
+
+      // 4. DETAILED INDUSTRIAL CARGO CRATE (Right: x=480..640)
+      // Front face
+      ctx.fillStyle = '#CBD5E1';
+      ctx.beginPath();
+      ctx.roundRect(480 * scale, 230 * scale, 160 * scale, 100 * scale, 6 * scale);
+      ctx.fill();
+
+      // Wood planking horizontal grooves
+      ctx.strokeStyle = '#94A3B8';
+      ctx.lineWidth = 1.5 * scale;
+      ctx.beginPath();
+      ctx.moveTo(480 * scale, 263 * scale); ctx.lineTo(640 * scale, 263 * scale);
+      ctx.moveTo(480 * scale, 296 * scale); ctx.lineTo(640 * scale, 296 * scale);
+      ctx.stroke();
+
+      // Metal reinforced corner brackets
+      ctx.fillStyle = '#475569';
+      ctx.fillRect(480 * scale, 230 * scale, 20 * scale, 20 * scale);
+      ctx.fillRect(620 * scale, 230 * scale, 20 * scale, 20 * scale);
+      ctx.fillRect(480 * scale, 310 * scale, 20 * scale, 20 * scale);
+      ctx.fillRect(620 * scale, 310 * scale, 20 * scale, 20 * scale);
+
+      // Diagonal metallic cross braces
       ctx.lineWidth = 2 * scale;
-      ctx.strokeRect(480 * scale, 230 * scale, 160 * scale, 100 * scale);
+      ctx.strokeStyle = '#64748B';
+      ctx.beginPath();
+      ctx.moveTo(480 * scale, 230 * scale); ctx.lineTo(640 * scale, 330 * scale);
+      ctx.moveTo(640 * scale, 230 * scale); ctx.lineTo(480 * scale, 330 * scale);
+      ctx.stroke();
+
+      // Stencil warning label
+      ctx.font = `bold ${9 * scale}px "IBM Plex Mono", monospace`;
+      ctx.fillStyle = '#334155';
+      ctx.fillText('FRAGILE · LOT-882', 505 * scale, 282 * scale);
 
     } else if (currentSensor === 'depth') {
       const cx = w / 2;
@@ -456,7 +610,7 @@ function initAnnotationDemo() {
       };
 
       drawThermalHeatBlob(115, 230, 75, '37.2°C');
-      drawThermalHeatBlob(345, 230, 85, '42.8°C');
+      drawThermalHeatBlob(335, 230, 85, '42.8°C');
       drawThermalHeatBlob(525, 120, 50, '36.8°C');
       drawThermalHeatBlob(560, 275, 40, null);
     }
@@ -811,7 +965,7 @@ function initAnnotationDemo() {
 
       const autoBoxes = [
         { id: Date.now(), type: 'bbox', class: 'Person', rect: { x: 54, y: 104, w: 122, h: 232 } },
-        { id: Date.now() + 1, type: 'bbox', class: 'Robot', rect: { x: 254, y: 124, w: 162, h: 212 } }
+        { id: Date.now() + 1, type: 'bbox', class: 'Robot', rect: { x: 264, y: 119, w: 142, h: 207 } }
       ];
 
       annotations.push(...autoBoxes);
@@ -941,7 +1095,7 @@ function initAnnotationDemo() {
 
 
 /* ─────────────────────────────────────────────────────────────
-   SECTION 3: NAVIGATION SIMULATION LOGIC (OPAQUE OBSTACLES + CYAN PALETTE)
+   SECTION 3: NAVIGATION SIMULATION LOGIC
 ─────────────────────────────────────────────────────────────── */
 function initNavigationSimulation() {
   const canvas = document.getElementById('nav-canvas');
@@ -949,12 +1103,11 @@ function initNavigationSimulation() {
 
   const ctx = canvas.getContext('2d');
 
-  let currentMode = 'nav'; // 'nav' | 'slam' | 'manipulation'
+  let currentMode = 'nav';
   let robotSpeedFactor = 0.06;
   let sensorRange = 120;
-  let obstacleDensity = 'medium'; // 'low' | 'medium' | 'high'
+  let obstacleDensity = 'medium';
 
-  // Robot State
   let rx = 200, ry = 200;
   let targetX = 200, targetY = 200;
   let angle = 0;
@@ -965,12 +1118,10 @@ function initNavigationSimulation() {
   let collisionCount = 0;
   let waypointsCount = 37;
 
-  // FPS calculation
   let lastTime = performance.now();
   let frameCount = 0;
   let measuredFps = 42;
 
-  // Solid Opaque Obstacle Blocks
   let obstacles = [];
 
   const generateObstacles = () => {
@@ -999,7 +1150,6 @@ function initNavigationSimulation() {
 
   window.addEventListener('resize', resizeSimCanvas);
 
-  // Mouse move updates targetX and targetY
   canvas.addEventListener('mousemove', (e) => {
     const rect = canvas.getBoundingClientRect();
     const scale = 700 / rect.width;
@@ -1007,7 +1157,6 @@ function initNavigationSimulation() {
     targetY = (e.clientY - rect.top) * scale;
   });
 
-  // Click sets waypoint target
   canvas.addEventListener('click', (e) => {
     const rect = canvas.getBoundingClientRect();
     const scale = 700 / rect.width;
@@ -1018,7 +1167,6 @@ function initNavigationSimulation() {
     if (wpEl) wpEl.textContent = waypointsCount;
   });
 
-  // Controls Event Listeners
   document.querySelectorAll('.sim-mode-btn').forEach((btn) => {
     btn.addEventListener('click', () => {
       document.querySelectorAll('.sim-mode-btn').forEach((b) => b.classList.remove('active'));
@@ -1069,7 +1217,6 @@ function initNavigationSimulation() {
     });
   }
 
-  // Animation Loop
   const renderLoop = (now) => {
     frameCount++;
     if (now - lastTime >= 1000) {
@@ -1087,11 +1234,9 @@ function initNavigationSimulation() {
     ctx.save();
     ctx.scale(scale, scale);
 
-    // 1. Off-white Canvas Background
     ctx.fillStyle = '#F8FAFC';
     ctx.fillRect(0, 0, w, h);
 
-    // Subtle light grid background
     ctx.strokeStyle = 'rgba(148, 163, 184, 0.15)';
     ctx.lineWidth = 1;
     for (let x = 0; x < w; x += 30) {
@@ -1105,7 +1250,6 @@ function initNavigationSimulation() {
       ctx.stroke();
     }
 
-    // 2. Render Overlay Text (Top-Left inside Canvas Viewport)
     ctx.font = 'bold 10px "IBM Plex Mono", monospace';
     ctx.fillStyle = '#0BA8D3';
     ctx.fillText(`MODE: ${currentMode === 'nav' ? 'NAVIGATION' : currentMode.toUpperCase()}`, 16, 26);
@@ -1114,7 +1258,6 @@ function initNavigationSimulation() {
     ctx.fillStyle = '#94A3B8';
     ctx.fillText(`POS: (${Math.round(rx)}, ${Math.round(ry)})`, 16, 40);
 
-    // 3. Move Robot smoothly towards target + Obstacle Deflection Physics
     let stepDx = (targetX - rx) * robotSpeedFactor;
     let stepDy = (targetY - ry) * robotSpeedFactor;
     let nextRx = rx + stepDx;
@@ -1123,9 +1266,7 @@ function initNavigationSimulation() {
     const robotRadius = 10;
     let hasCollided = false;
 
-    // Check collision against solid opaque obstacle blocks
     obstacles.forEach((obs) => {
-      // Find nearest point on rectangle to robot position
       const closestX = Math.max(obs.x, Math.min(nextRx, obs.x + obs.w));
       const closestY = Math.max(obs.y, Math.min(nextRy, obs.y + obs.h));
       const distX = nextRx - closestX;
@@ -1134,7 +1275,6 @@ function initNavigationSimulation() {
 
       if (d < robotRadius) {
         hasCollided = true;
-        // Slide/deflect along block perimeter towards target
         const overlap = robotRadius - d;
         if (d > 0) {
           nextRx += (distX / d) * overlap;
@@ -1167,14 +1307,11 @@ function initNavigationSimulation() {
       }
     }
 
-    // 4. Draw SOLID OPAQUE Obstacle Blocks (No transparency)
     obstacles.forEach((obs) => {
-      // Soft shadow under block
       ctx.fillStyle = 'rgba(148, 163, 184, 0.2)';
       ctx.fillRect(obs.x + 3, obs.y + 3, obs.w, obs.h);
 
-      // Solid opaque block fill
-      ctx.fillStyle = '#E2E8F0'; // Solid opaque light gray
+      ctx.fillStyle = '#E2E8F0';
       ctx.strokeStyle = '#CBD5E1';
       ctx.lineWidth = 1.8;
 
@@ -1184,7 +1321,6 @@ function initNavigationSimulation() {
       ctx.stroke();
     });
 
-    // 5. Draw Target Cyan Crosshair `+` at mouse target position
     ctx.strokeStyle = '#0BA8D3';
     ctx.lineWidth = 1.8;
     ctx.beginPath();
@@ -1193,9 +1329,7 @@ function initNavigationSimulation() {
     ctx.moveTo(targetX, targetY - 12); ctx.lineTo(targetX, targetY + 12);
     ctx.stroke();
 
-    // 6. Render Robot Movement & Sensor Range
     if (currentMode === 'nav') {
-      // Trail line
       if (trailPoints.length > 1) {
         ctx.beginPath();
         trailPoints.forEach((pt, i) => {
@@ -1207,7 +1341,6 @@ function initNavigationSimulation() {
         ctx.stroke();
       }
 
-      // Robot Icon (Directional Cyan Arrow)
       ctx.save();
       ctx.translate(rx, ry);
       ctx.rotate(angle);
@@ -1282,7 +1415,6 @@ function initNavigationSimulation() {
 
     ctx.restore();
 
-    // Update Bottom Telemetry Numbers
     const distEl = document.getElementById('sim-dist-bottom');
     if (distEl) distEl.textContent = `${distanceTraveled}px`;
 
