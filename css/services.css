@@ -41,7 +41,7 @@ a {
 
 /* Global resets specific to services page elements */
 .services-page-body {
-  background-color: var(--white);
+  background: linear-gradient(180deg, #F0FBFD 0%, #F8FCFD 100%);
   color: var(--navy);
   font-family: var(--font-sans);
 }
@@ -535,12 +535,12 @@ a {
   color: var(--teal); /* Blue text */
 }
 
-/* 4. SECTORS SERVED (White Background) */
+/* 4. SECTORS SERVED (Subtle Cyan Background) */
 .srv-sectors {
-  background-color: var(--white);
+  background-color: #EFF8FA;
   color: var(--navy);
   padding: 100px 0;
-  border-top: 1px solid rgba(14, 31, 62, 0.05);
+  border-top: 1px solid rgba(11, 168, 211, 0.1);
 }
 
 .sectors-grid {
@@ -551,8 +551,8 @@ a {
 
 .sector-card {
   padding: 28px;
-  background-color: var(--white);
-  border: 1px solid rgba(14, 31, 62, 0.06);
+  background-color: #FFFFFF;
+  border: 1px solid rgba(11, 168, 211, 0.12);
   border-radius: 12px;
   transition: var(--transition-smooth);
 }
@@ -710,8 +710,8 @@ a {
 
 .format-card {
   padding: 32px;
-  background-color: var(--white);
-  border: 1px solid rgba(14, 31, 62, 0.08);
+  background-color: #EFF8FA;
+  border: 1px solid rgba(11, 168, 211, 0.12);
   border-radius: 16px;
   transition: var(--transition-smooth);
   display: flex;

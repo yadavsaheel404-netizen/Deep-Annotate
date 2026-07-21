@@ -7,7 +7,10 @@
   --cyan: #0BA8D3;
   --cyan-bright: #00D4FF;
   --cyan-glow: rgba(11, 168, 211, 0.15);
-  --grey-light: #F8FAFC;
+  --cyan-tint-bg: #F0FBFD;
+  --cyan-tint-card: #EEFBFD;
+  --cyan-border: rgba(11, 168, 211, 0.12);
+  --grey-light: #EFF8FA;
   --grey-border: rgba(14, 31, 62, 0.08);
   --font-sans: 'Inter', sans-serif;
   --font-mono: 'IBM Plex Mono', monospace;
@@ -38,7 +41,7 @@
 }
 
 .srv-new-section.bg-white {
-  background: #FFFFFF;
+  background: linear-gradient(180deg, #EFF8FA 0%, #F6FCFD 100%);
   color: var(--navy);
 }
 
@@ -173,11 +176,12 @@
 }
 
 .stepper-panel {
-  background: #FFFFFF;
+  background: linear-gradient(135deg, #FFFFFF 0%, #EFF8FA 100%);
   color: var(--navy);
   border-radius: 24px;
   padding: 40px;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--cyan-border);
+  box-shadow: 0 20px 50px rgba(14, 31, 62, 0.08);
   position: relative;
   overflow: hidden;
   min-height: 400px;
@@ -234,8 +238,8 @@
 }
 
 .stepper-stat-card {
-  background: var(--grey-light);
-  border: 1px solid var(--grey-border);
+  background: #EFF8FA;
+  border: 1px solid rgba(11, 168, 211, 0.1);
   border-radius: 16px;
   padding: 18px 22px;
 }
@@ -276,11 +280,12 @@
    SECTION 2: INTERACTIVE ANNOTATION DEMO
 ─────────────────────────────────────────────────────────────── */
 .demo-wrapper {
-  background: #FFFFFF;
+  background: linear-gradient(135deg, #FFFFFF 0%, #EFF8FA 100%);
   color: var(--navy);
   border-radius: 24px;
   padding: 28px;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+  border: 1px solid var(--cyan-border);
+  box-shadow: 0 20px 50px rgba(14, 31, 62, 0.08);
   position: relative;
 }
 
@@ -326,10 +331,10 @@
 
 .demo-tabs {
   display: flex;
-  background: var(--grey-light);
+  background: #E8F4F6;
   padding: 4px;
   border-radius: 100px;
-  border: 1px solid var(--grey-border);
+  border: 1px solid rgba(11, 168, 211, 0.12);
 }
 
 .demo-tab-btn {
@@ -362,7 +367,7 @@
   gap: 6px;
   padding: 8px 14px;
   border-radius: 10px;
-  border: 1px solid var(--grey-border);
+  border: 1px solid rgba(11, 168, 211, 0.15);
   background: #FFFFFF;
   font-size: 12.5px;
   font-weight: 600;
@@ -372,8 +377,8 @@
 }
 
 .demo-tool-btn:hover {
-  background: var(--grey-light);
-  border-color: rgba(14, 31, 62, 0.2);
+  background: #EAF6F8;
+  border-color: rgba(11, 168, 211, 0.3);
 }
 
 .demo-tool-btn.active {
@@ -437,8 +442,8 @@
   position: relative;
   border-radius: 18px;
   overflow: hidden;
-  border: 1px solid rgba(14, 31, 62, 0.12);
-  background: #F8FAFC;
+  border: 1px solid rgba(11, 168, 211, 0.15);
+  background: #EFF8FA;
   box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.04), 0 10px 30px rgba(14, 31, 62, 0.04);
   user-select: none;
 }
@@ -545,8 +550,8 @@
   justify-content: space-between;
   align-items: center;
   padding: 10px 18px;
-  background: var(--grey-light);
-  border-top: 1px solid var(--grey-border);
+  background: #EAF6F8;
+  border-top: 1px solid rgba(11, 168, 211, 0.1);
   font-family: var(--font-mono);
   font-size: 11px;
   color: rgba(14, 31, 62, 0.7);
@@ -587,8 +592,8 @@
 }
 
 .demo-stat-box {
-  background: var(--grey-light);
-  border: 1px solid var(--grey-border);
+  background: #EFF8FA;
+  border: 1px solid rgba(11, 168, 211, 0.1);
   border-radius: 16px;
   padding: 20px;
 }
@@ -755,15 +760,15 @@
 }
 
 /* ─────────────────────────────────────────────────────────────
-   SECTION 3: NAVIGATION SIMULATION (LIGHT CARD MATCHING BRAND CYAN)
+   SECTION 3: NAVIGATION SIMULATION (SUBTLE CYAN SHADED LIGHT CARD)
 ─────────────────────────────────────────────────────────────── */
 .sim-wrapper {
-  background: #F8FAFC;
+  background: linear-gradient(135deg, #EFF8FA 0%, #E6F5F8 100%);
   color: var(--navy);
   border-radius: 24px;
   padding: 24px;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.06);
-  border: 1px solid rgba(14, 31, 62, 0.08);
+  box-shadow: 0 20px 50px rgba(14, 31, 62, 0.06);
+  border: 1px solid rgba(11, 168, 211, 0.15);
 }
 
 .sim-grid {
@@ -781,7 +786,7 @@
 /* Left Canvas Container Box */
 .sim-canvas-container {
   background: #FFFFFF;
-  border: 1px solid rgba(14, 31, 62, 0.1);
+  border: 1px solid rgba(11, 168, 211, 0.12);
   border-radius: 20px;
   overflow: hidden;
   display: flex;
@@ -796,7 +801,7 @@
   align-items: center;
   padding: 12px 18px;
   background: #FFFFFF;
-  border-bottom: 1px solid rgba(14, 31, 62, 0.08);
+  border-bottom: 1px solid rgba(11, 168, 211, 0.1);
   font-family: var(--font-mono);
   font-size: 10.5px;
   font-weight: 700;
@@ -822,7 +827,7 @@
 
 .sim-canvas-wrap {
   position: relative;
-  background: #F8FAFC;
+  background: #EFF8FA;
   width: 100%;
 }
 
@@ -839,7 +844,7 @@
   grid-template-columns: repeat(4, 1fr);
   padding: 14px 20px;
   background: #FFFFFF;
-  border-top: 1px solid rgba(14, 31, 62, 0.08);
+  border-top: 1px solid rgba(11, 168, 211, 0.1);
 }
 
 .sim-stat-item {
@@ -873,7 +878,7 @@
 
 .sim-card {
   background: #FFFFFF;
-  border: 1px solid rgba(14, 31, 62, 0.08);
+  border: 1px solid rgba(11, 168, 211, 0.12);
   border-radius: 18px;
   padding: 18px 20px;
   box-shadow: 0 4px 15px rgba(14, 31, 62, 0.03);
@@ -889,7 +894,7 @@
   margin-bottom: 14px;
 }
 
-/* Vertical Stacked Mode Buttons (Cyan Brand Active State) */
+/* Vertical Stacked Mode Buttons */
 .sim-mode-list {
   display: flex;
   flex-direction: column;
@@ -902,8 +907,8 @@
   gap: 10px;
   padding: 12px 16px;
   border-radius: 12px;
-  border: 1px solid rgba(14, 31, 62, 0.08);
-  background: #F8FAFC;
+  border: 1px solid rgba(11, 168, 211, 0.12);
+  background: #EFF8FA;
   font-size: 13px;
   font-weight: 700;
   color: var(--navy);
@@ -914,7 +919,7 @@
 }
 
 .sim-mode-btn:hover {
-  background: #F1F5F9;
+  background: #E2F4F7;
 }
 
 .sim-mode-btn.active {
@@ -959,8 +964,8 @@
 }
 
 .metric-card-sm {
-  background: #F8FAFC;
-  border: 1px solid rgba(14, 31, 62, 0.06);
+  background: #EFF8FA;
+  border: 1px solid rgba(11, 168, 211, 0.1);
   border-radius: 12px;
   padding: 12px 14px;
 }
