@@ -139,7 +139,7 @@
       font-weight: 700;
       letter-spacing: 0.18em;
       text-transform: uppercase;
-      color: var(--cyan);
+      color: #0E1F3E !important;
       margin-bottom: 16px;
       display: block;
     }
@@ -148,10 +148,10 @@
       font-weight: 800;
       letter-spacing: -0.04em;
       line-height: 1.1;
-      background: linear-gradient(135deg, var(--navy), var(--cyan));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      color: #0E1F3E !important;
+      background: none !important;
+      -webkit-text-fill-color: #0E1F3E !important;
+      background-clip: unset !important;
     }
     .ssub {
       font-size: 17px;
@@ -168,12 +168,13 @@
       transform: translate3d(0, 30px, 0);
       transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
       will-change: transform, opacity;
-      backface-visibility: hidden;
     }
-    .rev.vis {
+    .vis {
       opacity: 1;
       transform: translate3d(0, 0, 0);
     }
+
+    /* STAGGERED DELAYS */
     .d1 { transition-delay: 0.1s; }
     .d2 { transition-delay: 0.2s; }
     .d3 { transition-delay: 0.3s; }
@@ -199,25 +200,25 @@
       gap: 6px;
     }
     .filter-chip {
-      padding: 8px 18px;
-      border-radius: 100px;
-      background: transparent;
-      border: 1px solid transparent;
-      color: var(--text-secondary);
-      font-size: 13px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      padding: 8px 18px !important;
+      border-radius: 100px !important;
+      background: transparent !important;
+      border: 1px solid transparent !important;
+      color: rgba(14, 31, 62, 0.7) !important;
+      font-size: 13px !important;
+      font-weight: 600 !important;
+      cursor: pointer !important;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
     }
     .filter-chip:hover {
-      color: var(--navy);
-      background: rgba(14, 31, 62, 0.05);
+      color: #0E1F3E !important;
+      background: rgba(14, 31, 62, 0.05) !important;
     }
     .filter-chip.active {
-      background: var(--navy);
-      border-color: var(--navy);
-      color: #fff;
-      box-shadow: 0 4px 12px rgba(14, 31, 62, 0.1);
+      background: #0E1F3E !important;
+      border-color: #0E1F3E !important;
+      color: #FFFFFF !important;
+      box-shadow: 0 4px 12px rgba(14, 31, 62, 0.15) !important;
     }
     
     @media (max-width: 768px) {
