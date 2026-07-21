@@ -210,36 +210,78 @@ function initAnnotationDemo() {
   let currentSensor = 'scene'; // 'scene' | 'depth' | 'thermal'
   let currentTool = 'bbox'; // 'bbox' | 'polygon' | 'keypoint' | 'auto'
   
-  let annotations = [
-    { id: 1, type: 'bbox', class: 'Person', rect: { x: 90, y: 140, w: 95, h: 200 } },
-    { id: 2, type: 'bbox', class: 'Robot', rect: { x: 270, y: 160, w: 120, h: 180 } },
-    { id: 3, type: 'bbox', class: 'Object', rect: { x: 470, y: 220, w: 110, h: 110 } }
+  // Ground truth scene figures with depth indices and anchor points
+  const SCENE_FIGURES = [
+    {
+      id: 'person_standing',
+      class: 'Person',
+      rect: { x: 60, y: 110, w: 110, h: 220 },
+      depthVal: 0.9, // Near (warm)
+      anchors: [{ x: 115, y: 140 }, { x: 115, y: 200 }, { x: 100, y: 300 }]
+    },
+    {
+      id: 'robot_arm',
+      class: 'Robot',
+      rect: { x: 260, y: 130, w: 150, h: 200 },
+      depthVal: 0.6, // Mid-depth
+      anchors: [{ x: 335, y: 160 }, { x: 335, y: 220 }, { x: 335, y: 290 }]
+    },
+    {
+      id: 'crate_pallet',
+      class: 'Object',
+      rect: { x: 480, y: 220, w: 160, h: 110 },
+      depthVal: 0.3, // Far
+      anchors: [{ x: 560, y: 240 }, { x: 560, y: 290 }]
+    },
+    {
+      id: 'person_crouched',
+      class: 'Person',
+      rect: { x: 480, y: 60, w: 90, h: 120 },
+      depthVal: 0.2, // Far
+      anchors: [{ x: 525, y: 80 }, { x: 525, y: 120 }]
+    },
+    {
+      id: 'conveyor_surface',
+      class: 'Surface',
+      rect: { x: 240, y: 340, w: 200, h: 40 },
+      depthVal: 0.95, // Closest
+      anchors: [{ x: 340, y: 360 }]
+    }
   ];
 
+  // Starts with EMPTY annotations on load (0 count)
+  let annotations = [];
   let history = [JSON.stringify(annotations)];
 
   let isDrawing = false;
   let startX = 0, startY = 0;
   let currentRect = null;
   let polyPoints = [];
-  let pendingAnnotation = null;
+  let hasInteracted = false;
 
   // Set canvas resolution
   const resizeCanvas = () => {
     const rect = canvas.getBoundingClientRect();
-    canvas.width = rect.width * window.devicePixelRatio || rect.width;
-    canvas.height = rect.height * window.devicePixelRatio || rect.height;
+    canvas.width = rect.width * (window.devicePixelRatio || 1);
+    canvas.height = rect.height * (window.devicePixelRatio || 1);
     drawCanvas();
   };
 
   window.addEventListener('resize', resizeCanvas);
 
-  // Colors per class
+  // Class Colors & Contrast Settings
   const CLASS_COLORS = {
-    Person: '#0BA8D3',
-    Robot: '#8B5CF6',
-    Object: '#FFBA08',
-    Surface: '#10B981'
+    Person: '#3B82F6',   // Blue
+    Robot: '#8B5CF6',    // Violet
+    Object: '#F59E0B',   // Amber
+    Surface: '#10B981'   // Emerald
+  };
+
+  const CLASS_TEXT_COLORS = {
+    Person: '#FFFFFF',
+    Robot: '#FFFFFF',
+    Object: '#1F2937',   // Dark text for high contrast on Amber!
+    Surface: '#FFFFFF'
   };
 
   const saveHistory = () => {
@@ -263,126 +305,237 @@ function initAnnotationDemo() {
     drawCanvas();
   };
 
-  // Draw background scenes
+  // First-View Hint Prompt Management
+  const hideHintPrompt = () => {
+    if (!hasInteracted) {
+      hasInteracted = true;
+      const hint = document.getElementById('demo-hint-prompt');
+      if (hint) hint.classList.add('hidden');
+      try { sessionStorage.setItem('demo_hint_seen', 'true'); } catch (e) {}
+    }
+  };
+
+  if (sessionStorage.getItem('demo_hint_seen') === 'true') {
+    const hint = document.getElementById('demo-hint-prompt');
+    if (hint) hint.classList.add('hidden');
+    hasInteracted = true;
+  }
+
+  // Floating Micro Toast for Empty Space Clicks
+  const showEmptyToast = (x, y) => {
+    const rect = canvas.getBoundingClientRect();
+    const toast = document.createElement('div');
+    toast.className = 'demo-toast';
+    toast.textContent = 'No object detected — drag over a figure';
+    toast.style.left = `${(x / 700) * rect.width}px`;
+    toast.style.top = `${(y / 420) * rect.height}px`;
+    canvas.parentElement.appendChild(toast);
+
+    setTimeout(() => toast.remove(), 1600);
+  };
+
+  // Sensor View Legend Bar Update
+  const updateSensorLegend = () => {
+    const existing = document.getElementById('sensor-legend-bar');
+    if (existing) existing.remove();
+
+    if (currentSensor === 'depth' || currentSensor === 'thermal') {
+      const bar = document.createElement('div');
+      bar.className = 'sensor-legend-bar';
+      bar.id = 'sensor-legend-bar';
+
+      if (currentSensor === 'depth') {
+        bar.innerHTML = `<span>NEAR</span><div class="sensor-scale-ramp depth-scale"></div><span>FAR</span>`;
+      } else {
+        bar.innerHTML = `<span>COLD</span><div class="sensor-scale-ramp thermal-scale"></div><span>HOT</span>`;
+      }
+      canvas.parentElement.appendChild(bar);
+    }
+  };
+
+  // Draw Background Scene with Grounding Shadows & Real Sensor Visualizations
   const drawBackground = () => {
     const w = canvas.width;
     const h = canvas.height;
     const scale = w / 700;
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const now = performance.now();
+
+    const swayOffset = prefersReducedMotion ? 0 : Math.sin(now * 0.002) * 2 * scale;
+    const ledAlpha = prefersReducedMotion ? 1 : 0.4 + Math.sin(now * 0.005) * 0.6;
 
     if (currentSensor === 'scene') {
-      ctx.fillStyle = '#F8FAFC';
+      // 1. Room Depth Environment
+      const bgGrad = ctx.createLinearGradient(0, 0, 0, h);
+      bgGrad.addColorStop(0, '#F1F5F9');
+      bgGrad.addColorStop(0.7, '#E2E8F0');
+      bgGrad.addColorStop(1, '#CBD5E1');
+      ctx.fillStyle = bgGrad;
       ctx.fillRect(0, 0, w, h);
 
-      // Grid dots
-      ctx.fillStyle = '#CBD5E1';
-      for (let x = 20 * scale; x < w; x += 30 * scale) {
-        for (let y = 20 * scale; y < h; y += 30 * scale) {
+      // Low-opacity refined dot grid
+      ctx.fillStyle = 'rgba(148, 163, 184, 0.25)';
+      for (let x = 25 * scale; x < w; x += 30 * scale) {
+        for (let y = 25 * scale; y < h; y += 30 * scale) {
           ctx.beginPath();
-          ctx.arc(x, y, 1.5 * scale, 0, Math.PI * 2);
+          ctx.arc(x, y, 1.2 * scale, 0, Math.PI * 2);
           ctx.fill();
         }
       }
 
-      // Ground plane
-      ctx.fillStyle = '#E2E8F0';
-      ctx.fillRect(0, 340 * scale, w, h - 340 * scale);
-
-      // Silhouette Person (left)
-      ctx.fillStyle = '#94A3B8';
-      ctx.beginPath();
-      ctx.arc(135 * scale, 175 * scale, 18 * scale, 0, Math.PI * 2); // head
-      ctx.fill();
-      ctx.fillRect(120 * scale, 198 * scale, 30 * scale, 85 * scale); // body
-      ctx.fillRect(118 * scale, 285 * scale, 14 * scale, 55 * scale); // leg L
-      ctx.fillRect(138 * scale, 285 * scale, 14 * scale, 55 * scale); // leg R
-
-      // Silhouette Robot Arm / Bot (center)
-      ctx.fillStyle = '#64748B';
-      ctx.fillRect(280 * scale, 260 * scale, 100 * scale, 80 * scale); // base bot
-      ctx.beginPath();
-      ctx.arc(330 * scale, 230 * scale, 24 * scale, 0, Math.PI * 2); // joint
-      ctx.fill();
-      ctx.fillRect(324 * scale, 175 * scale, 12 * scale, 60 * scale); // arm
-
-      // Silhouette Surface Object (right)
-      ctx.fillStyle = '#CBD5E1';
-      ctx.fillRect(470 * scale, 240 * scale, 110 * scale, 100 * scale);
-
-    } else if (currentSensor === 'depth') {
-      // Depth Map Heat Gradient
-      const grad = ctx.createRadialGradient(w / 2, h / 2, 50 * scale, w / 2, h / 2, w / 1.2);
-      grad.addColorStop(0, '#0F172A');
-      grad.addColorStop(0.3, '#1E1B4B');
-      grad.addColorStop(0.6, '#4338CA');
-      grad.addColorStop(0.9, '#DB2777');
-      grad.addColorStop(1, '#F43F5E');
-
-      ctx.fillStyle = grad;
-      ctx.fillRect(0, 0, w, h);
-
-      // Depth silhouette shapes
-      ctx.fillStyle = 'rgba(255, 255, 255, 0.25)';
-      ctx.fillRect(120 * scale, 175 * scale, 30 * scale, 165 * scale);
-      ctx.fillRect(280 * scale, 175 * scale, 100 * scale, 165 * scale);
-      ctx.fillRect(470 * scale, 240 * scale, 110 * scale, 100 * scale);
-
-    } else if (currentSensor === 'thermal') {
-      // Thermal Camera Palette
-      ctx.fillStyle = '#050B14';
-      ctx.fillRect(0, 0, w, h);
-
-      // Warm heat blobs
-      const drawHeatBlob = (cx, cy, r, color1, color2) => {
-        const bg = ctx.createRadialGradient(cx, cy, 2, cx, cy, r);
-        bg.addColorStop(0, color1);
-        bg.addColorStop(0.6, color2);
-        bg.addColorStop(1, 'transparent');
-        ctx.fillStyle = bg;
+      // Grounding Shadows
+      const drawShadow = (cx, cy, rx, ry) => {
+        ctx.fillStyle = 'rgba(15, 23, 42, 0.12)';
         ctx.beginPath();
-        ctx.arc(cx, cy, r, 0, Math.PI * 2);
+        ctx.ellipse(cx * scale, cy * scale, rx * scale, ry * scale, 0, 0, Math.PI * 2);
         ctx.fill();
       };
 
-      drawHeatBlob(135 * scale, 220 * scale, 65 * scale, '#FACC15', '#EF4444'); // Person thermal
-      drawHeatBlob(330 * scale, 240 * scale, 75 * scale, '#F97316', '#DC2626'); // Robot thermal
-      drawHeatBlob(525 * scale, 290 * scale, 45 * scale, '#3B82F6', '#1E3A8A'); // Object cool thermal
+      drawShadow(115, 335, 45, 10); // Standing Human shadow
+      drawShadow(335, 335, 75, 14); // Robot shadow
+      drawShadow(560, 335, 85, 12); // Crate shadow
+
+      // Conveyor Surface (Bottom Center)
+      ctx.fillStyle = '#94A3B8';
+      ctx.fillRect(240 * scale, 345 * scale, 200 * scale, 30 * scale);
+      ctx.fillStyle = '#64748B';
+      ctx.fillRect(240 * scale, 370 * scale, 200 * scale, 10 * scale);
+
+      // Standing Human (Left: x=60..170)
+      ctx.fillStyle = '#64748B';
+      ctx.beginPath();
+      ctx.arc(115 * scale + swayOffset, 140 * scale, 18 * scale, 0, Math.PI * 2); // Head
+      ctx.fill();
+      ctx.fillRect(100 * scale + swayOffset, 163 * scale, 30 * scale, 95 * scale); // Torso
+      ctx.fillRect(96 * scale + swayOffset, 258 * scale, 14 * scale, 72 * scale); // Leg L
+      ctx.fillRect(118 * scale + swayOffset, 258 * scale, 14 * scale, 72 * scale); // Leg R
+
+      // Crouched Human (Top Right: x=480..570)
+      ctx.fillStyle = '#64748B';
+      ctx.beginPath();
+      ctx.arc(525 * scale, 80 * scale, 14 * scale, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillRect(510 * scale, 98 * scale, 30 * scale, 50 * scale);
+      ctx.fillRect(505 * scale, 148 * scale, 40 * scale, 30 * scale);
+
+      // Robot Unit with Sensor Eye (Center: x=260..410)
+      ctx.fillStyle = '#475569';
+      ctx.fillRect(270 * scale, 250 * scale, 130 * scale, 80 * scale); // Chassis
+      ctx.fillRect(290 * scale, 315 * scale, 90 * scale, 15 * scale); // Treads
+
+      ctx.beginPath();
+      ctx.arc(335 * scale, 210 * scale, 22 * scale, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillRect(328 * scale, 145 * scale, 14 * scale, 65 * scale);
+
+      // Blinking Robot LED
+      ctx.fillStyle = `rgba(0, 212, 255, ${ledAlpha})`;
+      ctx.beginPath();
+      ctx.arc(335 * scale, 210 * scale, 6 * scale, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Industrial Crate (Right: x=480..640)
+      ctx.fillStyle = '#94A3B8';
+      ctx.fillRect(480 * scale, 230 * scale, 160 * scale, 100 * scale);
+      ctx.strokeStyle = '#475569';
+      ctx.lineWidth = 2 * scale;
+      ctx.strokeRect(480 * scale, 230 * scale, 160 * scale, 100 * scale);
+
+    } else if (currentSensor === 'depth') {
+      // Real Depth Sensor Jet Colormap (Warm = Near, Cool = Far)
+      ctx.fillStyle = '#0F172A'; // Far background
+      ctx.fillRect(0, 0, w, h);
+
+      // Depth Silhouettes per depthVal
+      SCENE_FIGURES.forEach((fig) => {
+        const { x, y, w: fw, h: fh } = fig.rect;
+        const val = fig.depthVal;
+
+        // Color ramp map: 1.0 = Yellow/White (Closest), 0.6 = Orange, 0.3 = Indigo/Dark Blue (Far)
+        let color = '#4338CA';
+        if (val > 0.8) color = '#FACC15';
+        else if (val > 0.5) color = '#F97316';
+
+        ctx.fillStyle = color;
+        ctx.fillRect(x * scale, y * scale, fw * scale, fh * scale);
+      });
+
+    } else if (currentSensor === 'thermal') {
+      // Real Thermal Camera Visualization (FLIR Ironbow Heat Signature)
+      ctx.fillStyle = '#050B14';
+      ctx.fillRect(0, 0, w, h);
+
+      const drawHeatBlob = (cx, cy, rx, ry, color1, color2) => {
+        const bg = ctx.createRadialGradient(cx, cy, 5, cx, cy, rx);
+        bg.addColorStop(0, color1);
+        bg.addColorStop(0.65, color2);
+        bg.addColorStop(1, 'transparent');
+        ctx.fillStyle = bg;
+        ctx.beginPath();
+        ctx.ellipse(cx, cy, rx, ry, 0, 0, Math.PI * 2);
+        ctx.fill();
+      };
+
+      // Humans = Warm glowing heat bloom cores
+      drawHeatBlob(115 * scale, 220 * scale, 55 * scale, 100 * scale, '#FFFFFF', '#EF4444');
+      drawHeatBlob(525 * scale, 120 * scale, 40 * scale, 50 * scale, '#FACC15', '#EF4444');
+
+      // Robot = Cooler body with localized motor heat spot
+      drawHeatBlob(335 * scale, 260 * scale, 60 * scale, 50 * scale, '#1E3A8A', '#050B14');
+      drawHeatBlob(335 * scale, 210 * scale, 20 * scale, 20 * scale, '#F97316', '#DC2626'); // Motor heat
+
+      // Inanimate Crate & Surface = Ambient/Cold
+      ctx.fillStyle = 'rgba(30, 58, 138, 0.3)';
+      ctx.fillRect(480 * scale, 230 * scale, 160 * scale, 100 * scale);
     }
   };
 
-  // Draw canvas scene + annotations
+  // Draw Canvas & High-Contrast Annotations
   const drawCanvas = () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     drawBackground();
 
     const scale = canvas.width / 700;
 
-    // Draw saved annotations
+    // Render Saved Annotations
     annotations.forEach((ann) => {
-      const color = CLASS_COLORS[ann.class] || '#0BA8D3';
+      const color = CLASS_COLORS[ann.class] || '#3B82F6';
+      const textColor = CLASS_TEXT_COLORS[ann.class] || '#FFFFFF';
 
       if (ann.type === 'bbox' && ann.rect) {
         const { x, y, w, h } = ann.rect;
         const rx = x * scale, ry = y * scale, rw = w * scale, rh = h * scale;
 
-        // Box fill
-        ctx.fillStyle = hexToRgba(color, 0.18);
+        // Shape fill (14% opacity)
+        ctx.fillStyle = hexToRgba(color, 0.14);
         ctx.fillRect(rx, ry, rw, rh);
 
-        // Box border
+        // Solid 2.5px border
         ctx.strokeStyle = color;
         ctx.lineWidth = 2.5 * scale;
         ctx.strokeRect(rx, ry, rw, rh);
 
-        // Label pill
-        ctx.fillStyle = color;
-        ctx.fillRect(rx, ry - 22 * scale, ctx.measureText(ann.class).width * scale + 24 * scale, 22 * scale);
-
-        ctx.fillStyle = '#FFFFFF';
+        // Exactly ONE single label tag outside top-left edge (gap 4px)
+        const tagText = ann.class;
         ctx.font = `bold ${11 * scale}px Inter`;
-        ctx.fillText(ann.class, rx + 6 * scale, ry - 6 * scale);
+        const textWidth = ctx.measureText(tagText).width;
+        const tagH = 20 * scale;
+        const tagW = textWidth + 16 * scale;
+        const tagX = rx;
+        const tagY = ry - tagH - 4 * scale;
+
+        // Tag background
+        ctx.fillStyle = color;
+        ctx.beginPath();
+        ctx.roundRect(tagX, tagY, tagW, tagH, 4 * scale);
+        ctx.fill();
+
+        // Tag text
+        ctx.fillStyle = textColor;
+        ctx.fillText(tagText, tagX + 8 * scale, tagY + 14 * scale);
 
       } else if (ann.type === 'polygon' && ann.points && ann.points.length > 1) {
-        ctx.fillStyle = hexToRgba(color, 0.2);
+        ctx.fillStyle = hexToRgba(color, 0.14);
         ctx.strokeStyle = color;
         ctx.lineWidth = 2.5 * scale;
 
@@ -395,35 +548,61 @@ function initAnnotationDemo() {
         ctx.fill();
         ctx.stroke();
 
+        // Tag on first vertex
+        const firstPt = ann.points[0];
+        const tagText = ann.class;
+        ctx.font = `bold ${11 * scale}px Inter`;
+        const tagW = ctx.measureText(tagText).width + 16 * scale;
+        ctx.fillStyle = color;
+        ctx.fillRect(firstPt.x * scale, firstPt.y * scale - 24 * scale, tagW, 20 * scale);
+        ctx.fillStyle = textColor;
+        ctx.fillText(tagText, firstPt.x * scale + 8 * scale, firstPt.y * scale - 9 * scale);
+
       } else if (ann.type === 'keypoint' && ann.points) {
+        // Connect consecutive keypoints with dashed line
+        if (ann.points.length > 1) {
+          ctx.beginPath();
+          ann.points.forEach((pt, i) => {
+            if (i === 0) ctx.moveTo(pt.x * scale, pt.y * scale);
+            else ctx.lineTo(pt.x * scale, pt.y * scale);
+          });
+          ctx.setLineDash([4, 4]);
+          ctx.strokeStyle = color;
+          ctx.lineWidth = 1.5 * scale;
+          ctx.stroke();
+          ctx.setLineDash([]);
+        }
+
+        // Keypoint dots with numbered badges
         ann.points.forEach((pt, i) => {
           const px = pt.x * scale, py = pt.y * scale;
+
           ctx.fillStyle = color;
           ctx.beginPath();
-          ctx.arc(px, py, 6 * scale, 0, Math.PI * 2);
+          ctx.arc(px, py, 7 * scale, 0, Math.PI * 2);
           ctx.fill();
 
-          ctx.fillStyle = '#FFFFFF';
+          ctx.fillStyle = textColor;
           ctx.font = `bold ${9 * scale}px IBM Plex Mono`;
           ctx.fillText(`${i + 1}`, px - 3 * scale, py + 3 * scale);
         });
       }
     });
 
-    // Draw current live drawing rect
+    // Draw live drag rectangle
     if (isDrawing && currentRect) {
       const { x, y, w, h } = currentRect;
       ctx.setLineDash([6, 4]);
-      ctx.strokeStyle = '#0BA8D3';
-      ctx.lineWidth = 2;
+      ctx.strokeStyle = '#3B82F6';
+      ctx.lineWidth = 2 * scale;
       ctx.strokeRect(x * scale, y * scale, w * scale, h * scale);
       ctx.setLineDash([]);
     }
 
-    // Draw current live polygon vertices
+    // Draw live polygon vertices
     if (polyPoints.length > 0) {
-      ctx.strokeStyle = '#0BA8D3';
-      ctx.lineWidth = 2;
+      ctx.strokeStyle = '#3B82F6';
+      ctx.lineWidth = 2 * scale;
       ctx.beginPath();
       polyPoints.forEach((pt, i) => {
         if (i === 0) ctx.moveTo(pt.x * scale, pt.y * scale);
@@ -432,12 +611,14 @@ function initAnnotationDemo() {
       ctx.stroke();
 
       polyPoints.forEach((pt) => {
-        ctx.fillStyle = '#0BA8D3';
+        ctx.fillStyle = '#3B82F6';
         ctx.beginPath();
         ctx.arc(pt.x * scale, pt.y * scale, 4 * scale, 0, Math.PI * 2);
         ctx.fill();
       });
     }
+
+    requestAnimationFrame(drawCanvas);
   };
 
   const getCanvasMousePos = (e) => {
@@ -449,16 +630,46 @@ function initAnnotationDemo() {
     };
   };
 
-  // Show inline class picker popup
-  const showClassPicker = (x, y, onSelect) => {
-    hideClassPicker();
+  // Smart Find Best Overlapping Figure
+  const findBestFigureOverlap = (dragRect) => {
+    let bestFigure = null;
+    let maxOverlapArea = 0;
+
+    SCENE_FIGURES.forEach((fig) => {
+      const { x: x1, y: y1, w: w1, h: h1 } = dragRect;
+      const { x: x2, y: y2, w: w2, h: h2 } = fig.rect;
+
+      const interX1 = Math.max(x1, x2);
+      const interY1 = Math.max(y1, y2);
+      const interX2 = Math.min(x1 + w1, x2 + w2);
+      const interY2 = Math.min(y1 + h1, y2 + h2);
+
+      if (interX2 > interX1 && interY2 > interY1) {
+        const area = (interX2 - interX1) * (interY2 - interY1);
+        if (area > maxOverlapArea) {
+          maxOverlapArea = area;
+          bestFigure = fig;
+        }
+      }
+    });
+
+    return bestFigure;
+  };
+
+  // Edit-Class Popup (Only shown on clicking ALREADY-LABELED shape)
+  const showClassEditPicker = (anchorX, anchorY, currentClass, onSelect) => {
+    hideClassEditPicker();
 
     const rect = canvas.getBoundingClientRect();
     const pop = document.createElement('div');
-    pop.className = 'class-picker-pop';
-    pop.id = 'class-picker';
-    pop.style.left = `${(x / 700) * rect.width}px`;
-    pop.style.top = `${(y / 420) * rect.height}px`;
+    pop.className = 'class-edit-pop';
+    pop.id = 'class-edit-pop';
+
+    const screenX = (anchorX / 700) * rect.width;
+    let screenY = (anchorY / 420) * rect.height;
+
+    pop.style.left = `${screenX}px`;
+    pop.style.top = `${screenY}px`;
 
     pop.innerHTML = `
       <button class="class-chip-btn chip-person" data-class="Person">Person</button>
@@ -474,19 +685,53 @@ function initAnnotationDemo() {
         e.stopPropagation();
         const cls = btn.getAttribute('data-class');
         onSelect(cls);
-        hideClassPicker();
+        hideClassEditPicker();
       });
     });
+
+    const onOutsideClick = (e) => {
+      if (!pop.contains(e.target) && e.target !== canvas) {
+        hideClassEditPicker();
+        document.removeEventListener('click', onOutsideClick);
+      }
+    };
+
+    setTimeout(() => {
+      document.addEventListener('click', onOutsideClick);
+    }, 50);
   };
 
-  const hideClassPicker = () => {
-    const existing = document.getElementById('class-picker');
+  const hideClassEditPicker = () => {
+    const existing = document.getElementById('class-edit-pop');
     if (existing) existing.remove();
   };
 
-  // Mouse handlers on canvas
+  // Canvas Mouse Handlers with Instant Auto-Classification
   canvas.addEventListener('mousedown', (e) => {
+    hideHintPrompt();
+    hideClassEditPicker();
+
     const { x, y } = getCanvasMousePos(e);
+
+    // Check if clicking an ALREADY-LABELED annotation to edit label
+    const clickedExisting = annotations.find((ann) => {
+      if (ann.rect) {
+        return (
+          x >= ann.rect.x && x <= ann.rect.x + ann.rect.w &&
+          y >= ann.rect.y && y <= ann.rect.y + ann.rect.h
+        );
+      }
+      return false;
+    });
+
+    if (clickedExisting) {
+      showClassEditPicker(clickedExisting.rect.x + clickedExisting.rect.w / 2, clickedExisting.rect.y, clickedExisting.class, (newClass) => {
+        clickedExisting.class = newClass;
+        saveHistory();
+        updateStats();
+      });
+      return;
+    }
 
     if (currentTool === 'bbox') {
       isDrawing = true;
@@ -496,20 +741,32 @@ function initAnnotationDemo() {
       updateStatus('DRAWING');
 
     } else if (currentTool === 'keypoint') {
-      polyPoints.push({ x, y });
-      showClassPicker(x, y, (cls) => {
-        annotations.push({
-          id: Date.now(),
-          type: 'keypoint',
-          class: cls,
-          points: [...polyPoints]
+      let targetPt = { x, y };
+      let matchedFig = null;
+
+      SCENE_FIGURES.forEach((fig) => {
+        fig.anchors.forEach((anc) => {
+          if (Math.hypot(x - anc.x, y - anc.y) < 25) {
+            targetPt = { x: anc.x, y: anc.y };
+            matchedFig = fig;
+          }
         });
-        polyPoints = [];
-        saveHistory();
-        updateStats();
-        drawCanvas();
-        updateStatus('READY');
       });
+
+      polyPoints.push(targetPt);
+      const autoClass = matchedFig ? matchedFig.class : 'Person';
+
+      // INSTANT AUTO-CLASSIFY (NO POPUP)
+      annotations.push({
+        id: Date.now(),
+        type: 'keypoint',
+        class: autoClass,
+        points: [...polyPoints]
+      });
+      polyPoints = [];
+      saveHistory();
+      updateStats();
+      updateStatus('READY');
     }
   });
 
@@ -525,100 +782,92 @@ function initAnnotationDemo() {
         w: Math.abs(w),
         h: Math.abs(h)
       };
-
-      drawCanvas();
     }
   });
 
   canvas.addEventListener('mouseup', (e) => {
     if (isDrawing && currentTool === 'bbox' && currentRect) {
       isDrawing = false;
-      if (currentRect.w > 15 && currentRect.h > 15) {
-        const finalRect = { ...currentRect };
-        showClassPicker(finalRect.x + finalRect.w / 2, finalRect.y, (cls) => {
+      const dragRect = { ...currentRect };
+      currentRect = null;
+
+      if (dragRect.w > 10 || dragRect.h > 10) {
+        const bestFigure = findBestFigureOverlap(dragRect);
+
+        if (bestFigure) {
+          // Snap tightly to the figure's true bounds with 6px padding
+          const snappedRect = {
+            x: bestFigure.rect.x - 6,
+            y: bestFigure.rect.y - 6,
+            w: bestFigure.rect.w + 12,
+            h: bestFigure.rect.h + 12
+          };
+
+          // INSTANT AUTO-CLASSIFY ON SELECT (NO MANUAL POPUP)
           annotations.push({
             id: Date.now(),
             type: 'bbox',
-            class: cls,
-            rect: finalRect
+            class: bestFigure.class, // Auto-applies ground-truth class!
+            rect: snappedRect
           });
           saveHistory();
           updateStats();
-          drawCanvas();
           updateStatus('READY');
-        });
+
+        } else {
+          // Dragged in empty space -> Toast notification
+          showEmptyToast(dragRect.x + dragRect.w / 2, dragRect.y + dragRect.h / 2);
+          updateStatus('READY');
+        }
       } else {
         updateStatus('READY');
       }
-      currentRect = null;
-      drawCanvas();
     }
   });
 
   canvas.addEventListener('click', (e) => {
+    hideHintPrompt();
     const { x, y } = getCanvasMousePos(e);
 
     if (currentTool === 'polygon') {
-      // Check if closing polygon
       if (polyPoints.length > 2 && Math.hypot(x - polyPoints[0].x, y - polyPoints[0].y) < 15) {
-        showClassPicker(x, y, (cls) => {
-          annotations.push({
-            id: Date.now(),
-            type: 'polygon',
-            class: cls,
-            points: [...polyPoints]
-          });
-          polyPoints = [];
-          saveHistory();
-          updateStats();
-          drawCanvas();
-          updateStatus('READY');
-        });
-      } else {
-        polyPoints.push({ x, y });
-        updateStatus('DRAWING');
-        drawCanvas();
-      }
-    }
-  });
-
-  canvas.addEventListener('dblclick', () => {
-    if (currentTool === 'polygon' && polyPoints.length > 2) {
-      const pt = polyPoints[polyPoints.length - 1];
-      showClassPicker(pt.x, pt.y, (cls) => {
+        // INSTANT AUTO-CLASSIFY
         annotations.push({
           id: Date.now(),
           type: 'polygon',
-          class: cls,
+          class: 'Person',
           points: [...polyPoints]
         });
         polyPoints = [];
         saveHistory();
         updateStats();
-        drawCanvas();
         updateStatus('READY');
-      });
+      } else {
+        polyPoints.push({ x, y });
+        updateStatus('DRAWING');
+      }
     }
   });
 
   // Auto-Label Tool
   const triggerAutoLabel = () => {
+    hideHintPrompt();
     const shimmer = document.getElementById('demo-shimmer');
     if (shimmer) shimmer.classList.add('active');
+    updateStatus('DRAWING');
 
     setTimeout(() => {
       if (shimmer) shimmer.classList.remove('active');
 
-      // Auto-add simulated bounding box for person/robot/surface
       const autoBoxes = [
-        { id: Date.now(), type: 'bbox', class: 'Person', rect: { x: 110, y: 160, w: 50, h: 180 } },
-        { id: Date.now() + 1, type: 'bbox', class: 'Robot', rect: { x: 275, y: 170, w: 110, h: 170 } }
+        { id: Date.now(), type: 'bbox', class: 'Person', rect: { x: 54, y: 104, w: 122, h: 232 } },
+        { id: Date.now() + 1, type: 'bbox', class: 'Robot', rect: { x: 254, y: 124, w: 162, h: 212 } }
       ];
 
       annotations.push(...autoBoxes);
       saveHistory();
       updateStats();
-      drawCanvas();
+      updateStatus('READY');
     }, 450);
   };
 
@@ -629,7 +878,7 @@ function initAnnotationDemo() {
       btn.classList.add('active');
       currentSensor = btn.getAttribute('data-sensor');
       document.getElementById('demo-mode-lbl').textContent = currentSensor.toUpperCase();
-      drawCanvas();
+      updateSensorLegend();
     });
   });
 
@@ -647,11 +896,11 @@ function initAnnotationDemo() {
       currentTool = tool;
       document.getElementById('demo-tool-lbl').textContent = tool.toUpperCase();
       polyPoints = [];
-      drawCanvas();
+      updateStatus('READY');
     });
   });
 
-  // Action Buttons
+  // Actions
   const btnUndo = document.getElementById('btn-demo-undo');
   if (btnUndo) btnUndo.addEventListener('click', undo);
 
@@ -686,12 +935,15 @@ function initAnnotationDemo() {
     });
   };
 
+  // Color-coded Status Pill
   const updateStatus = (st) => {
     const pill = document.getElementById('demo-status-pill');
     if (pill) {
       pill.textContent = st;
+      pill.className = 'status-pill';
       if (st === 'DRAWING') pill.classList.add('drawing');
-      else pill.classList.remove('drawing');
+      else if (st === 'READY') pill.classList.add('ready');
+      else pill.classList.add('idle');
     }
   };
 
@@ -714,7 +966,6 @@ function initAnnotationDemo() {
       jsonCodeBox.textContent = jsonStr;
       modalBackdrop.classList.add('open');
 
-      // Trigger automatic JSON file download
       const blob = new Blob([jsonStr], { type: 'application/json' });
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
@@ -743,6 +994,9 @@ function initAnnotationDemo() {
 
   resizeCanvas();
   updateStats();
+  updateStatus('READY');
+  updateSensorLegend();
+  drawCanvas();
 }
 
 
@@ -863,7 +1117,6 @@ function initNavigationSimulation() {
 
   // Animation Loop
   const renderLoop = (now) => {
-    // Measure FPS
     frameCount++;
     if (now - lastTime >= 1000) {
       measuredFps = frameCount;
@@ -917,7 +1170,6 @@ function initNavigationSimulation() {
     obstacles.forEach((obs) => {
       obs.proxHighlight = false;
 
-      // Nearest point on rect to robot
       const closestX = Math.max(obs.x, Math.min(rx, obs.x + obs.w));
       const closestY = Math.max(obs.y, Math.min(ry, obs.y + obs.h));
       const d = Math.hypot(rx - closestX, ry - closestY);
@@ -927,7 +1179,7 @@ function initNavigationSimulation() {
         if (currentMode === 'slam') obs.discovered = true;
       }
 
-      if (d < 18) { // Collision threshold
+      if (d < 18) {
         collisionCount++;
       }
     });
