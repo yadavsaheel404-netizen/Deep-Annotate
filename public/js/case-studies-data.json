@@ -1,0 +1,287 @@
+[
+  {
+    "slug": "audio-evaluation",
+    "title": "Audio Evaluation & Voice Classification at Scale",
+    "subtitle": "Audio Evaluation & Voice Classification at Scale",
+    "category": "Audio / Voice AI",
+    "badge": "Audio / Voice AI",
+    "heroImage": "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=600&q=80",
+    "metrics": {
+      "accuracy": "100%",
+      "datasetSize": "60/day",
+      "deliveryTime": "15 days",
+      "annotators": "20"
+    },
+    "metricsLabels": {
+      "accuracy": "accuracy achieved",
+      "datasetSize": "audio files per annotator",
+      "deliveryTime": "turnaround",
+      "annotators": "annotators deployed"
+    },
+    "challenge": {
+      "problem": "Amazon required large-scale audio evaluation and voice category labeling to improve their audio-based AI systems. Each audio file needed 50–100 granular annotations covering voice characteristics, tone classification, speech quality assessment, and categorical labeling. The project demanded perfect accuracy; any mislabeling would propagate errors through downstream voice classification models."
+    },
+    "challengeList": [
+      "Maintaining 100% accuracy across 50–100 annotations per audio file",
+      "Processing 60 audio files per annotator per day at consistently high quality",
+      "Handling nuanced voice category distinctions requiring trained human judgment",
+      "Delivering the complete dataset within a tight 15-day timeline"
+    ],
+    "solution": {
+      "workflow": "We assembled a specialized 20-person team trained in audio evaluation and voice classification. We developed detailed labeling guidelines covering voice categories, tone attributes, and quality signals, and structured a high-throughput workflow enabling 60 files per annotator per day without quality compromise. Rapid calibration sessions resolved ambiguity in audio samples."
+    },
+    "solutionList": [
+      "Assembled a specialized 20-person team trained in audio evaluation and voice classification",
+      "Developed detailed labeling guidelines covering voice categories, tone attributes, and quality signals",
+      "Structured a high-throughput workflow enabling 60 files per annotator per day without quality compromise",
+      "Built rapid calibration sessions to align annotator judgment on ambiguous audio samples"
+    ],
+    "qaList": [
+      "Every audio annotation was independently reviewed by two different annotators",
+      "Disagreements on voice category labels were escalated to senior QA reviewers",
+      "Calibration checks were run daily to prevent labeling drift",
+      "Only consensus-approved, double-verified annotations were delivered to Amazon"
+    ],
+    "resultsList": [
+      "Achieved 100% annotation accuracy across the entire dataset",
+      "Processed 1,200 audio files per day across the 20-person team",
+      "Delivered the complete project within the 15-day timeline",
+      "Enabled Amazon to significantly improve their voice classification model performance"
+    ],
+    "outcome": "Delivered a flawless audio evaluation dataset that directly enhanced Amazon's voice AI classification accuracy enabling production deployment of improved audio-based AI systems with zero annotation-driven errors.",
+    "testimonial": {
+      "quote": "DeepAnnotate delivered what three other vendors couldn't: consistent, high-quality annotations at scale. Their dedicated pod understood our domain within days.",
+      "author": "Sr. Program Manager",
+      "role": "Fortune 10 Technology Company",
+      "company": "Amazon"
+    }
+  },
+  {
+    "slug": "robotics-segmentation",
+    "title": "Robotics Video Segmentation for Physical AI Training",
+    "subtitle": "Pixel-Level Segmentation of Robotic Arm Actions",
+    "category": "Video / Robotics",
+    "badge": "Video / Robotics",
+    "heroImage": "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=600&q=80",
+    "metrics": {
+      "accuracy": "97–100%",
+      "datasetSize": "50–100",
+      "deliveryTime": "60 days",
+      "annotators": "60"
+    },
+    "metricsLabels": {
+      "accuracy": "accuracy achieved",
+      "datasetSize": "annotations per video",
+      "deliveryTime": "turnaround",
+      "annotators": "annotators deployed"
+    },
+    "challenge": {
+      "problem": "Uber’s robotics division required pixel-level video segmentation of robotic arm actions to train physical AI models for autonomous manipulation tasks. Each video contained complex, multi-step robotic sequences that demanded precise segmentation of every component — joints, grippers, objects, and interaction zones across every frame. The volume was significant: 10–15 videos daily, each requiring 50–100 segmentation annotations."
+    },
+    "challengeList": [
+      "Achieving pixel-level segmentation accuracy on fast-moving robotic arm sequences",
+      "Maintaining annotation consistency across 10–15 videos per day",
+      "Coordinating a 60-person team to deliver uniform quality at high throughput",
+      "Handling complex multi-step action sequences with overlapping object boundaries"
+    ],
+    "solution": {
+      "workflow": "Deployed a dedicated 60-person annotation team trained specifically on robotic action segmentation. Built a structured workflow optimized for daily throughput of 10–15 videos. Created detailed segmentation guidelines covering joint articulation, gripper states, and object interaction zones. Implemented frame-by-frame consistency checks to prevent annotation drift across sequences."
+    },
+    "solutionList": [
+      "Deployed a dedicated 60-person annotation team trained specifically on robotic action segmentation",
+      "Built a structured workflow optimized for daily throughput of 10–15 videos",
+      "Created detailed segmentation guidelines covering joint articulation, gripper states, and object interaction zones",
+      "Implemented frame-by-frame consistency checks to prevent annotation drift across sequences"
+    ],
+    "qaList": [
+      "Every annotation was independently reviewed by two different annotators",
+      "Disagreements on segmentation boundaries were escalated to senior QA reviewers",
+      "Cross-frame consistency was validated to ensure temporal coherence",
+      "Only consensus-approved, double-verified annotations were delivered"
+    ],
+    "resultsList": [
+      "Sustained 97–100% annotation accuracy across all video segmentation tasks",
+      "Delivered 10–15 fully annotated videos daily without quality degradation",
+      "Completed the full project within the 60-day timeline",
+      "Enabled Uber's robotics team to accelerate model training cycles significantly"
+    ],
+    "outcome": "Delivered production-grade segmentation datasets that directly improved Uber's robotic manipulation model performance enabling faster iteration on physical AI systems and reducing time-to-deployment for autonomous robotics applications.",
+    "testimonial": {
+      "quote": "DeepAnnotate delivered what three other vendors couldn't consistent, high-quality annotations at scale. Their dedicated pod understood our domain within days.",
+      "author": "Sr. Program Manager",
+      "role": "Fortune 10 Technology Company",
+      "company": "Uber"
+    }
+  },
+  {
+    "slug": "autonomous-driving",
+    "title": "Multi-Modal Damage Segmentation for Autonomous Driving",
+    "subtitle": "Frame-Level 2D, 3D & LiDAR Annotation at Scale",
+    "category": "Video / Autonomous Driving",
+    "badge": "Video / Autonomous Driving",
+    "heroImage": "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=600&q=80",
+    "metrics": {
+      "accuracy": "95%+",
+      "datasetSize": "12K+",
+      "deliveryTime": "90 days",
+      "annotators": "120"
+    },
+    "metricsLabels": {
+      "accuracy": "accuracy sustained",
+      "datasetSize": "annotations delivered",
+      "deliveryTime": "turnaround",
+      "annotators": "annotators deployed"
+    },
+    "challenge": {
+      "problem": "Uber required frame-level video annotation across four simultaneous modalities — 2D bounding boxes, 3D cuboids, polygon segmentation, and LiDAR point cloud labeling to train perception models for damage detection and obstacle recognition. Each video demanded approximately 400 annotations at the frame level, with near-zero tolerance for error."
+    },
+    "challengeList": [
+      "Managing four concurrent annotation types (2D, 3D, polygon, LiDAR) per video frame",
+      "Maintaining frame-level consistency across long-form video sequences",
+      "Achieving 99%+ accuracy with high-volume daily throughput (3–4 videos/day)",
+      "Resolving recurring tool-related issues without impacting delivery timelines"
+    ],
+    "solution": {
+      "workflow": "Deployed a dedicated team of 87 annotators, each handling ~4 videos with specialized modality training. Designed a multi-modal workflow integrating 2D bounding boxes, 3D cuboids, polygon segmentation, and LiDAR point cloud annotation in a unified pipeline. Built frame-level consistency checks to ensure annotation coherence across video sequences. Established rapid issue resolution protocols to handle tool-related blockers without delivery delays."
+    },
+    "solutionList": [
+      "Deployed a dedicated team of 87 annotators, each handling ~4 videos with specialized modality training",
+      "Designed a multi-modal workflow integrating 2D bounding boxes, 3D cuboids, polygon segmentation, and LiDAR point cloud annotation in a unified pipeline",
+      "Built frame-level consistency checks to ensure annotation coherence across video sequences",
+      "Established rapid issue resolution protocols to handle tool-related blockers without delivery delays"
+    ],
+    "qaList": [
+      "Every annotation was independently reviewed by two different annotators across all four modalities",
+      "Disagreements were flagged and escalated to senior QA reviewers for resolution",
+      "Cross-modal consistency checks ensured 2D, 3D, polygon, and LiDAR annotations aligned correctly",
+      "Only double-verified, consensus-approved annotations were delivered to the client"
+    ],
+    "resultsList": [
+      "Sustained 99–100% annotation accuracy across all four modalities",
+      "Maintained ~1 hour turnaround per video with 400+ annotations",
+      "Successfully scaled to 3–4 videos per day without quality degradation",
+      "Eliminated cross-modal inconsistencies through rigorous multi-layer QA"
+    ],
+    "outcome": "Delivered a production-ready, multi-modal annotation pipeline that directly accelerated Uber's autonomous driving perception model training reducing retraining cycles and enabling faster deployment of safety-critical AI systems.",
+    "testimonial": {
+      "quote": "DeepAnnotate delivered what three other vendors couldn't consistent, high-quality annotations at scale. Their dedicated pod understood our domain within days.",
+      "author": "Sr. Program Manager",
+      "role": "Fortune 10 Technology Company",
+      "company": "Uber"
+    }
+  },
+  {
+    "slug": "video-annotation-robotics",
+    "title": "Video Annotation for Physical AI (Robotics Training)",
+    "subtitle": "High-Volume Video Segmentation & Tracking",
+    "category": "Video / Physical AI",
+    "badge": "Video / Physical AI",
+    "heroImage": "https://images.unsplash.com/photo-1589254065878-42c9da997008?auto=format&fit=crop&w=600&q=80",
+    "metrics": {
+      "accuracy": "95%+",
+      "datasetSize": "12K+",
+      "deliveryTime": "90 days",
+      "annotators": "120"
+    },
+    "metricsLabels": {
+      "accuracy": "accuracy sustained",
+      "datasetSize": "annotations delivered",
+      "deliveryTime": "turnaround",
+      "annotators": "annotators deployed"
+    },
+    "challenge": {
+      "problem": "A robotics AI company needed high-volume, high-precision video annotation to train physical AI systems. The dataset was continuously evolving, with new video data arriving daily. Annotation requirements were not fully defined upfront, and guidance from the client evolved during execution."
+    },
+    "challengeList": [
+      "Handling dynamic, daily dataset inflow",
+      "Maintaining consistency across long-form videos (5–7 mins each)",
+      "Adapting quickly to changing annotation instructions",
+      "Scaling a large team without compromising accuracy"
+    ],
+    "solution": {
+      "workflow": "Deployed a dedicated team of 120 trained annotators specialized in video segmentation. Created detailed annotation guidelines covering segmentation, bounding boxes, and edge cases. Designed a rolling workflow to handle continuous data inflow without delays. Established rapid feedback loops to integrate client updates in near real-time."
+    },
+    "solutionList": [
+      "Deployed a dedicated team of 120 trained annotators specialized in video segmentation",
+      "Created detailed annotation guidelines covering segmentation, bounding boxes, and edge cases",
+      "Designed a rolling workflow to handle continuous data inflow without delays",
+      "Established rapid feedback loops to integrate client updates in near real-time"
+    ],
+    "qaList": [
+      "Every annotation was independently reviewed by two different annotators",
+      "Disagreements were flagged and escalated to senior QA reviewers",
+      "Weekly quality reports were shared with the client",
+      "Only consensus-approved annotations were delivered"
+    ],
+    "resultsList": [
+      "Sustained 95%+ accuracy across large-scale video annotation",
+      "Successfully handled continuous high-volume data streams",
+      "Eliminated inconsistency despite evolving requirements",
+      "Received consistent positive feedback from client teams"
+    ],
+    "outcome": "Enabled a reliable, production-ready data pipeline for physical AI training, significantly reducing downstream model failures.",
+    "testimonial": {
+      "quote": "DeepAnnotate delivered what three other vendors couldn't consistent, high-quality annotations at scale. Their dedicated pod understood our domain within days.",
+      "author": "Sr. Program Manager",
+      "role": "Fortune 10 Technology Company",
+      "company": "Robotics AI Company"
+    }
+  },
+  {
+    "slug": "image-annotation-airbus",
+    "title": "Image Annotation for Computer Vision (Airbus)",
+    "subtitle": "Multi-Object Bounding Box Annotation at Scale",
+    "category": "Image / Computer Vision",
+    "badge": "Image / Computer Vision",
+    "heroImage": "./airbus_a380.png",
+    "metrics": {
+      "accuracy": "95–100%",
+      "datasetSize": "8",
+      "deliveryTime": "90 days",
+      "annotators": "90"
+    },
+    "metricsLabels": {
+      "accuracy": "accuracy achieved",
+      "datasetSize": "annotations per image",
+      "deliveryTime": "turnaround",
+      "annotators": "annotators deployed"
+    },
+    "challenge": {
+      "problem": "A computer vision team (Airbus use case) required highly precise image annotation to train models for object detection and image generation. Each image required multiple bounding boxes, increasing annotation complexity and risk of inconsistency."
+    },
+    "challengeList": [
+      "Maintaining precision across 8 annotations per image",
+      "Ensuring consistency across a 90-member team",
+      "Avoiding annotation drift over long project timelines",
+      "Meeting strict accuracy expectations for production models"
+    ],
+    "solution": {
+      "workflow": "Built a specialized 90-member annotation team. Standardized bounding box and labeling guidelines. Structured workflows to maintain speed without sacrificing accuracy. Enforced strict accuracy benchmarks (95–100%)."
+    },
+    "solutionList": [
+      "Built a specialized 90-member annotation team",
+      "Standardized bounding box and labeling guidelines",
+      "Structured workflows to maintain speed without sacrificing accuracy",
+      "Enforced strict accuracy benchmarks (95–100%)"
+    ],
+    "qaList": [
+      "Every image was annotated and independently validated by a second annotator",
+      "Cross-verification ensured bounding box consistency",
+      "Edge cases were escalated to senior QA reviewers",
+      "Only double-verified outputs were approved"
+    ],
+    "resultsList": [
+      "Achieved 95–100% annotation accuracy at scale",
+      "Maintained consistency across high-density annotations",
+      "Delivered large datasets within strict timelines",
+      "Received strong positive client validation"
+    ],
+    "outcome": "Delivered production grade datasets that improved model performance and reduced retraining cycles.",
+    "testimonial": {
+      "quote": "DeepAnnotate delivered what three other vendors couldn't consistent, high-quality annotations at scale. Their dedicated pod understood our domain within days.",
+      "author": "Sr. Program Manager",
+      "role": "Fortune 10 Technology Company",
+      "company": "Airbus Team"
+    }
+  }
+]

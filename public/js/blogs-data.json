@@ -1,0 +1,184 @@
+[
+  {
+    "slug": "force-sensors-tactile-data",
+    "title": "Force Sensors and Tactile Data: The Inputs Your Robot Needs to Actually Touch Things Well",
+    "subtitle": "Force and tactile sensors provide critical data for robots to sense contact, pressure, enabling precise manipulation.",
+    "category": "Physical AI",
+    "featured": true
+  },
+  {
+    "slug": "3d-annotation-different-discipline",
+    "title": "3D Annotation Isn’t Just Harder Than 2D. It’s a Different Discipline Entirely.",
+    "subtitle": "3D annotation requires spatial understanding, consistency, and precision, making it fundamentally different from 2D and critical for accurate physical AI performance.",
+    "category": "Data Quality",
+    "featured": false
+  },
+  {
+    "slug": "human-in-the-loop-design",
+    "title": "Human-in-the-Loop Is Not a Workaround. It’s the Design.",
+    "subtitle": "Human-in-the-loop isn’t a temporary fix, but a core design principle ensuring continuous feedback, correction, and improvement of AI system behavior.",
+    "category": "HITL",
+    "featured": false
+  },
+  {
+    "slug": "edge-cases-underrepresented",
+    "title": "Edge Cases Are Not Rare. They’re Just Underrepresented in Your Training Data.",
+    "subtitle": "Edge cases aren’t truly rare, they’re simply missing or underrepresented in training data, leading to failures in unexpected real-world situations.",
+    "category": "Edge Case",
+    "featured": false
+  },
+  {
+    "slug": "simulation-vs-real-data",
+    "title": "Simulation Can Train a Robot to Walk. Only Real Data Can Teach It to Work.",
+    "subtitle": "Simulation helps robots learn basic behaviors, but real-world data is essential for adapting, generalizing, and performing reliably in practical tasks.",
+    "category": "Physical AI",
+    "featured": false
+  },
+  {
+    "slug": "data-flywheel-annotates",
+    "title": "The Data Flywheel Only Spins if Someone Annotates What It Generates",
+    "subtitle": "The data flywheel depends on continuous human annotation to validate, correct, and improve generated data for better model performance.",
+    "category": "HITL",
+    "featured": false
+  },
+  {
+    "slug": "robots-fail-production-lab",
+    "title": "Why Robots Fail in Production When They Passed Every Test in the Lab",
+    "subtitle": "Robots often pass controlled tests but fail in production due to unseen scenarios, environmental variability, and lack of real-world data exposure.",
+    "category": "Edge Case",
+    "featured": false
+  },
+  {
+    "slug": "safety-starts-with-training-data",
+    "title": "Why Physical AI Safety Starts with the Training Data, Not the Safety System",
+    "subtitle": "Physical AI safety begins with training data, where quality, coverage, and bias directly influence how safely systems behave in real-world environments.",
+    "category": "Data Quality",
+    "featured": false
+  },
+  {
+    "slug": "data-diversity-coverage",
+    "title": "Data Diversity Is Not About Volume. It Is About Coverage.",
+    "subtitle": "Data diversity is not about size, but ensuring broad coverage of scenarios to improve robustness and generalization.",
+    "category": "Data Quality",
+    "featured": false
+  },
+  {
+    "slug": "first-year-deployment-collection",
+    "title": "The First Year of a Robot Deployment Is a Data Collection Exercise. Plan Accordingly.",
+    "subtitle": "The first deployment year focuses on collecting real-world data, refining models, and continuously improving system performance through iterative learning cycles.",
+    "category": "AI Pipeline",
+    "featured": false
+  },
+  {
+    "slug": "sensor-fusion-physical-see",
+    "title": "Sensor Fusion Is Not a Feature. It’s What Makes Physical AI Actually See the World.",
+    "subtitle": "Sensor fusion combines multiple inputs, enabling physical AI systems to perceive, interpret, and respond accurately in complex environments.",
+    "category": "Multimodal AI",
+    "featured": false
+  },
+  {
+    "slug": "annotation-guideline-most-important",
+    "title": "The Annotation Guideline Is the Most Important Document in Your Physical AI Program",
+    "subtitle": "Annotation guidelines define labeling consistency and quality, directly shaping how physical AI models learn, perform, and behave in real-world environments.",
+    "category": "Data Quality",
+    "featured": false
+  },
+  {
+    "slug": "collecting-lab-vs-real-world",
+    "title": "Why Collecting Data in a Lab and Deploying in the Real World Are Two Very Different Things",
+    "subtitle": "Data collected in controlled lab environments often fails to reflect real-world complexity, causing models to underperform when deployed outside testing conditions.",
+    "category": "Data Quality",
+    "featured": false
+  },
+  {
+    "slug": "robot-meets-situation-unseen",
+    "title": "What Happens When a Robot Meets a Situation Nobody Thought Of",
+    "subtitle": "When robots face unseen situations, they rely on imperfect generalization, often leading to unexpected errors or unsafe decisions.",
+    "category": "Edge Case",
+    "featured": false
+  },
+  {
+    "slug": "robot-smart-as-labeler",
+    "title": "Your Robot Is Only as Smart as the Person Who Labeled Its Training Data",
+    "subtitle": "A robot’s intelligence depends heavily on human-labeled data, where accuracy, consistency, and judgment directly shape its learning outcomes.",
+    "category": "Data Quality",
+    "featured": false
+  },
+  {
+    "slug": "open-models-training-data",
+    "title": "The Open Models Era Makes Your Training Data More Important, Not Less",
+    "subtitle": "With open models widely available, unique, high-quality training data becomes the true differentiator in AI performance and outcomes.",
+    "category": "Data Quality",
+    "featured": false
+  },
+  {
+    "slug": "multimodal-collection-physical-ai",
+    "title": "What Multimodal Data Collection Actually Means for Physical AI",
+    "subtitle": "Multimodal data collection integrates vision, audio, and sensors to improve real-world understanding and decision-making.",
+    "category": "Multimodal AI",
+    "featured": false
+  },
+  {
+    "slug": "hidden-cost-inconsistency",
+    "title": "The Hidden Cost of Annotation Inconsistency in Physical AI",
+    "subtitle": "Annotation inconsistency silently degrades model performance in physical AI, where small labeling differences accumulate into larger errors and unpredictable real-world behavior.",
+    "category": "Data Quality",
+    "featured": false
+  },
+  {
+    "slug": "robot-learns-what-you-teach",
+    "title": "The Robot Learns What You Teach It. Nothing More.",
+    "subtitle": "AI systems don’t “understand” the world they reflect the data and instructions they’re given. If the training is limited or biased, the outcomes will be too.",
+    "category": "Data Quality",
+    "featured": false
+  },
+  {
+    "slug": "80-20-rule-nobody-budgets",
+    "title": "The 80/20 Rule of AI That Nobody Budgets For",
+    "subtitle": "80% of the time spent on an AI project goes to data. Not to model design, not to training, not to deployment. Data.",
+    "category": "Strategy",
+    "featured": false
+  },
+  {
+    "slug": "hardest-data-problem-industry",
+    "title": "Why Physical AI Is the Hardest Data Problem in the Industry",
+    "subtitle": "Collecting, processing, and annotating data from the physical world is in a different category of difficulty entirely.",
+    "category": "AI Pipeline",
+    "featured": false
+  },
+  {
+    "slug": "multimodal-strategy-ready",
+    "title": "Multimodal AI Is Here. Is Your Data Strategy Ready?",
+    "subtitle": "The frontier of AI processes text, images, audio, video, and structured data simultaneously. Your data pipeline needs to keep up.",
+    "category": "Multimodal AI",
+    "featured": false
+  },
+  {
+    "slug": "invisible-90-percent-pipeline",
+    "title": "The Invisible 90%: What Actually Goes Into Building an AI Model",
+    "subtitle": "The data pipeline not the model is where most of the time, cost, and quality risk in AI development lives.",
+    "category": "AI Pipeline",
+    "featured": false
+  },
+  {
+    "slug": "edge-cases-not-edge-problem",
+    "title": "Edge Cases Are Not an Edge Problem",
+    "subtitle": "Edge cases aren't rare events to address after the fact. They're structural gaps in training data that cause predictable, systemic failures.",
+    "category": "Edge Case",
+    "featured": false
+  },
+  {
+    "slug": "hitl-not-fallback-architecture",
+    "title": "Human in the Loop Is Not a Fallback. It’s the Architecture.",
+    "subtitle": "Human-in-the-loop AI isn't a compromise. For most real-world AI systems, it's the correct design.",
+    "category": "HITL",
+    "featured": false
+  },
+  {
+    "slug": "model-didnt-fail-data-did",
+    "title": "Your AI Model Didn’t Fail. Your Training Data Did.",
+    "subtitle": "Most AI failures in production trace back to data quality problems, not model quality problems. The model is only as good as the signal it learned.",
+    "category": "Data Quality",
+    "featured": false
+  }
+]

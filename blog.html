@@ -673,6 +673,8 @@
 <div id="footer-placeholder"></div>
 
 <script type="module">
+  import blogsData from './js/blogs-data.json';
+
   document.addEventListener('DOMContentLoaded', () => {
     // Mount footer dynamically
     const footerContainer = document.getElementById('footer-placeholder');
@@ -681,115 +683,120 @@
         .then(res => res.text())
         .then(html => {
           footerContainer.innerHTML = html;
-        });
+        })
+        .catch(() => {});
     }
 
-    let allBlogs = [];
+    const initBlogPage = (data) => {
+      let allBlogs = data || [];
+      const featuredContainer = document.getElementById('featured-article-container');
 
-    // Load blog data dynamically from JSON
-    fetch('./js/blogs-data.json')
-      .then(res => res.json())
-      .then(data => {
-        allBlogs = data;
-        const featuredContainer = document.getElementById('featured-article-container');
+      // Render featured article block
+      const featuredItem = allBlogs.find(item => item.featured);
+      if (featuredItem && featuredContainer) {
+        featuredContainer.innerHTML = `
+          <div class="featured-box">
+            <span class="blog-tag blog-tag-red">${featuredItem.category} &bull; FEATURED</span>
+            <h2 class="featured-title">${featuredItem.title}</h2>
+            <p class="featured-desc">${featuredItem.subtitle}</p>
+            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;">
+              <a href="./blogs/index.html?slug=${featuredItem.slug}" style="font-size: 13.5px; background:var(--navy); color:#fff; padding:10px 24px; border-radius:100px; font-weight:700; text-decoration:none; display:inline-flex; align-items:center; transition: all 0.25s;" onmouseover="this.style.background='var(--cyan)'; this.style.color='var(--navy)'" onmouseout="this.style.background='var(--navy)'; this.style.color='#fff'">Read Article &rarr;</a>
+            </div>
+          </div>
+        `;
+      }
 
-        // Render featured article block
-        const featuredItem = data.find(item => item.featured);
-        if (featuredItem) {
-          featuredContainer.innerHTML = `
-            <div class="featured-box">
-              <span class="blog-tag blog-tag-red">${featuredItem.category} &bull; FEATURED</span>
-              <h2 class="featured-title">${featuredItem.title}</h2>
-              <p class="featured-desc">${featuredItem.subtitle}</p>
-              <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;">
-                <a href="./blogs/index.html?slug=${featuredItem.slug}" style="font-size: 13.5px; background:var(--navy); color:#fff; padding:10px 24px; border-radius:100px; font-weight:700; text-decoration:none; display:inline-flex; align-items:center; transition: all 0.25s;" onmouseover="this.style.background='var(--cyan)'; this.style.color='var(--navy)'" onmouseout="this.style.background='var(--navy)'; this.style.color='#fff'">Read Article &rarr;</a>
+      const renderCards = (list) => {
+        const grid = document.getElementById('blogs-grid');
+        if (!grid) return;
+
+        const nonFeatured = list.filter(item => !item.featured);
+        
+        if (nonFeatured.length === 0) {
+          grid.innerHTML = `<div style="grid-column: 1/-1; padding: 48px; text-align: center; color: var(--text-secondary); font-weight: 500;">No articles match your query. Try adjusting your filters.</div>`;
+          return;
+        }
+
+        grid.innerHTML = nonFeatured.map((item, idx) => {
+          let layoutClass = 'blog-card';
+          if (idx % 5 === 0) {
+            layoutClass += ' highlight';
+          } else if (idx % 7 === 0) {
+            layoutClass += ' double-wide';
+          }
+          
+          return `
+            <div class="${layoutClass} rev vis">
+              <div>
+                <span class="blog-tag">${item.category}</span>
+                <h4 class="blog-title">${item.title}</h4>
+                <p class="blog-desc">${item.subtitle}</p>
+              </div>
+              <div style="border-top: 1px solid var(--border-sub); padding-top: 20px; text-align: left; margin-top:auto;">
+                <a href="./blogs/index.html?slug=${item.slug}" class="blog-link">Read Article &rarr;</a>
               </div>
             </div>
           `;
-        }
+        }).join('');
+      };
 
-        const renderCards = (list) => {
-          const grid = document.getElementById('blogs-grid');
-          // Filter out the featured item from listing grid
-          const nonFeatured = list.filter(item => !item.featured);
-          
-          if (nonFeatured.length === 0) {
-            grid.innerHTML = `<div style="grid-column: 1/-1; padding: 48px; text-align: center; color: var(--text-secondary); font-weight: 500;">No articles match your query. Try adjusting your filters.</div>`;
-            return;
-          }
+      renderCards(allBlogs);
 
-          grid.innerHTML = nonFeatured.map((item, idx) => {
-            // Apply different classes for an asymmetric layout grid
-            let layoutClass = 'blog-card';
-            if (idx % 5 === 0) {
-              layoutClass += ' highlight';
-            } else if (idx % 7 === 0) {
-              layoutClass += ' double-wide';
-            }
-            
-            return `
-              <div class="${layoutClass} rev vis">
-                <div>
-                  <span class="blog-tag">${item.category}</span>
-                  <h4 class="blog-title">${item.title}</h4>
-                  <p class="blog-desc">${item.subtitle}</p>
-                </div>
-                <div style="border-top: 1px solid var(--border-sub); padding-top: 20px; text-align: left; margin-top:auto;">
-                  <a href="./blogs/index.html?slug=${item.slug}" class="blog-link">Read Article &rarr;</a>
-                </div>
-              </div>
-            `;
-          }).join('');
-        };
+      // Filter & Search Logic
+      const chips = document.querySelectorAll('.filter-chip');
+      const searchInput = document.getElementById('blog-search');
 
-        renderCards(data);
+      const applyFilters = () => {
+        const activeChip = document.querySelector('.filter-chip.active');
+        const filterVal = activeChip ? activeChip.getAttribute('data-filter') : 'all';
+        const query = searchInput ? searchInput.value.toLowerCase().trim() : '';
 
-        // Filter & Search Logic
-        const chips = document.querySelectorAll('.filter-chip');
-        const searchInput = document.getElementById('blog-search');
-
-        const applyFilters = () => {
-          const activeChip = document.querySelector('.filter-chip.active');
-          const filterVal = activeChip ? activeChip.getAttribute('data-filter') : 'all';
-          const query = searchInput.value.toLowerCase().trim();
-
-          const filtered = allBlogs.filter(item => {
-            const matchesCategory = filterVal === 'all' || item.category.toLowerCase() === filterVal;
-            const matchesQuery = item.title.toLowerCase().includes(query) || 
-                                 item.subtitle.toLowerCase().includes(query) || 
-                                 item.category.toLowerCase().includes(query);
-            return matchesCategory && matchesQuery;
-          });
-
-          renderCards(filtered);
-        };
-
-        chips.forEach(chip => {
-          chip.addEventListener('click', () => {
-            chips.forEach(c => c.classList.remove('active'));
-            chip.classList.add('active');
-            applyFilters();
-          });
+        const filtered = allBlogs.filter(item => {
+          const matchesCategory = filterVal === 'all' || item.category.toLowerCase() === filterVal;
+          const matchesQuery = item.title.toLowerCase().includes(query) || 
+                               item.subtitle.toLowerCase().includes(query) || 
+                               item.category.toLowerCase().includes(query);
+          return matchesCategory && matchesQuery;
         });
 
-        searchInput.addEventListener('input', applyFilters);
+        renderCards(filtered);
+      };
 
-        // Initialize scroll reveals
-        const initScrollReveal = () => {
-          const revEls = document.querySelectorAll('.rev');
-          const ro = new IntersectionObserver(entries => {
-            entries.forEach(e => {
-              if (e.isIntersecting) {
-                e.target.classList.add('vis');
-                ro.unobserve(e.target);
-              }
-            });
-          }, { threshold: 0.07, rootMargin: '0px 0px -30px 0px' });
-          revEls.forEach(el => ro.observe(el));
-        };
-
-        initScrollReveal();
+      chips.forEach(chip => {
+        chip.addEventListener('click', () => {
+          chips.forEach(c => c.classList.remove('active'));
+          chip.classList.add('active');
+          applyFilters();
+        });
       });
+
+      if (searchInput) searchInput.addEventListener('input', applyFilters);
+
+      // Initialize scroll reveals
+      const initScrollReveal = () => {
+        const revEls = document.querySelectorAll('.rev');
+        const ro = new IntersectionObserver(entries => {
+          entries.forEach(e => {
+            if (e.isIntersecting) {
+              e.target.classList.add('vis');
+              ro.unobserve(e.target);
+            }
+          });
+        }, { threshold: 0.07, rootMargin: '0px 0px -30px 0px' });
+        revEls.forEach(el => ro.observe(el));
+      };
+
+      initScrollReveal();
+    };
+
+    if (Array.isArray(blogsData) && blogsData.length > 0) {
+      initBlogPage(blogsData);
+    } else {
+      fetch('./js/blogs-data.json')
+        .then(res => res.json())
+        .then(data => initBlogPage(data))
+        .catch(() => {});
+    }
   });
 </script>
 </body>

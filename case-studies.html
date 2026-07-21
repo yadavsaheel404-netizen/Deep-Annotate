@@ -327,6 +327,8 @@
 <div id="footer-placeholder"></div>
 
 <script type="module">
+  import caseStudiesData from './js/case-studies-data.json';
+
   document.addEventListener('DOMContentLoaded', () => {
     // Mount footer dynamically
     const footerContainer = document.getElementById('footer-placeholder');
@@ -335,95 +337,104 @@
         .then(res => res.text())
         .then(html => {
           footerContainer.innerHTML = html;
-        });
+        })
+        .catch(() => {});
     }
 
-    // Load case study data dynamically from JSON
-    fetch('./js/case-studies-data.json')
-      .then(res => res.json())
-      .then(data => {
-        const container = document.getElementById('case-studies-container');
-        const renderShowcases = (list) => {
-          if (list.length === 0) {
-            container.innerHTML = `<div style="padding: 48px; text-align: center; color: var(--text-secondary); font-weight: 500; background: #fff; border-radius: 20px;">No case studies found matching this category.</div>`;
-            return;
-          }
+    const initPage = (data) => {
+      const container = document.getElementById('case-studies-container');
+      if (!container) return;
 
-          container.innerHTML = list.map((item, idx) => `
-            <div class="case-showcase-row rev vis" data-category="${item.category.toLowerCase()}">
-              <div class="case-showcase-img-wrap">
-                <img class="case-showcase-img" src="${item.heroImage}" alt="${item.title}" loading="lazy"/>
-              </div>
-              <div class="case-showcase-content">
-                <span class="case-tag">${item.badge}</span>
-                <h3 class="case-title">${item.title}</h3>
-                <p class="case-desc">${item.challenge.problem.substring(0, 160)}...</p>
-                
-                <div class="case-stats-grid">
-                  <div class="stat-box">
-                    <div class="stat-val">${item.metrics.accuracy}</div>
-                    <div class="stat-lbl">${item.metricsLabels ? item.metricsLabels.accuracy : 'accuracy sustained'}</div>
-                  </div>
-                  <div class="stat-box">
-                    <div class="stat-val">${item.metrics.datasetSize}</div>
-                    <div class="stat-lbl">${item.metricsLabels ? item.metricsLabels.datasetSize : 'annotations delivered'}</div>
-                  </div>
-                  <div class="stat-box">
-                    <div class="stat-val">${item.metrics.deliveryTime}</div>
-                    <div class="stat-lbl">${item.metricsLabels ? item.metricsLabels.deliveryTime : 'turnaround'}</div>
-                  </div>
-                  <div class="stat-box">
-                    <div class="stat-val">${item.metrics.annotators}</div>
-                    <div class="stat-lbl">${item.metricsLabels ? item.metricsLabels.annotators : 'annotators deployed'}</div>
-                  </div>
-                </div>
-                
-                <a href="./case-studies/index.html?slug=${item.slug}" class="case-link">Read Full Case Study &rarr;</a>
-              </div>
+      const renderShowcases = (list) => {
+        if (!list || list.length === 0) {
+          container.innerHTML = `<div style="padding: 48px; text-align: center; color: var(--text-secondary); font-weight: 500; background: #fff; border-radius: 20px;">No case studies found matching this category.</div>`;
+          return;
+        }
+
+        container.innerHTML = list.map((item, idx) => `
+          <div class="case-showcase-row rev vis" data-category="${item.category.toLowerCase()}">
+            <div class="case-showcase-img-wrap">
+              <img class="case-showcase-img" src="${item.heroImage}" alt="${item.title}" loading="lazy"/>
             </div>
-          `).join('');
-        };
+            <div class="case-showcase-content">
+              <span class="case-tag">${item.badge}</span>
+              <h3 class="case-title">${item.title}</h3>
+              <p class="case-desc">${item.challenge.problem.substring(0, 160)}...</p>
+              
+              <div class="case-stats-grid">
+                <div class="stat-box">
+                  <div class="stat-val">${item.metrics.accuracy}</div>
+                  <div class="stat-lbl">${item.metricsLabels ? item.metricsLabels.accuracy : 'accuracy sustained'}</div>
+                </div>
+                <div class="stat-box">
+                  <div class="stat-val">${item.metrics.datasetSize}</div>
+                  <div class="stat-lbl">${item.metricsLabels ? item.metricsLabels.datasetSize : 'annotations delivered'}</div>
+                </div>
+                <div class="stat-box">
+                  <div class="stat-val">${item.metrics.deliveryTime}</div>
+                  <div class="stat-lbl">${item.metricsLabels ? item.metricsLabels.deliveryTime : 'turnaround'}</div>
+                </div>
+                <div class="stat-box">
+                  <div class="stat-val">${item.metrics.annotators}</div>
+                  <div class="stat-lbl">${item.metricsLabels ? item.metricsLabels.annotators : 'annotators deployed'}</div>
+                </div>
+              </div>
+              
+              <a href="./case-studies/index.html?slug=${item.slug}" class="case-link">Read Full Case Study &rarr;</a>
+            </div>
+          </div>
+        `).join('');
+      };
 
-        renderShowcases(data);
+      renderShowcases(data);
 
-        // Filter chips logic
-        const chips = document.querySelectorAll('.filter-chip');
+      // Filter chips logic
+      const chips = document.querySelectorAll('.filter-chip');
 
-        const applyFilters = () => {
-          const activeChip = document.querySelector('.filter-chip.active');
-          const filterVal = activeChip ? activeChip.getAttribute('data-filter') : 'all';
+      const applyFilters = () => {
+        const activeChip = document.querySelector('.filter-chip.active');
+        const filterVal = activeChip ? activeChip.getAttribute('data-filter') : 'all';
 
-          const filtered = data.filter(item => {
-            return filterVal === 'all' || item.category.toLowerCase() === filterVal;
-          });
-
-          renderShowcases(filtered);
-        };
-
-        chips.forEach(chip => {
-          chip.addEventListener('click', () => {
-            chips.forEach(c => c.classList.remove('active'));
-            chip.classList.add('active');
-            applyFilters();
-          });
+        const filtered = data.filter(item => {
+          return filterVal === 'all' || item.category.toLowerCase() === filterVal;
         });
 
-        // Initialize scroll reveals
-        const initScrollReveal = () => {
-          const revEls = document.querySelectorAll('.rev');
-          const ro = new IntersectionObserver(entries => {
-            entries.forEach(e => {
-              if (e.isIntersecting) {
-                e.target.classList.add('vis');
-                ro.unobserve(e.target);
-              }
-            });
-          }, { threshold: 0.07, rootMargin: '0px 0px -30px 0px' });
-          revEls.forEach(el => ro.observe(el));
-        };
+        renderShowcases(filtered);
+      };
 
-        initScrollReveal();
+      chips.forEach(chip => {
+        chip.addEventListener('click', () => {
+          chips.forEach(c => c.classList.remove('active'));
+          chip.classList.add('active');
+          applyFilters();
+        });
       });
+
+      // Initialize scroll reveals
+      const initScrollReveal = () => {
+        const revEls = document.querySelectorAll('.rev');
+        const ro = new IntersectionObserver(entries => {
+          entries.forEach(e => {
+            if (e.isIntersecting) {
+              e.target.classList.add('vis');
+              ro.unobserve(e.target);
+            }
+          });
+        }, { threshold: 0.07, rootMargin: '0px 0px -30px 0px' });
+        revEls.forEach(el => ro.observe(el));
+      };
+
+      initScrollReveal();
+    };
+
+    if (Array.isArray(caseStudiesData) && caseStudiesData.length > 0) {
+      initPage(caseStudiesData);
+    } else {
+      fetch('./js/case-studies-data.json')
+        .then(res => res.json())
+        .then(data => initPage(data))
+        .catch(() => {});
+    }
   });
 </script>
 </body>
