@@ -214,7 +214,7 @@
     .mvc:hover .mvd{color:rgba(255,255,255,0.85);}
 
     /* VALUES - Editorial Accordion (Premium Light) */
-    #values{background:var(--navy-panel); position: relative; padding-top: 0px; padding-bottom: 100px;}
+    #values{background:#FFFFFF; position: relative; padding-top: 0px; padding-bottom: 100px;}
     
     .val-split {
       display: grid; grid-template-columns: 1fr 1.3fr; gap: 100px; align-items: start;
@@ -222,19 +222,19 @@
     .val-left {
       position: sticky; top: calc(50vh - 160px);
       padding: 40px; border-radius: 24px;
-      background: rgba(255, 255, 255, 0.7);
-      border: 1px solid rgba(14, 31, 62, 0.05);
-      box-shadow: 0 15px 35px rgba(14, 31, 62, 0.03), 0 0 0 transparent;
+      background: #0a1830;
+      border: 1px solid rgba(11, 168, 211, 0.35);
+      box-shadow: 0 20px 40px rgba(11, 168, 211, 0.25), 0 0 30px rgba(11, 168, 211, 0.15);
       transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
     }
     .val-left:hover {
-      background: #FFFFFF;
+      background: #060e1c;
       border-color: rgba(11, 168, 211, 0.4);
       box-shadow: 0 30px 70px rgba(11, 168, 211, 0.25), 0 0 40px rgba(11, 168, 211, 0.2);
     }
     .val-left .eyebrow { text-align: left; font-size: 13px; letter-spacing: 0.2em; margin-bottom: 20px; color: #0BA8D3; }
-    .val-left .stitle { text-align: left; margin-top: 0; font-size: clamp(38px, 4.5vw, 56px); line-height: 1.1; color: #0B2545; }
-    .val-left .ssub { text-align: left; margin-top: 24px; font-size: 16px; color: rgba(14, 31, 62, 0.6); line-height: 1.6; }
+    .val-left .stitle { text-align: left; margin-top: 0; font-size: clamp(38px, 4.5vw, 56px); line-height: 1.1; color: #FFFFFF; }
+    .val-left .ssub { text-align: left; margin-top: 24px; font-size: 16px; color: rgba(255, 255, 255, 0.7); line-height: 1.6; }
     
     .val-right { display: flex; flex-direction: column; margin-top: 0; }
     
@@ -288,17 +288,17 @@
     }
     
     .val-header .vt {
-      font-size: 26px; font-weight: 800; color: #0B2545;
+      font-size: 26px; font-weight: 800; color: #0E1F3E;
       transition: color 0.4s; margin-bottom: 0; letter-spacing: -0.02em;
     }
     .val-row:hover .val-header .vt { color: #0BA8D3; text-shadow: 0 0 15px rgba(11,168,211,0.2); }
     
     .val-desc {
-      font-size: 16.5px; line-height: 1.8; color: rgba(11, 37, 69, 0.75);
+      font-size: 16.5px; line-height: 1.8; color: #475569;
       transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
       padding-left: 0;
     }
-    .val-row:hover .val-desc { color: rgba(11, 37, 69, 1); }
+    .val-row:hover .val-desc { color: #0E1F3E; }
     
     @media (max-width: 1024px) {
       .val-split { grid-template-columns: 1fr; gap: 40px; }
@@ -980,7 +980,7 @@
     <div class="val-split">
       <div class="val-left">
         <p class="eyebrow rev">What Drives Us</p>
-        <h2 class="stitle rev d1" style="color: var(--cyan);">Our Core Values</h2>
+        <h2 class="stitle rev d1">Our Core Values</h2>
         <p class="ssub rev d2">The principles that govern every annotation decision, every team hire, and every client relationship.</p>
       </div>
       <div class="val-right">

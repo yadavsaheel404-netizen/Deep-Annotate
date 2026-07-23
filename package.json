@@ -11,6 +11,9 @@
     "vite": "^5.4.11"
   },
   "dependencies": {
-    "@svg-maps/india": "^2.0.0"
+    "@svg-maps/india": "^2.0.0",
+    "d3-geo": "^3.1.1",
+    "echarts-countries-js": "^1.0.5",
+    "proj4": "^2.20.9"
   }
 }

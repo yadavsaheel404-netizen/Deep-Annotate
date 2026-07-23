@@ -232,8 +232,8 @@
   border-bottom: 1px solid rgba(255, 255, 255, 0.03);
   background: transparent;
   padding: 40px 0;
-  mask-image: linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%);
-  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, #000 8%, #000 92%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 8%, #000 92%, transparent 100%);
 }
 
 .domain-marquee {
@@ -241,8 +241,9 @@
   align-items: center;
   gap: 0;
   white-space: nowrap;
-  animation: marquee-scroll 45s linear infinite;
+  animation: marquee-scroll 35s linear infinite;
   width: max-content;
+  will-change: transform;
 }
 
 @keyframes marquee-scroll {
@@ -251,18 +252,24 @@
 }
 
 .domain-marquee-wrap:hover .domain-marquee {
-  animation-play-state: paused;
+  display: flex;
+  align-items: center;
+  gap: 0;
+  white-space: nowrap;
+  animation: marquee-scroll 35s linear infinite;
+  width: max-content;
+  will-change: transform;
 }
 
 .dm-pill {
   font-family: "Inter", sans-serif;
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 500;
-  color: rgba(255, 255, 255, 0.45);
-  padding: 0 48px;
+  color: rgba(255, 255, 255, 0.4);
+  padding: 0 50px;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  transition: color 0.5s ease, transform 0.4s ease;
+  transition: color 0.4s ease, text-shadow 0.4s ease, transform 0.4s ease;
   cursor: pointer;
   display: inline-block;
   line-height: 1;

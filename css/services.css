@@ -487,8 +487,8 @@ a {
 
 .cap-card {
   padding: 32px;
-  background-color: #000000; /* Black boxes */
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  background-color: #0A1830; /* Blue boxes */
+  border: 1px solid rgba(11, 168, 211, 0.15);
   border-radius: 16px;
   transition: var(--transition-smooth);
   display: flex;
@@ -543,6 +543,10 @@ a {
   border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
 
+.srv-sectors .section-title {
+  color: #FFFFFF;
+}
+
 .sectors-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -571,14 +575,14 @@ a {
 .sector-title {
   font-size: 16px;
   font-weight: 700;
-  color: var(--navy);
+  color: #FFFFFF;
   margin-bottom: 8px;
 }
 
 .sector-desc {
   font-size: 13px;
   line-height: 1.5;
-  color: rgba(14, 31, 62, 0.7);
+  color: rgba(255, 255, 255, 0.75);
 }
 
 /* 5. PROCESS WORKFLOW (White Background) */
@@ -1008,20 +1012,21 @@ a {
 
 /* Hover Animations for Static Cards */
 .cap-card {
-  background-color: #060e1c !important; /* Deep Black */
+  background-color: #0A1830 !important; /* Deep Blue */
+  border: 1px solid rgba(11, 168, 211, 0.25) !important;
 }
 .cap-card:hover {
   transform: translateY(-8px) !important;
-  box-shadow: 0 16px 32px rgba(11, 168, 211, 0.15) !important;
+  box-shadow: 0 16px 32px rgba(11, 168, 211, 0.25) !important;
 }
 
 .sector-card {
-  background: rgba(255, 255, 255, 0.6) !important;
-  backdrop-filter: blur(16px);
+  background-color: #0A1830 !important; /* Deep Blue */
+  border: 1px solid rgba(11, 168, 211, 0.25) !important;
 }
 .sector-card:hover {
   transform: translateY(-8px) !important;
-  box-shadow: 0 16px 32px rgba(11, 168, 211, 0.1) !important;
+  box-shadow: 0 16px 32px rgba(11, 168, 211, 0.25) !important;
 }
 
 .format-card {

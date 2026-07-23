@@ -125,7 +125,7 @@
 }
 
 .cov-map-card {
-  background: var(--grey);
+  background: #FFFFFF;
   border-radius: 24px;
   padding: 40px;
   height: 100%;
@@ -134,26 +134,27 @@
   align-items: center;
   justify-content: center;
   position: relative;
-  border: 1px solid rgba(0, 0, 0, 0.03);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
 }
 
 .cov-map-svg {
   width: 100%;
   height: 100%;
-  filter: drop-shadow(0 20px 40px rgba(11, 168, 211, 0.05));
+  filter: drop-shadow(0 10px 20px rgba(14, 31, 62, 0.15));
 }
 
 .cov-map-state {
-  fill: rgba(11, 168, 211, 0.06); /* Soft cyan tint */
-  stroke: rgba(11, 168, 211, 0.2); /* Very light cyan border */
-  stroke-width: 0.6px;
+  fill: var(--navy);
+  stroke: rgba(255, 255, 255, 0.25);
+  stroke-width: 1px;
   transition: all 0.3s ease;
 }
 
 .cov-map-state:hover {
-  fill: rgba(11, 168, 211, 0.15);
+  fill: #162E5A;
   stroke: var(--cyan);
-  stroke-width: 1px;
+  stroke-width: 1.5px;
 }
 
 .cov-map-dot {
@@ -168,12 +169,15 @@ g:hover .cov-map-dot {
 
 .cov-map-label {
   font-family: 'Inter', sans-serif;
-  font-size: 8px;
-  font-weight: 700;
-  fill: var(--navy);
+  font-size: 11px;
+  font-weight: 500;
+  fill: #000000;
+  paint-order: stroke;
+  stroke: #FFFFFF;
+  stroke-width: 2.5px;
+  stroke-linejoin: round;
   opacity: 1;
   pointer-events: none;
-  filter: drop-shadow(0 2px 2px rgba(255, 255, 255, 0.9));
 }
 
 
@@ -191,19 +195,21 @@ g:hover .cov-map-dot {
 /* Live Badge */
 .cov-live-badge {
   position: absolute;
-  bottom: 32px;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
   background: #FFFFFF;
-  border: 1px solid rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(14, 31, 62, 0.1);
   border-radius: 100px;
-  padding: 10px 20px;
+  padding: 8px 18px;
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   font-family: 'IBM Plex Mono', monospace;
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 600;
-  color: rgba(14, 31, 62, 0.6);
-  box-shadow: 0 8px 16px rgba(14, 31, 62, 0.05);
+  color: #333333;
+  box-shadow: 0 4px 12px rgba(14, 31, 62, 0.08);
   letter-spacing: 0.05em;
 }
 
