@@ -10,7 +10,6 @@ export default defineConfig({
         blog: resolve(__dirname, 'blog.html'),
         careers: resolve(__dirname, 'careers.html'),
         caseStudies: resolve(__dirname, 'case-studies.html'),
-        dataForage: resolve(__dirname, 'data-forage.html'),
         datasetLibrary: resolve(__dirname, 'dataset-library.html'),
         datasets: resolve(__dirname, 'datasets.html'),
         fullTime: resolve(__dirname, 'full-time.html'),
