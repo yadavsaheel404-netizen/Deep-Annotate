@@ -164,7 +164,7 @@
   border-color: #000000;
 }
 
-.btn-secondary-b2b {
+.btn-secondary-hero {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -180,7 +180,7 @@
   text-decoration: none;
 }
 
-.btn-secondary-b2b:hover {
+.btn-secondary-hero:hover {
   transform: translateY(-2px);
   border-color: #0E1F3E;
   background: rgba(14, 31, 62, 0.02);
