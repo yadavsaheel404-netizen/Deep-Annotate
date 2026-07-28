@@ -180,3 +180,12 @@ a {
     align-items: flex-start;
   }
 }
+
+/* Global container utility to align footer elements across all pages */
+.section-wrap {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 48px;
+  width: 100%;
+}
+
