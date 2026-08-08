@@ -1,15 +1,4 @@
-/* js/sticky_bar.js — Sticky Floating Bottom Bar & Continuous Page Scroll */
-
-const PAGE_FLOW = [
-  { path: 'index.html', title: 'Services' },
-  { path: 'services.html', title: 'How It Works' },
-  { path: 'how-it-works.html', title: 'Datasets' },
-  { path: 'datasets.html', title: 'Case Studies' },
-  { path: 'case-studies.html', title: 'Blog' },
-  { path: 'blog.html', title: 'Careers' },
-  { path: 'careers.html', title: 'About' },
-  { path: 'about.html', title: 'Home' }
-];
+/* js/sticky_bar.js — Sticky Floating Bottom Bar */
 
 export function initStickyBottomBar() {
   if (!document.getElementById('global-sticky-bar')) {
@@ -45,50 +34,6 @@ export function initStickyBottomBar() {
     }
   }
 
-  initContinuousPageScroll();
-}
-
-function initContinuousPageScroll() {
-  let currentPath = window.location.pathname.split('/').pop() || 'index.html';
-  if (currentPath === '') currentPath = 'index.html';
-
-  const currentIndex = PAGE_FLOW.findIndex(p => p.path === currentPath);
-  if (currentIndex === -1) return;
-
-  const nextPageObj = PAGE_FLOW[(currentIndex + 1) % PAGE_FLOW.length];
-  let transitionTriggered = false;
-
-  window.addEventListener('scroll', () => {
-    const scrollPosition = window.innerHeight + window.scrollY;
-    const threshold = document.documentElement.scrollHeight - 30;
-
-    if (scrollPosition >= threshold && !transitionTriggered) {
-      transitionTriggered = true;
-      
-      const navToast = document.createElement('div');
-      navToast.style.cssText = `
-        position: fixed;
-        bottom: 70px;
-        right: 24px;
-        z-index: 10000;
-        background: #0E1F3E;
-        color: #00D4FF;
-        border: 1px solid rgba(0, 212, 255, 0.4);
-        padding: 10px 20px;
-        border-radius: 100px;
-        font-family: 'Inter', sans-serif;
-        font-size: 13px;
-        font-weight: 700;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-      `;
-      navToast.textContent = `Continuing to ${nextPageObj.title} →`;
-      document.body.appendChild(navToast);
-
-      setTimeout(() => {
-        window.location.href = nextPageObj.path;
-      }, 700);
-    }
-  });
 }
 
 if (typeof window !== 'undefined') {

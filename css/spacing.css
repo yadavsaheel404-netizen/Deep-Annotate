@@ -1,0 +1,48 @@
+/* ═══════════════════════════════════════════════════════════════
+   spacing.css — Single source of truth for site-wide spacing tokens
+   
+   Linked FIRST on every page, before all other stylesheets.
+   All section padding, container widths, and grid gaps derive from
+   these custom properties. No page should redeclare these values
+   in inline <style> tags.
+   ═══════════════════════════════════════════════════════════════ */
+
+html {
+  scroll-behavior: smooth;
+}
+
+:root {
+  /* ── Spacing Scale (8px grid) ── */
+  --sp-xs: 8px;
+  --sp-sm: 16px;
+  --sp-md: 24px;
+  --sp-lg: 32px;
+  --sp-xl: 48px;
+  --sp-2xl: 64px;
+  --sp-3xl: 96px;   /* Standard section vertical padding */
+  --sp-4xl: 128px;  /* Hero section top padding           */
+
+  /* ── Container ── */
+  --container-max: 1240px;
+  --container-gutter: 48px;
+
+  /* ── Grid gaps ── */
+  --grid-gap: 24px;      /* Tight card grids   */
+  --grid-gap-lg: 32px;   /* Loose card grids   */
+
+  /* ── Card padding ── */
+  --card-pad: 32px;      /* Standard cards     */
+  --card-pad-lg: 48px;   /* Spotlight/featured */
+}
+
+/* ── Layout Utilities ── */
+.section-wrap {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 var(--container-gutter);
+}
+
+.section-pad {
+  padding-top: var(--sp-3xl);
+  padding-bottom: var(--sp-3xl);
+}

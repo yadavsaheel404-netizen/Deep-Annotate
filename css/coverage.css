@@ -1,42 +1,48 @@
 /* coverage.css - Geographic Coverage Section (Light Theme) */
 .cov-section {
-  padding: 60px 48px;
+  padding: 40px 48px;
   background: #FFFFFF;
   width: 100%;
+  /* Desktop: fit in one viewport minus fixed navbar (68px) */
+  min-height: calc(100vh - 68px);
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
 }
 
 .cov-container {
   max-width: 1400px;
   margin: 0 auto;
+  width: 100%;
 }
 
 .cov-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 60px;
-  align-items: stretch;
+  grid-template-columns: 40% 60%;
+  gap: 32px;
+  align-items: center;
 }
 
 /* Header */
 .cov-eyebrow {
   font-family: 'IBM Plex Mono', monospace;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.15em;
   color: var(--cyan);
   display: flex;
   align-items: center;
   gap: 12px;
-  margin-bottom: 24px;
+  margin-bottom: 16px;
 }
 
 .cov-title {
-  font-size: clamp(32px, 4vw, 56px);
+  font-size: clamp(26px, 3vw, 44px);
   font-weight: 800;
   line-height: 1.1;
   letter-spacing: -0.03em;
   color: var(--navy);
-  margin-bottom: 48px;
+  margin-bottom: 28px;
 }
 
 .cov-title span {
@@ -49,17 +55,18 @@
   flex-direction: column;
 }
 
+/* 2×2 grid to halve the vertical height of the stats section */
 .cov-stats {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
   flex-grow: 1;
 }
 
 .cov-stat-card {
   background: var(--grey);
-  border-radius: 16px;
-  padding: 32px 40px;
+  border-radius: 14px;
+  padding: 20px 24px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -73,26 +80,26 @@
 }
 
 .cov-stat-num {
-  font-size: clamp(28px, 3vw, 42px);
+  font-size: clamp(22px, 2.2vw, 34px);
   font-weight: 800;
   color: var(--navy);
   line-height: 1;
-  margin-bottom: 8px;
+  margin-bottom: 4px;
 }
 
 .cov-stat-label {
   font-family: 'IBM Plex Mono', monospace;
-  font-size: 12px;
+  font-size: 10px;
   font-weight: 600;
   color: rgba(14, 31, 62, 0.5);
   letter-spacing: 0.1em;
-  margin-bottom: 16px;
+  margin-bottom: 8px;
   text-transform: uppercase;
 }
 
 .cov-stat-desc {
-  font-size: 15px;
-  line-height: 1.6;
+  font-size: 13px;
+  line-height: 1.5;
   color: rgba(14, 31, 62, 0.75);
 }
 
@@ -100,13 +107,14 @@
 .cov-tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 6px;
+  margin-top: 4px;
 }
 
 .cov-tag {
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 600;
-  padding: 6px 14px;
+  padding: 4px 10px;
   background: rgba(11, 168, 211, 0.05);
   color: var(--cyan);
   border-radius: 100px;
@@ -122,13 +130,16 @@
 /* Right Map Column */
 .cov-right-col {
   height: 100%;
+  min-height: 400px;
 }
 
 .cov-map-card {
   background: #FFFFFF;
-  border-radius: 24px;
-  padding: 40px;
+  border-radius: 20px;
+  padding: 8px;
   height: 100%;
+  min-height: 400px;
+  max-height: calc(100vh - 100px);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -136,6 +147,14 @@
   position: relative;
   border: 1px solid rgba(0, 0, 0, 0.05);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+  overflow: hidden; /* clip any SVG bleed at the card edge */
+}
+
+#india-map-container {
+  width: 100%;
+  flex: 1;
+  position: relative;
+  min-height: 0; /* allows flex shrinking */
 }
 
 .cov-map-svg {
@@ -180,8 +199,6 @@ g:hover .cov-map-dot {
   pointer-events: none;
 }
 
-
-
 .cov-map-pulse {
   fill: rgba(11, 168, 211, 0.3);
   animation: pulseHQ 2s infinite;
@@ -195,13 +212,13 @@ g:hover .cov-map-dot {
 /* Live Badge */
 .cov-live-badge {
   position: absolute;
-  bottom: 24px;
+  bottom: 16px;
   left: 50%;
   transform: translateX(-50%);
   background: #FFFFFF;
   border: 1px solid rgba(14, 31, 62, 0.1);
   border-radius: 100px;
-  padding: 8px 18px;
+  padding: 6px 16px;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -211,14 +228,16 @@ g:hover .cov-map-dot {
   color: #333333;
   box-shadow: 0 4px 12px rgba(14, 31, 62, 0.08);
   letter-spacing: 0.05em;
+  white-space: nowrap;
 }
 
 .cov-live-dot {
   width: 6px;
   height: 6px;
-  background: var(--cyan); /* The reference image had red accent for live dot, let's use the theme --cyan */
+  background: var(--cyan);
   border-radius: 50%;
   display: inline-block;
+  flex-shrink: 0;
   animation: pulseLive 1.5s infinite alternate;
 }
 
@@ -227,20 +246,44 @@ g:hover .cov-map-dot {
   100% { opacity: 1; box-shadow: 0 0 0 4px rgba(11, 168, 211, 0); }
 }
 
-/* Responsive */
+/* Responsive adjustments */
 @media (max-width: 1024px) {
+  .cov-section {
+    padding: 40px 24px;
+    min-height: auto;
+    height: auto;
+  }
+
   .cov-grid {
     grid-template-columns: 1fr;
-    gap: 48px;
+    gap: 32px;
+  }
+
+  .cov-right-col {
+    min-height: 380px;
+  }
+
+  .cov-map-card {
+    max-height: none;
+    min-height: 380px;
   }
 }
 
 @media (max-width: 768px) {
   .cov-section {
-    padding: 60px 24px;
+    padding: 32px 16px;
   }
-  
+
+  .cov-stats {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
   .cov-stat-card {
-    padding: 24px;
+    padding: 16px 20px;
+  }
+
+  .cov-right-col {
+    min-height: 320px;
   }
 }

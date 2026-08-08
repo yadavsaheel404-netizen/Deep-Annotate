@@ -231,6 +231,7 @@
       width: 100%;
       height: 100%;
       display: block;
+      will-change: transform;
     }
 
     .scene-copy {
@@ -1610,6 +1611,25 @@
     COP[5] = document.getElementById('copy-5');
     SEC[5] = { offsetTop: SEC[4] ? SEC[4].offsetTop + (SEC[4].offsetHeight / 2) : 0 };
 
+    const geomCache = {};
+    function updateGeomCache() {
+      const sy = window.scrollY;
+      SCENES.forEach(sc => {
+        const sec = SEC[sc.id];
+        if (!sec) return;
+        geomCache[sc.id] = {
+          top: sec.offsetTop,
+          height: sec.offsetHeight
+        };
+        const c = C[sc.id];
+        if (c) {
+          const rect = c.getBoundingClientRect();
+          geomCache[sc.id].canvasTopDoc = rect.top + sy;
+          geomCache[sc.id].canvasHeight = rect.height;
+        }
+      });
+    }
+
     function resize() {
       const dpr = window.devicePixelRatio || 1;
       SCENES.forEach(sc => {
@@ -1624,6 +1644,7 @@
         c.style.height = h + 'px';
         X[sc.id].scale(dpr, dpr);
       });
+      updateGeomCache();
     }
 
     function draw(id, fi) {
@@ -1715,24 +1736,27 @@
       SCENES.forEach(sc => {
         const sec = SEC[sc.id];
         if (!sec) return;
-        const st = sec.offsetTop, sh = sec.offsetHeight;
+        
+        const cache = geomCache[sc.id];
+        if (!cache) return;
+        
+        const st = cache.top;
+        const sh = cache.height;
+        
+        // Skip drawing if section is far from viewport (with 200px buffer)
+        const isVisible = (sy + wh >= st - 200) && (sy <= st + sh + 200);
+        
         const p = Math.max(0, Math.min(1, (sy - st) / (sh - wh)));
         let anim_p = p;
 
         if (window.innerWidth <= 900 && sc.id !== 4) {
-          const c = C[sc.id];
-          if (c) {
-            const rect = c.getBoundingClientRect();
-            const c_top = rect.top + sy;
-            // Start rotating exactly when the top of the canvas enters from the bottom of the screen
-            const start = c_top - wh;
-            // Finish rotating exactly when the bottom of the canvas leaves the top of the screen
-            const end = c_top + rect.height;
-            anim_p = Math.max(0, Math.min(1, (sy - start) / (end - start || 1)));
-          }
+          const c_top = cache.canvasTopDoc;
+          const start = c_top - wh;
+          const end = c_top + cache.canvasHeight;
+          anim_p = Math.max(0, Math.min(1, (sy - start) / (end - start || 1)));
         }
 
-        if (S.images[sc.id]) {
+        if (S.images[sc.id] && isVisible) {
           let fi;
           if (sc.id === 4) {
             // Skip the early static stance frames and map scroll progress to frames 35-89

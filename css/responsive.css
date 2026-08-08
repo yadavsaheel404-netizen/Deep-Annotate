@@ -566,6 +566,8 @@
     white-space: normal !important;
     word-break: break-word !important;
   }
+}
+
 @media (max-width: 768px) {
   /* Aggressive Mobile Constraints for Datasets Page */
   .ds-grid-card { padding: 20px !important; }

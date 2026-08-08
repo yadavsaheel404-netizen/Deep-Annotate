@@ -1,7 +1,4 @@
 /* Footer CSS Stylesheet */
-html {
-  scroll-snap-type: y proximity;
-}
 
 a {
   text-decoration: none;
@@ -22,7 +19,6 @@ a {
 }
 
 #footer {
-  scroll-snap-align: end;
   background: linear-gradient(180deg, #FFFFFF 0%, #F1F5F9 100%);
   border-top: 1px solid rgba(14, 31, 62, 0.08);
   padding: 72px 48px 40px;

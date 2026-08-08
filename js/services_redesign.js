@@ -202,6 +202,8 @@ function initAnnotationDemo() {
   const ctx = canvas.getContext('2d');
   let currentSensor = 'scene';
   let currentTool = 'bbox';
+  let annAnimId = null;
+  let isCanvasVisible = true;
   
   const SCENE_FIGURES = [
     {
@@ -732,7 +734,11 @@ function initAnnotationDemo() {
       });
     }
 
-    requestAnimationFrame(drawCanvas);
+    if (!isCanvasVisible) {
+      annAnimId = null;
+      return;
+    }
+    annAnimId = requestAnimationFrame(drawCanvas);
   };
 
   const getCanvasMousePos = (e) => {
@@ -1090,7 +1096,23 @@ function initAnnotationDemo() {
   resizeCanvas();
   updateStats();
   updateStatus('READY');
-  drawCanvas();
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      isCanvasVisible = entry.isIntersecting;
+      if (isCanvasVisible) {
+        if (!annAnimId) {
+          annAnimId = requestAnimationFrame(drawCanvas);
+        }
+      } else {
+        if (annAnimId) {
+          cancelAnimationFrame(annAnimId);
+          annAnimId = null;
+        }
+      }
+    });
+  }, { threshold: 0 });
+  observer.observe(canvas);
 }
 
 
@@ -1102,6 +1124,8 @@ function initNavigationSimulation() {
   if (!canvas) return;
 
   const ctx = canvas.getContext('2d');
+  let isSimVisible = true;
+  let simAnimId = null;
 
   let currentMode = 'nav';
   let robotSpeedFactor = 0.06;
@@ -1418,10 +1442,31 @@ function initNavigationSimulation() {
     const distEl = document.getElementById('sim-dist-bottom');
     if (distEl) distEl.textContent = `${distanceTraveled}px`;
 
-    requestAnimationFrame(renderLoop);
+    if (!isSimVisible) {
+      simAnimId = null;
+      return;
+    }
+    simAnimId = requestAnimationFrame(renderLoop);
   };
 
   generateObstacles();
   resizeSimCanvas();
-  requestAnimationFrame(renderLoop);
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      isSimVisible = entry.isIntersecting;
+      if (isSimVisible) {
+        if (!simAnimId) {
+          lastTime = performance.now();
+          simAnimId = requestAnimationFrame(renderLoop);
+        }
+      } else {
+        if (simAnimId) {
+          cancelAnimationFrame(simAnimId);
+          simAnimId = null;
+        }
+      }
+    });
+  }, { threshold: 0 });
+  observer.observe(canvas);
 }
