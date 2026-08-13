@@ -1473,7 +1473,7 @@
 
 
     <section class="scene-section" id="scene-4-section" data-scene="4">
-    <div style="height:480vh">
+    <div style="height:380vh">
       <div class="scene-sticky"><canvas class="scene-canvas" id="canvas-4"></canvas>
         <div class="scene-copy s-center" id="copy-4">
           <div class="scene-label">Scene 04 &#8212; Deconstruction</div>
@@ -1628,6 +1628,9 @@
           geomCache[sc.id].canvasHeight = rect.height;
         }
       });
+      if (SEC[4]) {
+        SEC[5].offsetTop = SEC[4].offsetTop + (SEC[4].offsetHeight / 2);
+      }
     }
 
     function resize() {
