@@ -1473,7 +1473,7 @@
 
 
     <section class="scene-section" id="scene-4-section" data-scene="4">
-    <div style="height:380vh">
+    <div style="height:590vh">
       <div class="scene-sticky"><canvas class="scene-canvas" id="canvas-4"></canvas>
         <div class="scene-copy s-center" id="copy-4">
           <div class="scene-label">Scene 04 &#8212; Deconstruction</div>
@@ -1759,10 +1759,6 @@
           anim_p = Math.max(0, Math.min(1, (sy - start) / (end - start || 1)));
         }
 
-        if (sc.id === 4) {
-          anim_p = Math.min(1, p / 0.92);
-        }
-
         if (S.images[sc.id] && isVisible) {
           let fi;
           if (sc.id === 4) {
@@ -1776,7 +1772,7 @@
         }
         if (sc.id === 4) {
           if (COP[4]) COP[4].classList.toggle('visible', p > 0.05 && p < 0.45);
-          if (COP[5]) COP[5].classList.toggle('visible', p > 0.55 && p < 0.95);
+          if (COP[5]) COP[5].classList.toggle('visible', p > 0.55 && p < 0.98);
         } else if (COP[sc.id]) {
           COP[sc.id].classList.toggle('visible', p > 0.07 && p < 0.90);
         }
