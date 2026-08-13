@@ -106,7 +106,7 @@ export function initHero() {
     const isMobile = width < 960;
 
     // Robot portrait dimensions
-    const drawH = isMobile ? height * 0.90 : height * 0.95;
+    const drawH = isMobile ? height * 0.90 : height * 0.82;
     const aspect = img.width / img.height;
     const drawW = drawH * aspect;
 
@@ -204,22 +204,26 @@ export function initHero() {
         );
 
         let baseAlpha = 1.0;
+        const rawLum = r * 0.299 + g * 0.587 + b * 0.114;
+        
+        // Brighter source areas -> closer to pure white ~255,255,255
+        // Darker/shadow source areas -> light grey ~190-210
+        // Formula: grayVal = 190 + (rawLum / 255) * (255 - 190)
+        let grayVal = Math.floor(190 + (rawLum / 255) * 65);
+        r = grayVal;
+        g = grayVal;
+        b = grayVal;
+
         if (insideText) {
           baseAlpha = 0.12; // Low opacity behind text so copy stays 100% readable
         } else {
-          // General contrast boost for light background:
-          // If a particle is light (lum > 140), let's darken it so it's visible on white background
-          const lum = r * 0.299 + g * 0.587 + b * 0.114;
-          if (lum > 140) {
-            r = Math.floor(r * 0.72);
-            g = Math.floor(g * 0.72);
-            b = Math.floor(b * 0.72);
-          }
           if (isFacialFeatureZone) {
-            if (lum < 110) {
-              r = Math.floor(r * 0.58);
-              g = Math.floor(g * 0.58);
-              b = Math.floor(b * 0.58);
+            if (rawLum < 110) {
+              // Shadows in facial features: make them slightly darker (e.g. 140-160) to keep detail clear
+              const shadowVal = Math.floor(140 + (rawLum / 110) * 20);
+              r = shadowVal;
+              g = shadowVal;
+              b = shadowVal;
               baseAlpha = 1.0;
             } else {
               baseAlpha = Math.min(1.0, baseAlpha * 1.20);

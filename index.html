@@ -1473,7 +1473,7 @@
 
 
     <section class="scene-section" id="scene-4-section" data-scene="4">
-    <div style="height:600vh">
+    <div style="height:480vh">
       <div class="scene-sticky"><canvas class="scene-canvas" id="canvas-4"></canvas>
         <div class="scene-copy s-center" id="copy-4">
           <div class="scene-label">Scene 04 &#8212; Deconstruction</div>
@@ -1754,6 +1754,10 @@
           const start = c_top - wh;
           const end = c_top + cache.canvasHeight;
           anim_p = Math.max(0, Math.min(1, (sy - start) / (end - start || 1)));
+        }
+
+        if (sc.id === 4) {
+          anim_p = Math.min(1, p / 0.92);
         }
 
         if (S.images[sc.id] && isVisible) {

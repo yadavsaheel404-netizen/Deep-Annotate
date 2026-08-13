@@ -54,6 +54,49 @@ body {
   line-height: 1.6;
 }
 
+.hiw-hero .btn-primary-b2b {
+  background: #0BA8D3 !important;
+  color: #FFFFFF !important;
+  border: 2px solid #0BA8D3 !important;
+  border-radius: 100px;
+  padding: 14px 32px;
+  font-weight: 700;
+  font-size: 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.hiw-hero .btn-primary-b2b:hover {
+  background: #098BB0 !important;
+  border-color: #098BB0 !important;
+}
+
+.hiw-hero .btn-secondary-b2b {
+  background: transparent !important;
+  color: #0BA8D3 !important;
+  border: 2px solid #0BA8D3 !important;
+  border-radius: 100px;
+  padding: 14px 32px;
+  font-weight: 700;
+  font-size: 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.hiw-hero .btn-secondary-b2b:hover {
+  background: #0BA8D3 !important;
+  color: #FFFFFF !important;
+  border-color: #0BA8D3 !important;
+}
+
 /* BLUEPRINT GRID */
 .blueprint-wrap {
   position: absolute;
@@ -92,6 +135,7 @@ body {
   position: relative;
   max-width: 1240px;
   margin: 0 auto;
+  min-width: 0;
 }
 
 @media (max-width: 992px) {
@@ -236,6 +280,7 @@ body {
 .tl-stack-wrapper {
   position: relative;
   width: 100%;
+  min-width: 0;
 }
 
 .tl-stack-card {
@@ -256,6 +301,7 @@ body {
   transform: translateZ(0);
   will-change: transform, opacity;
   transition: border-color 0.35s ease, box-shadow 0.35s ease, transform 0.35s ease;
+  min-width: 0;
 }
 
 .tl-stack-card.active {
@@ -267,6 +313,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 14px;
+  min-width: 0;
 }
 
 .tl-step-label {
@@ -403,6 +450,7 @@ body {
 
 .tl-col-right {
   height: 100%;
+  min-width: 0;
 }
 
 .tl-info-panel {
@@ -416,6 +464,8 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .tl-panel-title {
@@ -475,6 +525,13 @@ body {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 24px;
+}
+
+@media (max-width: 1100px) {
+  .tl-stack-card {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
 }
 
 @media (max-width: 768px) {
