@@ -13,6 +13,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&display=swap"
     rel="stylesheet" />
 
+
+
   <!-- Modular Component Stylesheets -->
   <!-- Scoping Convention: Homepage teasers use dedicated stylesheets with unique class prefixes (e.g. svc2-, cs2-, pl2-, dsp-) linked only here -->
   <link rel="stylesheet" href="./css/global-theme.css" />
@@ -62,7 +64,7 @@
       background: var(--navy);
       color: var(--grey);
       font-family: 'Inter', sans-serif;
-      overflow-x: hidden;
+      overflow-x: clip;
       -webkit-font-smoothing: antialiased;
     }
 
@@ -232,6 +234,20 @@
       height: 100%;
       display: block;
       will-change: transform;
+    }
+
+    /* Load-gate progress bar — sits at the very bottom of the sticky canvas
+       and shrinks horizontally as images load. Hidden once gateReady fires. */
+    #anim-load-bar {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 3px;
+      width: 0%;                    /* JS updates this via style.width */
+      background: var(--cyan, #0BA8D3);
+      z-index: 30;
+      transition: width 0.15s linear;
+      pointer-events: none;
     }
 
     .scene-copy {
@@ -1473,8 +1489,10 @@
 
 
     <section class="scene-section" id="scene-4-section" data-scene="4">
-    <div style="height:590vh">
+    <div style="height:420vh">
       <div class="scene-sticky"><canvas class="scene-canvas" id="canvas-4"></canvas>
+        <!-- Load-gate progress bar (hidden via JS once all 186 frames are ready) -->
+        <div id="anim-load-bar"></div>
         <div class="scene-copy s-center" id="copy-4">
           <div class="scene-label">Scene 04 &#8212; Deconstruction</div>
           <h2 class="scene-headline">Modular<br>by design.</h2>
@@ -1602,7 +1620,12 @@
     const SCENES = [{ id: 4, frames: 186, folder: '45' }];
     const PAD = n => String(n).padStart(3, '0');
     const FURL = (f, i) => { if (f === '45') { return i <= 90 ? './4/ezgif-frame-' + PAD(i) + '.jpg' : './5/ezgif-frame-' + PAD(i - 90) + '.jpg'; } return './' + f + '/ezgif-frame-' + PAD(i) + '.jpg'; };
-    const S = { images: {}, totalLoaded: 0, ready: false };
+    const S = { images: {}, totalLoaded: 0, ready: false,
+                 gateReady: false,  // true once all 186 images loaded OR timeout fires
+                 gateLoaded: 0     // count of successfully loaded scene-4 images
+               };
+    const lastFrame = {}; // tracks last successfully drawn Image per scene id
+    const loadBar = document.getElementById('anim-load-bar'); // thin progress bar
     const navbar = document.getElementById('navbar');
     const dots = document.querySelectorAll('.s-dot');
     const C = {}, X = {}, SEC = {}, COP = {};
@@ -1631,6 +1654,7 @@
       if (SEC[4]) {
         SEC[5].offsetTop = SEC[4].offsetTop + (SEC[4].offsetHeight / 2);
       }
+
     }
 
     function resize() {
@@ -1661,6 +1685,22 @@
       const w_val = canvas.style.width ? parseInt(canvas.style.width) : innerWidth;
       const h_val = canvas.style.height ? parseInt(canvas.style.height) : innerHeight;
 
+      // If target frame isn't loaded yet, fall back to the last successfully drawn
+      // frame so the canvas never shows a blank grey fill mid-animation.
+      if (!img.complete || !img.naturalWidth) {
+        const fallback = lastFrame[id];
+        if (fallback && fallback.complete && fallback.naturalWidth) {
+          // Re-draw the last good frame — canvas stays stable during network lag
+          draw._drawImg(id, fallback, ctx, canvas, w_val, h_val);
+        }
+        // else: very first frame not ready yet — leave the canvas as-is (still blank
+        // on initial load, but that only happens before the user scrolls in).
+        return;
+      }
+
+      // Frame is ready — record it as the last good frame and render it
+      lastFrame[id] = img;
+
       ctx.clearRect(0, 0, w_val, h_val);
 
       if (id === 4) {
@@ -1674,8 +1714,6 @@
         ctx.fillStyle = '#0E1F3E';
         ctx.fillRect(0, 0, w_val, h_val);
       }
-
-      if (!img.complete || !img.naturalWidth) return;
 
       let s = Math.min(w_val / img.naturalWidth, h_val / img.naturalHeight);
       if (id === 4) {
@@ -1714,17 +1752,59 @@
       ctx.drawImage(img, dx, dy, dW, dH);
     }
 
+    // Shared image-drawing helper used by both the main path and the fallback path
+    draw._drawImg = function(id, img, ctx, canvas, w_val, h_val) {
+      ctx.clearRect(0, 0, w_val, h_val);
+      if (id === 4) { ctx.fillStyle = '#F0F0F0'; }
+      else if (id === 6) { ctx.fillStyle = '#F2F4F7'; }
+      else { ctx.fillStyle = '#0E1F3E'; }
+      ctx.fillRect(0, 0, w_val, h_val);
+      let s = Math.min(w_val / img.naturalWidth, h_val / img.naturalHeight);
+      if (id === 4) {
+        if (window.innerWidth <= 900) { s = (h_val * 1.05) / img.naturalHeight; }
+        else { s = Math.min(s, (h_val * 0.92) / img.naturalHeight); }
+      }
+      if (id === 5) { s = Math.min(s, (h_val * 0.78) / img.naturalHeight); }
+      if (id === 6) { s = (h_val * 0.92) / img.naturalHeight; }
+      const dW = img.naturalWidth * s;
+      const dH = img.naturalHeight * s;
+      let dx = (w_val - dW) / 2;
+      const dy = (h_val - dH) / 2;
+      if (id === 6 && w_val > 512) dx -= 80;
+      ctx.drawImage(img, dx, dy, dW, dH);
+    };
+
     function preload(id, done) { 
       const sc = SCENES.find(s => s.id === id); 
       if (!sc || S.images[id]) { done && done(); return; } 
       S.images[id] = []; 
-      let n = 0; 
+      let n = 0;
+      // 8-second hard timeout — if any image is still pending after this,
+      // open the gate anyway. The lastFrame fallback handles any stragglers.
+      const gateTimer = (id === 4) ? setTimeout(() => {
+        if (!S.gateReady) {
+          S.gateReady = true;
+          if (loadBar) loadBar.style.display = 'none';
+          requestAnimationFrame(tick);
+        }
+      }, 8000) : null;
       for (let i = 1; i <= sc.frames; i++) { 
         const img = new Image(); 
         img.onload = img.onerror = () => { 
           n++; 
-          S.totalLoaded++; 
-          requestAnimationFrame(tick); // Force redraw as images load!
+          S.totalLoaded++;
+          if (id === 4) {
+            S.gateLoaded++;
+            // Update thin progress bar width
+            if (loadBar) loadBar.style.width = (S.gateLoaded / sc.frames * 100) + '%';
+            if (S.gateLoaded >= sc.frames && !S.gateReady) {
+              // All images confirmed loaded — open the gate
+              S.gateReady = true;
+              if (gateTimer) clearTimeout(gateTimer);
+              if (loadBar) loadBar.style.display = 'none';
+            }
+          }
+          requestAnimationFrame(tick); // redraw as each image arrives
           if (n === sc.frames) done && done(); 
         }; 
         img.src = FURL(sc.folder, i); 
@@ -1762,9 +1842,16 @@
         if (S.images[sc.id] && isVisible) {
           let fi;
           if (sc.id === 4) {
-            // Skip the early static stance frames and map scroll progress to frames 35-89
             const startFrame = 35;
-            fi = startFrame + Math.min(Math.floor(anim_p * (sc.frames - startFrame)), sc.frames - startFrame - 1);
+            if (!S.gateReady) {
+              // LOAD-GATE: all 186 frames not yet confirmed loaded — hold on the
+              // first active frame (startFrame) so the canvas always shows the
+              // standing robot rather than a blank grey fill or a half-loaded frame.
+              fi = startFrame;
+            } else {
+              // Gate open — normal scroll-scrubbing
+              fi = startFrame + Math.min(Math.floor(anim_p * (sc.frames - startFrame)), sc.frames - startFrame - 1);
+            }
           } else {
             fi = Math.min(Math.floor(anim_p * (sc.frames - 1)), sc.frames - 1);
           }
@@ -1772,7 +1859,7 @@
         }
         if (sc.id === 4) {
           if (COP[4]) COP[4].classList.toggle('visible', p > 0.05 && p < 0.45);
-          if (COP[5]) COP[5].classList.toggle('visible', p > 0.55 && p < 0.98);
+          if (COP[5]) COP[5].classList.toggle('visible', p > 0.55 && p < 0.99);
         } else if (COP[sc.id]) {
           COP[sc.id].classList.toggle('visible', p > 0.07 && p < 0.90);
         }
@@ -1802,7 +1889,7 @@
         if (sc.id === 4) {
           const badges = document.querySelectorAll('#s4-certification-badges .story-pill');
           badges.forEach((badge, idx) => {
-            const threshold = 0.55 + (idx * 0.08); // staggered thresholds in the second half
+            const threshold = 0.55 + (idx * 0.09); // staggered thresholds in the second half
             if (window.innerWidth <= 900) {
               badge.style.opacity = "1";
               badge.style.transform = "none";
@@ -1826,11 +1913,23 @@
     function init() {
       resize();
       S.ready = true;
+      // Preload scene 4 (covers both folder 4 and 5 via FURL logic).
+      // Each image fires requestAnimationFrame(tick) on load (see preload()),
+      // so the canvas refreshes the instant each frame arrives — no scroll needed.
       preload(4, () => { draw(4, 0); });
       tick();
       addEventListener('scroll', onScroll, { passive: true });
       addEventListener('resize', () => { resize(); tick(); });
       dots.forEach(d => d.addEventListener('click', () => { const id = parseInt(d.dataset.scene); if (SEC[id]) scrollTo({ top: SEC[id].offsetTop + 50, behavior: 'smooth' }); }));
+
+      // Recalculate geometry cache when layout shifts (e.g. after dynamic components load)
+      if (typeof ResizeObserver !== 'undefined') {
+        const ro = new ResizeObserver(() => {
+          updateGeomCache();
+          tick();
+        });
+        ro.observe(document.body);
+      }
     }
 
     document.addEventListener('DOMContentLoaded', () => { init(); });
